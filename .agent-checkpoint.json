@@ -1,0 +1,31 @@
+{
+  "projectId": "promotor.supletivo.net.br",
+  "hindsightBank": "coding-agent::promotor.supletivo.net.br",
+  "rules": {
+    "brandCheck": {
+      "enabled": true,
+      "forbiddenTerms": ["v7m", "maestri.group"]
+    },
+    "language": {
+      "code": "en-US",
+      "ui": "pt-BR",
+      "frontendRoutes": {
+        "enforcePtBr": true,
+        "validPrefixes": [
+          "/painel",
+          "/afiliado",
+          "/comissoes",
+          "/links"
+        ]
+      }
+    },
+    "architecture": {
+      "cloudflareFirst": true,
+      "disallowedPackages": [
+        "@aws-sdk",
+        "boto3",
+        "firebase-admin"
+      ]
+    }
+  }
+}

@@ -4,14 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port 3010",
+    "dev": "astro dev --port 3015",
     "build": "astro build",
     "preview": "astro preview --port 4321",
     "assets": "node tools/generate-assets.mjs",
     "test": "vitest run",
     "check-types": "tsc --noEmit",
-    "test:e2e": "playwright test",
-    "test:infra": "playwright test tests/infra"
+    "test:e2e": "playwright test tests/e2e",
+    "test:infra": "playwright test tests/infra",
+    "checkpoint": "sh scripts/checkpoint/checkpoint.sh",
+    "checkpoint:fast": "pwsh scripts/checkpoint/checkpoint.ps1 -Tier fast",
+    "checkpoint:agent": "pwsh scripts/checkpoint/checkpoint.ps1 -Tier agent"
   },
   "dependencies": {
     "astro": "^6.4.6"
