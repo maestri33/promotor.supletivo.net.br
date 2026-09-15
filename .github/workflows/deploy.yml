@@ -16,7 +16,12 @@ jobs:
           cd /opt/landing-promotor
           git fetch --all --prune
           git reset --hard origin/main
-          npm ci --no-audit --no-fund
-          npm run build
+          if command -v pnpm &> /dev/null; then
+            pnpm install --frozen-lockfile
+            pnpm run build
+          else
+            npm ci --no-audit --no-fund
+            npm run build
+          fi
           nginx -t && systemctl reload nginx
           echo "deploy OK -- landing-promotor publicado"

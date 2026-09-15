@@ -3,20 +3,21 @@
  * CTA flutuante (sticky bottom bar, mobile). Aparece após o hero via JS;
  * sem JS fica sempre visível (progressive enhancement).
  */
-import { APP_URL, CTA_LABEL } from '../config';
+import { APP_URL, CTA_LABEL, brl, COMMISSION_DIRECT } from '../config';
+const valor = brl(COMMISSION_DIRECT);
 ---
 
 <div class="sticky-cta on-dark">
   <div class="sticky-inner">
     <p class="sticky-price">
-      <strong>Grátis pra entrar</strong>
-      <span>você recebe por Pix</span>
+      <strong>{valor} / indicação</strong>
+      <span>no Pix toda semana · 100% grátis</span>
     </p>
     <a
       class="btn sticky-btn"
       href={APP_URL}
       data-cta="sticky"
-      aria-label="Quero ser promotor — começar o cadastro"
+      aria-label="Quero ser promotor — começar o cadastro gratuito"
     >
       {CTA_LABEL}
     </a>

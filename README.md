@@ -24,19 +24,18 @@ Todos os números vêm do `.env` (fonte única) — ver [Configuração](#config
 ## Requisitos
 
 - Node.js 20+ (testado com 22)
-- npm
+- pnpm (ou npm)
 
 ## Comandos
 
 ```bash
-npm install        # instala dependências
-npm run dev        # dev server (http://localhost:4321)
-npm run build      # build estático em dist/
-npm run preview    # serve o dist/ localmente
-npm run assets     # regenera OG image, favicon.ico e ícones PWA
-npm test           # unit (regras de atribuição de polo / hub→ref)
-npm run test:e2e   # Playwright: hub→ref, eventos, calculadora, axe
-                   # (requer `npm run build` antes e `npx playwright install chromium` 1x)
+pnpm install        # instala dependências
+pnpm dev            # dev server (http://localhost:3010)
+pnpm build          # build estático em dist/
+pnpm preview        # serve o dist/ localmente
+pnpm test           # unit (regras de atribuição de polo / hub→ref)
+pnpm test:e2e       # Playwright: hub→ref, eventos, calculadora, axe
+                    # (requer `pnpm build` antes e `pnpm exec playwright install chromium` 1x)
 ```
 
 CI (`.github/workflows/ci.yml`): build → unit → e2e+axe → Lighthouse CI
@@ -48,8 +47,8 @@ Copie `.env.example` para `.env`:
 
 | Variável                   | O que controla                                            | Default |
 | -------------------------- | --------------------------------------------------------- | ------- |
-| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://app.v7m.org` |
-| `SITE`                     | Domínio canônico (canonical, OG, sitemap, robots)         | `https://job.v7m.org` |
+| `PUBLIC_APP_URL`           | Destino do CTA (cadastro do candidato a promotor)         | dev `http://localhost:3000` · build `https://app.maestri.group` |
+| `SITE`                     | Domínio canônico (canonical, OG, sitemap, robots)         | `https://maestri.group` |
 | `PUBLIC_COMMISSION_DIRECT` | Comissão por matrícula paga (R$)                          | `100` |
 | `PUBLIC_BONUS_FLAT`        | Bônus por bloco de indicações pagas na semana (R$)        | `500` |
 | `PUBLIC_BONUS_THRESHOLD`   | Tamanho do bloco que destrava o bônus                     | `5` |
@@ -57,7 +56,7 @@ Copie `.env.example` para `.env`:
 | `PUBLIC_CLOSING_LABEL`     | Texto do fechamento semanal do Pix                        | `toda sexta, às 18h` |
 | `PUBLIC_LEGAL_NAME`        | Razão/nome da PJ no rodapé                                 | `V7M Empresarial` |
 | `PUBLIC_CNPJ`              | CNPJ exibido no rodapé (vazio = oculta)                   | `48.811.016/0001-00` |
-| `PUBLIC_CONTACT_EMAIL`     | E-mail de contato (SAC)                                   | `contato@v7m.org` |
+| `PUBLIC_CONTACT_EMAIL`     | E-mail de contato (SAC)                                   | `contato@maestri.group` |
 | `PUBLIC_CONTACT_WHATSAPP`  | WhatsApp do SAC, só dígitos com DDI/DDD (vazio = oculta)  | `5511920062177` |
 
 Os valores de comissão são lidos em `src/config.ts` (fonte única) e usados na

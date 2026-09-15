@@ -9,9 +9,9 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Pixel 7'] } }],
   webServer: {
-    // requer `npm run build` antes (CI faz; local: npm run build && npm run test:e2e)
-    command: 'npm run preview',
+    command: 'npx astro preview --host 127.0.0.1 --port 4321',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
   },
 });

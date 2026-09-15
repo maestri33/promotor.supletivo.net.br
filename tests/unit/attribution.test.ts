@@ -5,7 +5,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { initAttribution, decorateCtas, poloValue } from '../../src/scripts/attribution';
 
-const APP = 'https://app.v7m.org';
+const APP = 'https://app.maestri.group';
 
 function clearCookies(): void {
   document.cookie.split(';').forEach((c) => {

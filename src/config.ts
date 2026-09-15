@@ -11,7 +11,7 @@
  * -------------------------------------------------------------------------- */
 const rawAppUrl =
   import.meta.env.PUBLIC_APP_URL ??
-  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://app.v7m.org');
+  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://app.maestri.group');
 
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
@@ -80,11 +80,17 @@ export const LEGAL_NAME: string = import.meta.env.PUBLIC_LEGAL_NAME ?? 'V7M Empr
 export const CNPJ: string = (import.meta.env.PUBLIC_CNPJ ?? '48.811.016/0001-00').trim();
 /** E-mail de contato (SAC) */
 export const CONTACT_EMAIL: string =
-  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contato@v7m.org';
+  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contato@maestri.group';
+/** E-mail do encarregado de dados (DPO / LGPD) */
+export const DPO_EMAIL: string =
+  import.meta.env.PUBLIC_DPO_EMAIL ?? 'dpo@maestri.group';
 /** WhatsApp em E.164 só dígitos (ex.: 5511999999999); vazio = não renderiza */
 export const CONTACT_WHATSAPP: string = (
   import.meta.env.PUBLIC_CONTACT_WHATSAPP ?? '5511920062177'
 ).replace(/\D/g, '');
+
+/** ID do Google Tag Manager (ex.: GTM-XXXXXXX); null se não configurado */
+export const GTM_ID: string | null = import.meta.env.PUBLIC_GTM_ID?.trim() || null;
 
 /**
  * Marcas das instituições do polo (HUB_BRANDS). Vazio por decisão de projeto:
