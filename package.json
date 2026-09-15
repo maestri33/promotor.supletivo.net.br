@@ -1,12 +1,12 @@
 {
-  "name": "landing-promotor",
+  "name": "promotor.supletivo.net.br",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 3010",
     "build": "astro build",
-    "preview": "astro preview --port 3010",
+    "preview": "astro preview --port 4321",
     "assets": "node tools/generate-assets.mjs",
     "test": "vitest run",
     "check-types": "tsc --noEmit",

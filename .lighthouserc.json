@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npm run preview",
+      "startServerCommand": "npx astro preview --port 4321",
       "startServerReadyPattern": "Local",
       "url": ["http://localhost:4321/"],
       "numberOfRuns": 3,

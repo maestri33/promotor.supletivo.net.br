@@ -4,7 +4,7 @@ import seoFiles from './integrations/seo-files.mjs';
 
 // SITE = domínio canônico (canonical, OG, sitemap.xml, robots.txt).
 // Configurável via .env ou variável de ambiente no build.
-const SITE = process.env.SITE ?? 'https://maestri.group';
+const SITE = process.env.SITE ?? 'https://promotor.supletivo.net.br';
 
 export default defineConfig({
   site: SITE,

@@ -9,3 +9,4 @@ tools/fonts/
 # test artifacts
 test-results/
 playwright-report/
+.lighthouseci/
