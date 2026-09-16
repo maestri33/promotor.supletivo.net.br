@@ -17,5 +17,8 @@ export default defineConfig({
     // CSS pequeno → inline no HTML, elimina request render-blocking
     inlineStylesheets: 'always',
   },
+  server: {
+    port: 3015,
+  },
   integrations: [seoFiles()],
 });

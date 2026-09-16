@@ -1,12 +1,13 @@
 {
   "name": "promotor.supletivo.net.br",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 3015",
     "build": "astro build",
     "preview": "astro preview --port 4321",
+    "design:lint": "npx -p @google/design.md designmd lint DESIGN.md",
     "assets": "node tools/generate-assets.mjs",
     "test": "vitest run",
     "check-types": "tsc --noEmit",
