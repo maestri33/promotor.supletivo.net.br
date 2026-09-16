@@ -13,6 +13,7 @@ import {
   BONUS_FLAT,
   BONUS_THRESHOLD,
   BONUS_REPEATS,
+  BRAND,
 } from '../config';
 
 const year = new Date().getFullYear();
@@ -23,7 +24,7 @@ const bonusRule = BONUS_REPEATS
 ---
 
 <ContentPage
-  title="Termos do Programa de Promotores | V7M"
+  title={`Termos do Programa de Promotores | ${BRAND}`}
   description="Regras de participação no Programa de Promotores: comissão por matrícula paga, bônus de volume, pagamento por Pix e condições de suspensão."
   noindex={false}
   kicker="Regulamento Oficial"
@@ -88,9 +89,15 @@ const bonusRule = BONUS_REPEATS
     A inobservância destas regras ensejará o cancelamento imediato do cadastro, bloqueio definitivo do link e retenção de valores decorrentes de condutas ilícitas.
   </p>
 
-  <h2>6. Proteção de Dados e Foro</h2>
+  <h2>6. Proteção de Dados (LGPD) e Proibição de Retenção de Leads</h2>
   <p>
-    O tratamento de dados pessoais coletados neste programa rege-se pela nossa <a href="/privacidade/">Política de Privacidade</a> e pela LGPD (Lei nº 13.709/2018). Para sanar quaisquer controvérsias decorrentes deste Regulamento, fica eleito o foro da comarca da sede da Gestora.
+    O tratamento de dados pessoais coletados neste programa rege-se pela nossa <a href="/privacidade/">Política de Privacidade</a> e pela LGPD (Lei nº 13.709/2018).
+  </p>
+  <p>
+    <strong>Cláusula de Não-Retenção de Dados:</strong> É expressamente vedado ao promotor coletar, armazenar, reter, compilar em planilhas ou repassar a terceiros dados pessoais cadastrais ou sensíveis (como CPF, documentos com foto, selfies ou dados de pagamento) de alunos ou interessados indicados. Todo e qualquer fornecimento de dados e documentos deve ocorrer de forma autônoma e segura pelo próprio aluno dentro dos formulários oficiais da plataforma.
+  </p>
+  <p>
+    Para sanar quaisquer controvérsias decorrentes deste Regulamento, fica eleito o foro da comarca da sede da Gestora.
   </p>
 
   <p class="updated">Última atualização: {year}. Em caso de dúvidas, contate: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>

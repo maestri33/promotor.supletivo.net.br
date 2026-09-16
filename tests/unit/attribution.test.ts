@@ -5,7 +5,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { initAttribution, decorateCtas, poloValue } from '../../src/scripts/attribution';
 
-const APP = 'https://app.maestri.group';
+const APP = 'https://app.supletivo.net.br';
 
 function clearCookies(): void {
   document.cookie.split(';').forEach((c) => {
@@ -97,6 +97,14 @@ describe('initAttribution — first-touch (hub)', () => {
     const attr = initAttribution('?hub=x&malicioso=1&foo=bar');
     expect(attr).not.toHaveProperty('malicioso');
     expect(attr).not.toHaveProperty('foo');
+  });
+
+  it('parâmetros com caracteres maliciosos ou tamanho excessivo são sanitizados', () => {
+    const hugeParam = 'a'.repeat(150);
+    const attr = initAttribution(`?hub=polo_valido&utm_source=<script>alert(1)</script>&utm_campaign=${hugeParam}`);
+    expect(attr?.hub).toBe('polo_valido');
+    expect(attr).not.toHaveProperty('utm_source');
+    expect(attr).not.toHaveProperty('utm_campaign');
   });
 });
 

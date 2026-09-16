@@ -1,7 +1,7 @@
 ---
 /**
  * Seção "O que você indica" — explica o PRODUTO real que o promotor divulga
- * (supletivo da V7M / EJA). Fecha o buraco de "indicação de quê?": dá ao promotor
+ * (Supletivo Brasil / EJA Oficial). Fecha o buraco de "indicação de quê?": dá ao promotor
  * algo em que acreditar e blinda o anti-pirâmide (existe produto de verdade).
  *
  * Regras de copy: claim do certificado espelha supletivo.net.br (instituição
@@ -43,12 +43,19 @@ const feats = [
       ))}
     </ul>
 
+    <div class="product-price-badge" data-reveal style="--d: 2.5">
+      <span class="price-badge-tag">Condição Oficial</span>
+      <p class="price-badge-text">
+        O aluno conclui em <strong>12x de R$ 99</strong> no cartão ou <strong>R$ 999 no Pix</strong>, sem taxas surpresa.
+      </p>
+    </div>
+
     <!-- dois-ganha como causa→efeito (seta, não "+"): difere da soma card+card
          da calculadora logo abaixo e deixa explícito que um leva ao outro -->
     <div class="product-win spatial-stage" data-reveal style="--d: 3">
       <div class="win-side spatial-card-3d glass-panel-light" data-tilt-3d data-tilt-max="6">
         <span class="win-tag">Quem se matricula</span>
-        <p class="win-line">termina os estudos e tira o certificado</p>
+        <p class="win-line">conclui por <strong>12x de R$ 99</strong> e tira o certificado</p>
       </div>
       <span class="win-arrow" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -123,6 +130,41 @@ const feats = [
     height: 1.15rem;
     flex: none;
     color: var(--gold-ink);
+  }
+
+  .product-price-badge {
+    margin-top: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: var(--paper-soft);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius);
+    padding: 0.75rem 1.1rem;
+  }
+
+  .price-badge-tag {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--gold-ink);
+    color: var(--paper);
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .price-badge-text {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .price-badge-text strong {
+    color: var(--gold-ink);
+    font-weight: 800;
   }
 
   /* dois-ganha: dois cards com "+" no meio (mesma gramática da calculadora) */

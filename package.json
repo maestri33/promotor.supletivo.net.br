@@ -21,8 +21,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
-    "@fontsource/archivo-black": "^5.2.8",
-    "@fontsource/inter": "^5.2.8",
     "@playwright/test": "1.62.1",
     "happy-dom": "^20.10.2",
     "typescript": "^5",

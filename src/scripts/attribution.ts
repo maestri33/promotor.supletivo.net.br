@@ -73,6 +73,16 @@ function readCookieHub(): string | null {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
+const MAX_PARAM_LENGTH = 120;
+const SAFE_PARAM_REGEX = /^[a-zA-Z0-9_\-\.\:\@\/\+]+$/;
+
+function sanitizeParam(val: string | null): string | null {
+  if (!val) return null;
+  const trimmed = val.trim();
+  if (trimmed.length === 0 || trimmed.length > MAX_PARAM_LENGTH) return null;
+  return SAFE_PARAM_REGEX.test(trimmed) ? trimmed : null;
+}
+
 function persist(data: Attribution): void {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify(data));
@@ -81,7 +91,8 @@ function persist(data: Attribution): void {
   }
   const polo = poloValue(data);
   if (polo) {
-    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(polo)};max-age=${COOKIE_MAX_AGE};path=/;SameSite=Lax`;
+    const isSecure = typeof location !== 'undefined' && location.protocol === 'https:';
+    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(polo)};max-age=${COOKIE_MAX_AGE};path=/;SameSite=Lax${isSecure ? ';Secure' : ''}`;
   }
 }
 
@@ -89,7 +100,8 @@ function fromUrl(search: string): Attribution {
   const params = new URLSearchParams(search);
   const out: Attribution = {};
   for (const key of ATTR_KEYS) {
-    const value = params.get(key);
+    const rawVal = params.get(key);
+    const value = sanitizeParam(rawVal);
     if (value) out[key] = value;
   }
   return out;

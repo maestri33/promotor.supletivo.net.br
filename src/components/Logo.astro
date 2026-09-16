@@ -11,7 +11,7 @@ interface Props {
 }
 const { variant = 'light', withLink = true } = Astro.props;
 const Tag = withLink ? 'a' : 'span';
-// destaca dígitos da marca em dourado (ex.: V7M → "7" dourado)
+// destaca eventuais dígitos da marca em dourado
 const chars = [...BRAND];
 ---
 

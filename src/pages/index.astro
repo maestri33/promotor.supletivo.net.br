@@ -17,9 +17,9 @@ import Footer from '../components/Footer.astro';
 import { faq } from '../data/faq';
 import { BRAND, PROGRAM, brl, COMMISSION_DIRECT } from '../config';
 
-const title = 'Seja Promotor V7M — mude vidas e ganhe por indicação';
+const title = `Seja Promotor ${BRAND} — mude vidas e ganhe por indicação`;
 const description =
-  `Vire promotor da V7M: indique o supletivo (EJA online para concluir o ensino fundamental ou o médio), ajude alguém a fechar esse ciclo da vida e ganhe ${brl(COMMISSION_DIRECT)} por matrícula paga, mais bônus, no seu Pix toda semana. ` +
+  `Vire promotor do ${BRAND}: indique o Supletivo Brasil (EJA online para concluir o ensino fundamental ou o médio), ajude alguém a fechar esse ciclo da vida e ganhe ${brl(COMMISSION_DIRECT)} por matrícula paga, mais bônus, no seu Pix toda semana. ` +
   'Renda extra de verdade, grátis pra entrar, sem vender nada. Cadastre-se pelo celular.';
 
 const site = Astro.site!;
@@ -60,7 +60,7 @@ const schema = {
 <Base {title} {description} {schema}>
   <ProgressBar />
   <Header />
-  <main id="conteudo">
+  <main id="conteudo" tabindex="-1">
     <Hero />
     <Steps />
     <Product />

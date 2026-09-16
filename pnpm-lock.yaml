@@ -15,12 +15,6 @@ importers:
       '@axe-core/playwright':
         specifier: ^4.11.3
         version: 4.13.0(playwright-core@1.63.0)
-      '@fontsource/archivo-black':
-        specifier: ^5.2.8
-        version: 5.3.0
-      '@fontsource/inter':
-        specifier: ^5.2.8
-        version: 5.3.0
       '@playwright/test':
         specifier: 1.62.1
         version: 1.62.1
@@ -401,12 +395,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@fontsource/archivo-black@5.3.0':
-    resolution: {integrity: sha512-7EsTIQ+Blf96ktpzTUpI7msi+u9/AJxM/GZxOSkEubVd1jSTrFSTNxMgfpX/8rQsjZ+19a+qvRbtcTEp5J/72g==}
-
-  '@fontsource/inter@5.3.0':
-    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2065,10 +2053,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
-
-  '@fontsource/archivo-black@5.3.0': {}
-
-  '@fontsource/inter@5.3.0': {}
 
   '@img/colour@1.1.0':
     optional: true

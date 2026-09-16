@@ -51,7 +51,7 @@ if (faqList && faqChips.length > 0) {
     faqChips.forEach((c) => {
       const on = (c.dataset.faqFilter ?? 'all') === cat;
       c.classList.toggle('is-active', on);
-      c.setAttribute('aria-selected', on ? 'true' : 'false');
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
     // data-reveal deixa itens fora do fold em opacity:0; depois de filtrar,
     // o item pode subir pra cima do fold mas continuar invisível. Forçamos
@@ -258,13 +258,20 @@ if (litEls.length > 0) {
   }
 }
 
-/* ---------- Spotlight seguindo o mouse (cards marcados) ---------- */
+/* ---------- Spotlight seguindo o mouse (cards marcados com zero layout thrashing) ---------- */
 if (!REDUCED && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
+    let cachedRect: DOMRect | null = null;
+    card.addEventListener('pointerenter', () => {
+      cachedRect = card.getBoundingClientRect();
+    });
     card.addEventListener('pointermove', (e) => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-      card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      if (!cachedRect) cachedRect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - cachedRect.left}px`);
+      card.style.setProperty('--my', `${e.clientY - cachedRect.top}px`);
+    });
+    card.addEventListener('pointerleave', () => {
+      cachedRect = null;
     });
   });
 }

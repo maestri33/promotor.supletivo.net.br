@@ -40,11 +40,33 @@ export function initMagneticGravity(): void {
       isHovered: false,
     };
 
-    const updateRect = () => {
+    el.addEventListener('pointerenter', () => {
       item.rect = el.getBoundingClientRect();
-    };
+    });
 
-    const handlePointerMove = (e: PointerEvent) => {
+    el.addEventListener('pointerleave', () => {
+      item.isHovered = false;
+      item.targetX = 0;
+      item.targetY = 0;
+    });
+
+    items.push(item);
+  });
+
+  let rectRaf: number | null = null;
+  const updateAllRects = () => {
+    if (rectRaf !== null) return;
+    rectRaf = requestAnimationFrame(() => {
+      for (const item of items) {
+        item.rect = item.el.getBoundingClientRect();
+      }
+      rectRaf = null;
+    });
+  };
+
+  const handlePointerMove = (e: PointerEvent) => {
+    let triggered = false;
+    for (const item of items) {
       const { left, top, width, height } = item.rect;
       const centerX = left + width / 2;
       const centerY = top + height / 2;
@@ -57,30 +79,21 @@ export function initMagneticGravity(): void {
         item.isHovered = true;
         item.targetX = distX * STRENGTH;
         item.targetY = distY * STRENGTH;
-        startLoop();
+        triggered = true;
       } else if (item.isHovered) {
         item.isHovered = false;
         item.targetX = 0;
         item.targetY = 0;
       }
-    };
+    }
+    if (triggered) {
+      startLoop();
+    }
+  };
 
-    el.addEventListener('pointerenter', () => {
-      updateRect();
-    });
-
-    el.addEventListener('pointerleave', () => {
-      item.isHovered = false;
-      item.targetX = 0;
-      item.targetY = 0;
-    });
-
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('resize', updateRect, { passive: true });
-    window.addEventListener('scroll', updateRect, { passive: true });
-
-    items.push(item);
-  });
+  window.addEventListener('pointermove', handlePointerMove, { passive: true });
+  window.addEventListener('resize', updateAllRects, { passive: true });
+  window.addEventListener('scroll', updateAllRects, { passive: true });
 
   function startLoop() {
     if (isRunning) return;

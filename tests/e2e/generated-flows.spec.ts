@@ -70,7 +70,7 @@ test.describe('3. FAQ e Filtro por Categorias', () => {
     const paymentChip = page.locator('[data-faq-filter="pagamento"]');
     await paymentChip.click();
 
-    await expect(paymentChip).toHaveAttribute('aria-selected', 'true');
+    await expect(paymentChip).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('.faq-list')).toHaveAttribute('data-active-cat', 'pagamento');
 
     // Todos os itens visíveis devem ser da categoria pagamento

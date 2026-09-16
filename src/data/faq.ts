@@ -71,13 +71,33 @@ export const faq: FaqItem[] = [
   },
   {
     q: 'Que curso a pessoa compra com o meu link?',
-    a: 'O supletivo da V7M (EJA): um curso online para concluir o ensino fundamental ou o médio e tirar o certificado, válido em todo o Brasil, emitido por instituição parceira credenciada e amparado pela LDB (Lei nº 9.394/96). A pessoa estuda pelo celular, no ritmo dela. Ou seja: você indica um produto de verdade, não "só um link".',
+    a: 'O Supletivo Brasil (EJA Oficial): um curso online para concluir o ensino fundamental ou o médio e tirar o certificado oficial, válido em todo o Brasil, emitido por instituição parceira credenciada e amparado pela LDB (Lei nº 9.394/96). A pessoa estuda pelo celular, no ritmo dela. Ou seja: você indica um produto de verdade, não "só um link".',
+    cat: 'produto',
+  },
+  {
+    q: 'Como funciona o suporte pedagógico ao aluno?',
+    a: 'O aluno tem acompanhamento pedagógico e suporte completo de professores e tutores diretamente no ambiente virtual de aprendizagem da instituição de ensino credenciada parceira. Você não precisa tirar dúvidas de matérias nem acompanhar as aulas.',
+    cat: 'produto',
+  },
+  {
+    q: 'Quanto o aluno paga pelo curso?',
+    a: 'O aluno conclui em 12x de R$ 99 no cartão de crédito ou R$ 999 à vista no Pix, sem mensalidades ocultas nem taxas surpresa. Isso torna a oferta altamente acessível para quem precisa do certificado oficial com rapidez e segurança jurídica.',
     cat: 'produto',
   },
   {
     q: 'O curso vale a pena para quem se matricula?',
     a: 'Vale para quem precisa terminar os estudos: é online, a pessoa estuda pelo celular no próprio ritmo (só a prova final é presencial), e o certificado serve para faculdade, concurso, tirar a CNH e comprovar escolaridade. Você indica com tranquilidade porque a pessoa também sai ganhando.',
     cat: 'produto',
+  },
+  {
+    q: 'Vocês fornecem material para divulgação?',
+    a: 'Sim. No seu painel você encontra kits com modelos de mensagens, artes prontas para redes sociais e seu link exclusivo com QR Code para compartilhar direto no WhatsApp ou imprimir.',
+    cat: 'trabalho',
+  },
+  {
+    q: 'Líderes comunitários e coordenadores de polo podem participar?',
+    a: 'Sim. Coordenadores de polo, líderes comunitários, educadores e comércios locais têm amplo potencial de indicação em suas regiões e contam com suporte direto para ativação de grupos e parcerias.',
+    cat: 'trabalho',
   },
   {
     q: 'Como eu faço login? Tem senha?',
@@ -91,7 +111,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: 'Quanto tempo leva para ser aprovado?',
-    a: 'É rápido, mas tem um filtro: cadastro pelo celular, um treininho rápido online (com correção na hora) e uma conversa com o coordenador do polo. Aprovado, seu link é liberado na hora.',
+    a: 'É rápido, mas tem um filtro: cadastro pelo celular, uma capacitação rápida online de boas práticas (com validação na hora) e contato de confirmação. Aprovado, seu link de promotor é liberado na hora.',
     cat: 'cadastro',
   },
   {

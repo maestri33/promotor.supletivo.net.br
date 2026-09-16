@@ -24,6 +24,9 @@ jobs:
       - name: Instalar dependências
         run: pnpm install --frozen-lockfile
 
+      - name: Checagem estática de tipos
+        run: pnpm run check-types
+
       - name: Build estático
         run: pnpm run build
 

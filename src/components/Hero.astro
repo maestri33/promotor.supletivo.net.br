@@ -8,7 +8,7 @@
 import CtaButton from './CtaButton.astro';
 import PixPhone from './PixPhone.astro';
 import Marquee from './Marquee.astro';
-import { brl, COMMISSION_DIRECT, PRODUCT_NAME } from '../config';
+import { brl, COMMISSION_DIRECT, PRODUCT_NAME, BRAND } from '../config';
 
 const LINE_1 = 'Mude vidas.';
 const LINE_2 = 'Ganhe também.';
@@ -59,7 +59,7 @@ const valor = brl(COMMISSION_DIRECT);
     <div class="hero-top-row anim-up" style="--i: 0">
       <p class="hero-eyebrow">
         <span class="dot pulse-live-dot" aria-hidden="true"></span>
-        Programa de Promotores · V7M
+        Programa de Promotores · {BRAND}
       </p>
       <span class="badge-pill-gold">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
@@ -586,8 +586,8 @@ const valor = brl(COMMISSION_DIRECT);
 
   .scroll-cue {
     order: 3;
-    width: 2.9rem;
-    height: 2.9rem;
+    width: 3rem;
+    height: 3rem;
     margin: 2.2rem auto 0;
     display: grid;
     place-items: center;

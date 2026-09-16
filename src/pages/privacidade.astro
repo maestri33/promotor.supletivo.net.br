@@ -3,14 +3,14 @@
  * Política de Privacidade — Programa de Promotores (LGPD - Lei nº 13.709/2018).
  */
 import ContentPage from '../layouts/ContentPage.astro';
-import { LEGAL_NAME, CNPJ, CONTACT_EMAIL, DPO_EMAIL } from '../config';
+import { LEGAL_NAME, CNPJ, CONTACT_EMAIL, DPO_EMAIL, BRAND } from '../config';
 
 const year = new Date().getFullYear();
 const cnpjLine = CNPJ ? `inscrita no CNPJ sob o nº ${CNPJ}` : '';
 ---
 
 <ContentPage
-  title="Política de Privacidade | V7M · Promotor"
+  title={`Política de Privacidade | ${BRAND} · Promotor`}
   description="Como tratamos os dados do candidato a promotor (CPF, contato, documento, selfie e chave Pix), conforme a LGPD."
   noindex={false}
   kicker="Privacidade & Segurança"
@@ -38,12 +38,13 @@ const cnpjLine = CNPJ ? `inscrita no CNPJ sob o nº ${CNPJ}` : '';
 
   <h2>3. Bases Legais para o Tratamento de Dados</h2>
   <p>
-    Todo tratamento de dados realizado pela Controladora fundamenta-se nas hipóteses legais previstas no art. 7º da LGPD:
+    Todo tratamento de dados realizado pela Controladora fundamenta-se nas hipóteses legais expressas na LGPD:
   </p>
   <ul>
     <li><strong>Execução de Contrato e Procedimentos Preliminares (Art. 7º, V):</strong> Necessário para o processamento da inscrição, cálculo de comissões e repasse dos valores devidos.</li>
     <li><strong>Cumprimento de Obrigação Legal ou Regulatória (Art. 7º, II):</strong> Cumprimento de obrigações fiscais, tributárias e regulatórias vigentes no Brasil.</li>
-    <li><strong>Prevenção à Fraude e Segurança do Titular (Art. 7º, IX e X):</strong> Validação cadastral, verificação de identidade e cruzamento de chave Pix no DICT.</li>
+    <li><strong>Prevenção a Fraudes e Autenticação de Cadastro (Art. 11, inciso II, alínea 'g'):</strong> O tratamento de dados biométricos (selfie de validação e foto de documento oficial) fundamenta-se estritamente na garantia da prevenção à fraude e à segurança do titular nos processos de identificação e autenticação de cadastro em sistemas eletrônicos.</li>
+    <li><strong>Legítimo Interesse e Proteção ao Crédito/Segurança (Art. 7º, IX e X):</strong> Validação cadastral, segurança da plataforma e cruzamento de chave Pix no DICT / Banco Central.</li>
   </ul>
 
   <h2>4. Compartilhamento Seguro de Dados</h2>
