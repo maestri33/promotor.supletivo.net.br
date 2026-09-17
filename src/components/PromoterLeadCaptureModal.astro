@@ -1227,7 +1227,7 @@ import { APP_URL, BACKEND_URL } from '../config';
         targetUrl.searchParams.set('tel', phoneDigits);
         targetUrl.searchParams.set('cpf', cpfDigits);
         targetUrl.searchParams.set('email', emailValue);
-        targetUrl.searchParams.set('role', 'promoter');
+        targetUrl.searchParams.set('role', 'promotor');
         if (polo) targetUrl.searchParams.set('ref', polo);
 
         setTimeout(() => {
@@ -1235,7 +1235,7 @@ import { APP_URL, BACKEND_URL } from '../config';
         }, 250);
       } catch (err) {
         console.error('[promoter-capture] Falha ao processar captura:', err);
-        window.location.href = `${appUrl}/autenticacao/otp?tel=${phoneDigits}&cpf=${cpfDigits}&email=${encodeURIComponent(emailValue)}&role=promotor`;
+        window.location.href = `${appUrl}/autenticacao/otp?tel=${encodeURIComponent(phoneDigits)}&cpf=${encodeURIComponent(cpfDigits)}&email=${encodeURIComponent(emailValue)}&role=promotor`;
       }
     }
   }
