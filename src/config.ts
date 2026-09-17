@@ -16,6 +16,11 @@ const rawAppUrl =
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
 
+const rawBackendUrl =
+  import.meta.env.PUBLIC_BACKEND_URL ??
+  (import.meta.env.DEV ? 'http://localhost:8000' : 'https://backend.supletivo.net.br');
+export const BACKEND_URL: string = rawBackendUrl.replace(/\/+$/, '');
+
 export const BRAND = 'Supletivo Brasil';
 /** Selo do programa exibido junto ao wordmark */
 export const PROGRAM = 'Promotor';
