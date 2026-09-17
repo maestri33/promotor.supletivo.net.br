@@ -47,11 +47,19 @@ if (attr) {
 }
 track('page_view', attrPayload);
 
-/* ---------- cta_click (delegado) ---------- */
+/* ---------- cta_click & abertura do PromoterLeadCaptureModal (delegado) ---------- */
 document.addEventListener('click', (e) => {
   const target = e.target as Element | null;
   const cta = target?.closest<HTMLAnchorElement>('a[data-cta]');
-  if (cta) track('cta_click', { position: cta.dataset.cta });
+  if (cta) {
+    track('cta_click', { position: cta.dataset.cta });
+
+    const openModal = (window as unknown as { openPromoterModal?: () => void }).openPromoterModal;
+    if (typeof openModal === 'function') {
+      e.preventDefault();
+      openModal();
+    }
+  }
 });
 
 /* ---------- faq_open ---------- */
