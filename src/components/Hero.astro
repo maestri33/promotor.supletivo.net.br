@@ -65,6 +65,10 @@ const valor = brl(COMMISSION_DIRECT);
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
         Credenciamento Oficial
       </span>
+      <span class="badge-pill-gold hidden" data-hub-badge>
+        <span class="hub-pill-dot" aria-hidden="true"></span>
+        Polo: <strong data-hub-badge-text>Regional</strong>
+      </span>
     </div>
 
     <h1 id="hero-title" class="hero-title">
@@ -383,6 +387,16 @@ const valor = brl(COMMISSION_DIRECT);
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.8rem;
+  }
+
+  .hub-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    box-shadow: 0 0 6px var(--yellow);
+    display: inline-block;
+    margin-right: 0.25rem;
   }
 
   .hero-eyebrow {

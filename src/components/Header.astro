@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 ---
 
 <header class="site-header">
+  <div class="header-brand-rule" aria-hidden="true"></div>
   <div class="container site-header-inner">
     <Logo variant="light" />
     <nav class="site-nav" aria-label="Seções da página">
@@ -22,6 +23,24 @@ import Logo from './Logo.astro';
     z-index: 10;
     padding-block: 1.4rem;
     padding-top: max(1.4rem, env(safe-area-inset-top));
+  }
+
+  /* Filete tricolor institucional de marca Supletivo Brasil */
+  .header-brand-rule {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-image: linear-gradient(
+      90deg,
+      var(--green) 0 34%,
+      var(--yellow) 34% 67%,
+      var(--blue) 67% 100%
+    );
+    box-shadow: 0 1px 8px -2px var(--gold);
+    pointer-events: none;
+    z-index: 2;
   }
 
   .site-header-inner {

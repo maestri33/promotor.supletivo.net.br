@@ -44,28 +44,53 @@ const PASS_THROUGH: AttrKey[] = [
 
 const LS_KEY = 'pr_attribution';
 const COOKIE_NAME = 'pr_hub';
+const ATTR_COOKIE_NAME = 'supletivo.attr';
 const COOKIE_MAX_AGE = 90 * 24 * 60 * 60; // 90 dias
 const LS_MAX_AGE_MS = COOKIE_MAX_AGE * 1000; // localStorage expira junto do cookie
+
+export function cookieDomain(): string {
+  try {
+    const host = window.location.hostname;
+    if (host === 'supletivo.net.br' || host.endsWith('.supletivo.net.br')) {
+      return ';domain=.supletivo.net.br';
+    }
+  } catch {}
+  return '';
+}
 
 /** Valor do polo capturado (hub tem precedência; ref é alias) */
 export function poloValue(attr: Attribution | null): string | null {
   return attr?.hub ?? attr?.ref ?? null;
 }
 
-function readStored(): Attribution | null {
+function readCookieAttr(): Attribution | null {
   try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return null;
-    const data = JSON.parse(raw) as Attribution;
-    // coerência com o cookie: atribuição com mais de 90 dias não vale mais
+    const m = document.cookie.match(new RegExp(`(?:^|;\\s*)${ATTR_COOKIE_NAME.replace('.', '\\.')}=([^;]+)`));
+    if (!m) return null;
+    const data = JSON.parse(decodeURIComponent(m[1])) as Attribution;
     if (data.ts && Date.now() - data.ts > LS_MAX_AGE_MS) {
-      localStorage.removeItem(LS_KEY);
       return null;
     }
     return data;
   } catch {
     return null;
   }
+}
+
+function readStored(): Attribution | null {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const data = JSON.parse(raw) as Attribution;
+      if (!data.ts || Date.now() - data.ts <= LS_MAX_AGE_MS) {
+        return data;
+      }
+      localStorage.removeItem(LS_KEY);
+    }
+  } catch {
+    /* armazenamento indisponível */
+  }
+  return readCookieAttr();
 }
 
 function readCookieHub(): string | null {
@@ -89,10 +114,18 @@ function persist(data: Attribution): void {
   } catch {
     /* armazenamento indisponível (modo privado etc.) — cookie cobre o polo */
   }
+  const domainAttr = cookieDomain();
+  const isSecure = typeof location !== 'undefined' && location.protocol === 'https:';
+  const secureFlag = isSecure ? ';Secure' : '';
+
+  try {
+    const jsonStr = encodeURIComponent(JSON.stringify(data));
+    document.cookie = `${ATTR_COOKIE_NAME}=${jsonStr};max-age=${COOKIE_MAX_AGE};path=/${domainAttr};SameSite=Lax${secureFlag}`;
+  } catch {}
+
   const polo = poloValue(data);
   if (polo) {
-    const isSecure = typeof location !== 'undefined' && location.protocol === 'https:';
-    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(polo)};max-age=${COOKIE_MAX_AGE};path=/;SameSite=Lax${isSecure ? ';Secure' : ''}`;
+    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(polo)};max-age=${COOKIE_MAX_AGE};path=/${domainAttr};SameSite=Lax${secureFlag}`;
   }
 }
 

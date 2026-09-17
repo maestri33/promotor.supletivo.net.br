@@ -33,6 +33,25 @@ test.describe('vínculo de polo (hub → ref)', () => {
     expect(href).toContain('ref=polo2');
     expect(href).not.toContain('polo1');
   });
+
+  test('com ?hub=polo1 exibe FloatingHubAlert e badge no Hero', async ({ page }) => {
+    await page.goto('/?hub=polo_regional');
+    const alert = page.locator('[data-floating-hub]');
+    await expect(alert).toHaveClass(/is-visible/);
+    await expect(page.locator('[data-hub-name]')).toHaveText('polo_regional');
+
+    const badge = page.locator('[data-hub-badge]');
+    await expect(badge).toBeVisible();
+    await expect(page.locator('[data-hub-badge-text]')).toHaveText('polo_regional');
+  });
+
+  test('sem ?hub= ou ?ref= o FloatingHubAlert permanece oculto', async ({ page }) => {
+    await page.goto('/');
+    const alert = page.locator('[data-floating-hub]');
+    await expect(alert).toHaveClass(/hidden/);
+    const badge = page.locator('[data-hub-badge]');
+    await expect(badge).toHaveClass(/hidden/);
+  });
 });
 
 test.describe('eventos no dataLayer', () => {

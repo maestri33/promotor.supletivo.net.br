@@ -2,7 +2,7 @@
  * Entry único do client: atribuição, eventos e animações.
  * Tudo é progressive enhancement — a página funciona sem este arquivo.
  */
-import { initAttribution, decorateCtas, ATTR_KEYS } from './attribution';
+import { initAttribution, decorateCtas, ATTR_KEYS, poloValue } from './attribution';
 import { track } from './track';
 import { weeklyEarnings, brl } from '../config';
 import { initAntigravityTilt } from './antigravity-tilt';
@@ -17,6 +17,29 @@ initMagneticGravity();
 /* ---------- Atribuição + page_view ---------- */
 const attr = initAttribution();
 decorateCtas(attr);
+
+// Feedback visual do polo (?hub= / ?ref=)
+const polo = poloValue(attr);
+if (polo) {
+  // 1. Badge dinâmico no Hero
+  const hubBadge = document.querySelector<HTMLElement>('[data-hub-badge]');
+  const hubBadgeText = document.querySelector<HTMLElement>('[data-hub-badge-text]');
+  if (hubBadge && hubBadgeText) {
+    hubBadgeText.textContent = polo;
+    hubBadge.classList.remove('hidden');
+  }
+
+  // 2. Alerta flutuante de Polo
+  const hubAlert = document.querySelector<HTMLElement>('[data-floating-hub]');
+  const hubAlertName = document.querySelector<HTMLElement>('[data-hub-name]');
+  const isDismissed = sessionStorage.getItem('pr_hub_dismissed') === '1';
+
+  if (hubAlert && !isDismissed) {
+    if (hubAlertName) hubAlertName.textContent = polo;
+    hubAlert.classList.remove('hidden');
+    hubAlert.classList.add('is-visible');
+  }
+}
 
 const attrPayload: Record<string, unknown> = {};
 if (attr) {
@@ -351,3 +374,50 @@ if (btt) {
     btt.classList.add('is-visible');
   }
 }
+
+/* ---------- FloatingHubAlert: Dismiss e visibilidade inteligente ---------- */
+document.querySelector('[data-close-hub-alert]')?.addEventListener('click', () => {
+  sessionStorage.setItem('pr_hub_dismissed', '1');
+  const alertEl = document.querySelector<HTMLElement>('[data-floating-hub]');
+  if (alertEl) {
+    alertEl.classList.remove('is-visible');
+    alertEl.classList.add('hidden');
+  }
+});
+
+const ganhosSection = document.getElementById('ganhos');
+const floatingHub = document.querySelector<HTMLElement>('[data-floating-hub]');
+if (ganhosSection && floatingHub && 'IntersectionObserver' in window) {
+  const hubSectionObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          floatingHub.classList.add('hidden-by-section');
+        } else {
+          floatingHub.classList.remove('hidden-by-section');
+        }
+      }
+    },
+    { threshold: 0.1 }
+  );
+  hubSectionObserver.observe(ganhosSection);
+}
+
+// No mobile/tablet, esconde o alerta flutuante na dobra inicial do Hero para evitar cobrir o CTA
+if (floatingHub) {
+  const updateMobileHubVisibility = () => {
+    if (window.innerWidth <= 899) {
+      if (window.scrollY < 90) {
+        floatingHub.classList.add('hidden-by-hero');
+      } else {
+        floatingHub.classList.remove('hidden-by-hero');
+      }
+    } else {
+      floatingHub.classList.remove('hidden-by-hero');
+    }
+  };
+  updateMobileHubVisibility();
+  window.addEventListener('scroll', updateMobileHubVisibility, { passive: true });
+  window.addEventListener('resize', updateMobileHubVisibility, { passive: true });
+}
+

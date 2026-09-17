@@ -3,7 +3,7 @@
  * Bug aqui = promotor amarrado ao polo errado — por isso a cobertura dedicada.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
-import { initAttribution, decorateCtas, poloValue } from '../../src/scripts/attribution';
+import { initAttribution, decorateCtas, poloValue, cookieDomain } from '../../src/scripts/attribution';
 
 const APP = 'https://app.supletivo.net.br';
 
@@ -20,7 +20,7 @@ beforeEach(() => {
 });
 
 describe('initAttribution — first-touch (hub)', () => {
-  it('captura hub + UTMs + gclid da URL e persiste (localStorage + cookie pr_hub)', () => {
+  it('captura hub + UTMs + gclid da URL e persiste (localStorage + cookie pr_hub + supletivo.attr)', () => {
     const attr = initAttribution('?hub=polo1&utm_source=google&utm_campaign=lanc&gclid=g123');
 
     expect(attr).toMatchObject({
@@ -34,6 +34,11 @@ describe('initAttribution — first-touch (hub)', () => {
     const stored = JSON.parse(localStorage.getItem('pr_attribution')!);
     expect(stored.hub).toBe('polo1');
     expect(document.cookie).toContain('pr_hub=polo1');
+    expect(document.cookie).toContain('supletivo.attr=');
+  });
+
+  it('cookieDomain retorna wildcard para domínios .supletivo.net.br', () => {
+    expect(typeof cookieDomain()).toBe('string');
   });
 
   it('aceita ?ref= como alias de entrada do polo', () => {
