@@ -35,6 +35,16 @@
   --ink: var(--black);
   --ink-soft: var(--char-2);
 
+  /* Cores Semânticas de Estado (Auditadas WCAG AA > 4.5:1 - DESIGN.md) */
+  --danger: #b91c1c;
+  --danger-bg: #fee2e2;
+  --success: #15803d;
+  --success-bg: #dcfce7;
+  --warning: #92400e;
+  --warning-bg: #fef3c7;
+  --info: #0369a1;
+  --info-bg: #e0f2fe;
+
   /* Tipografia */
   --font-display: 'Archivo Black', 'Arial Black', 'Helvetica Neue', sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

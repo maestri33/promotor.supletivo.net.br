@@ -117,7 +117,7 @@ export function initAttribution(search: string = location.search): Attribution |
 
   // Redundância: localStorage perdido mas cookie sobreviveu
   if (!poloValue(stored)) {
-    const cookieHub = readCookieHub();
+    const cookieHub = sanitizeParam(readCookieHub());
     if (cookieHub) stored = { ...(stored ?? {}), hub: cookieHub };
   }
 

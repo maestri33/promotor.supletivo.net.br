@@ -31,6 +31,8 @@
     z-index: 60; /* acima do sticky-cta (50) */
     width: 3rem;
     height: 3rem;
+    min-width: 48px;
+    min-height: 48px;
     display: grid;
     place-items: center;
     border: 1px solid rgb(217 177 90 / 0.4);
@@ -74,7 +76,7 @@
   /* com JS, começa escondido; o IntersectionObserver controla */
   :global(html.js) .btt {
     opacity: 0;
-    transform: translateY(8px) scale(0.9);
+    transform: translateY(8px);
     pointer-events: none;
     transition:
       opacity 0.25s var(--ease-out),

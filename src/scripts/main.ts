@@ -258,24 +258,6 @@ if (litEls.length > 0) {
   }
 }
 
-/* ---------- Spotlight seguindo o mouse (cards marcados com zero layout thrashing) ---------- */
-if (!REDUCED && window.matchMedia('(pointer: fine)').matches) {
-  document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
-    let cachedRect: DOMRect | null = null;
-    card.addEventListener('pointerenter', () => {
-      cachedRect = card.getBoundingClientRect();
-    });
-    card.addEventListener('pointermove', (e) => {
-      if (!cachedRect) cachedRect = card.getBoundingClientRect();
-      card.style.setProperty('--mx', `${e.clientX - cachedRect.left}px`);
-      card.style.setProperty('--my', `${e.clientY - cachedRect.top}px`);
-    });
-    card.addEventListener('pointerleave', () => {
-      cachedRect = null;
-    });
-  });
-}
-
 /* ---------- Sticky CTA ----------
  * Visível só quando: já passou do hero E nenhum CTA da própria página está
  * na tela (senão o sticky cobre exatamente o botão que o usuário ia tocar). */

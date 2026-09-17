@@ -7,11 +7,14 @@ test.describe('Validação da Malha de Domínios do Ecossistema Supletivo Brasil
     const res = await request.get('https://landing-promotor.pages.dev');
     expect(res.status()).toBe(200);
 
-    // 1.2 Browser Render
-    await page.goto('https://landing-promotor.pages.dev', { waitUntil: 'domcontentloaded' });
-    await expect(page).toHaveTitle(/Promotor|Supletivo|Maestri|V7M/i);
+    // 1.2 Browser Render (Local Preview / Código Atual)
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveTitle(/Promotor|Supletivo/i);
+    expect(await page.title()).not.toMatch(/Maestri|V7M/i);
     
-    // 1.3 Validar ausência total de job.v7m.org
+    // 1.3 Edge Live Render
+    await page.goto('https://landing-promotor.pages.dev', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveTitle(/Promotor|Supletivo/i);
     const content = await page.content();
     expect(content).not.toContain('job.v7m.org');
   });
