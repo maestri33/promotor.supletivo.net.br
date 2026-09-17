@@ -9,16 +9,20 @@
 /* ----------------------------------------------------------------------------
  * Destino do CTA (cadastro do candidato a promotor)
  * -------------------------------------------------------------------------- */
+const metaEnv: Record<string, string | undefined> =
+  (typeof import.meta !== 'undefined' && (import.meta as any).env) ||
+  (typeof process !== 'undefined' ? (process.env as Record<string, string | undefined>) : {});
+
 const rawAppUrl =
-  import.meta.env.PUBLIC_APP_URL ??
-  (import.meta.env.DEV ? 'http://localhost:3000' : 'https://app.supletivo.net.br');
+  metaEnv.PUBLIC_APP_URL ||
+  (metaEnv.DEV ? 'http://localhost:3000' : 'https://app.supletivo.net.br');
 
 // sem barra final: evita param colado em path duplicado e 301 no destino
 export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
 
 const rawBackendUrl =
-  import.meta.env.PUBLIC_BACKEND_URL ??
-  (import.meta.env.DEV ? 'http://localhost:8000' : 'https://backend.supletivo.net.br');
+  metaEnv.PUBLIC_BACKEND_URL ||
+  (metaEnv.DEV ? 'http://localhost:8000' : 'https://backend.supletivo.net.br');
 export const BACKEND_URL: string = rawBackendUrl.replace(/\/+$/, '');
 
 export const BRAND = 'Supletivo Brasil';
@@ -52,18 +56,18 @@ const num = (v: string | undefined, fallback: number): number => {
 };
 
 /** Comissão direta por matrícula PAGA (R$) */
-export const COMMISSION_DIRECT = num(import.meta.env.PUBLIC_COMMISSION_DIRECT, 100);
+export const COMMISSION_DIRECT = num(metaEnv.PUBLIC_COMMISSION_DIRECT, 100);
 /** Bônus flat por bloco de indicações pagas na semana (R$) */
-export const BONUS_FLAT = num(import.meta.env.PUBLIC_BONUS_FLAT, 500);
+export const BONUS_FLAT = num(metaEnv.PUBLIC_BONUS_FLAT, 500);
 /** Tamanho do bloco que destrava o bônus (ex.: 5 = a cada 5 pagas) */
-export const BONUS_THRESHOLD = num(import.meta.env.PUBLIC_BONUS_THRESHOLD, 5);
+export const BONUS_THRESHOLD = num(metaEnv.PUBLIC_BONUS_THRESHOLD, 5);
 /**
  * Bônus repete a cada bloco?
  *  - true  → a cada 5 pagas, +R$ 500 (escada: +500, +1000, ...)
  *  - false → degrau único: paga 1x ao atingir o threshold
  * Nota: Conferir contra finance/config.py antes de produção (promessa de dinheiro).
  */
-export const BONUS_REPEATS = (import.meta.env.PUBLIC_BONUS_REPEATS ?? 'false') !== 'false';
+export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'false') !== 'false';
 
 /**
  * Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour
@@ -71,7 +75,7 @@ export const BONUS_REPEATS = (import.meta.env.PUBLIC_BONUS_REPEATS ?? 'false') !
  * dinheiro: se a hora mudar lá, basta mudar PUBLIC_CLOSING_LABEL aqui).
  */
 export const CLOSING_LABEL: string =
-  import.meta.env.PUBLIC_CLOSING_LABEL ?? 'toda sexta, às 18h';
+  metaEnv.PUBLIC_CLOSING_LABEL ?? 'toda sexta, às 18h';
 
 /* ----------------------------------------------------------------------------
  * Identificação legal do fornecedor (CDC art. 31 / LGPD art. 9).
@@ -80,22 +84,22 @@ export const CLOSING_LABEL: string =
  * de exibir um número falso (pior do que ausência).
  * -------------------------------------------------------------------------- */
 /** Razão/nome jurídico da PJ que opera o programa */
-export const LEGAL_NAME: string = import.meta.env.PUBLIC_LEGAL_NAME ?? 'Supletivo Brasil';
+export const LEGAL_NAME: string = metaEnv.PUBLIC_LEGAL_NAME ?? 'Supletivo Brasil';
 /** CNPJ real da PJ (vazio = não renderiza; não inventar placeholder) */
-export const CNPJ: string = (import.meta.env.PUBLIC_CNPJ ?? '48.811.016/0001-00').trim();
+export const CNPJ: string = (metaEnv.PUBLIC_CNPJ ?? '48.811.016/0001-00').trim();
 /** E-mail de contato (SAC) */
 export const CONTACT_EMAIL: string =
-  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'contato@supletivo.net.br';
+  metaEnv.PUBLIC_CONTACT_EMAIL ?? 'contato@supletivo.net.br';
 /** E-mail do encarregado de dados (DPO / LGPD) */
 export const DPO_EMAIL: string =
-  import.meta.env.PUBLIC_DPO_EMAIL ?? 'dpo@supletivo.net.br';
+  metaEnv.PUBLIC_DPO_EMAIL ?? 'dpo@supletivo.net.br';
 /** WhatsApp em E.164 só dígitos (ex.: 5511999999999); vazio = não renderiza */
 export const CONTACT_WHATSAPP: string = (
-  import.meta.env.PUBLIC_CONTACT_WHATSAPP ?? '5511920062177'
+  metaEnv.PUBLIC_CONTACT_WHATSAPP ?? '5511920062177'
 ).replace(/\D/g, '');
 
 /** ID do Google Tag Manager (ex.: GTM-XXXXXXX); null se não configurado */
-export const GTM_ID: string | null = import.meta.env.PUBLIC_GTM_ID?.trim() || null;
+export const GTM_ID: string | null = metaEnv.PUBLIC_GTM_ID?.trim() || null;
 
 /**
  * Marcas das instituições do polo (HUB_BRANDS). Vazio por decisão de projeto:
