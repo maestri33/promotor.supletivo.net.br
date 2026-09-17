@@ -22,7 +22,7 @@ export const APP_URL: string = rawAppUrl.replace(/\/+$/, '');
 
 const rawBackendUrl =
   metaEnv.PUBLIC_BACKEND_URL ||
-  (metaEnv.DEV ? 'http://localhost:8000' : 'https://backend.supletivo.net.br');
+  (metaEnv.DEV ? 'http://localhost:8000' : 'https://app.supletivo.net.br');
 export const BACKEND_URL: string = rawBackendUrl.replace(/\/+$/, '');
 
 export const BRAND = 'Supletivo Brasil';

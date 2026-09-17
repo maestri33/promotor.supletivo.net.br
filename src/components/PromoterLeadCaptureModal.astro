@@ -806,7 +806,7 @@ import { APP_URL, BACKEND_URL } from '../config';
 
   if (modal) {
     const appUrl = modal.dataset.appUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
-    const backendUrl = modal.dataset.backendUrl?.replace(/\/+$/, '') ?? 'https://backend.supletivo.net.br';
+    const backendUrl = modal.dataset.backendUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
 
     // Inputs & Steps
     const stepPhone = modal.querySelector<HTMLElement>('#step-phone');
@@ -1182,10 +1182,10 @@ import { APP_URL, BACKEND_URL } from '../config';
           polo: polo ?? 'direto',
         });
 
-        // Disparo ao backend
+        // Disparo ao gateway backend
         let externalId: string | undefined;
         try {
-          const apiRes = await fetch(`${backendUrl}/api/v1/clients/auth/check`, {
+          const apiRes = await fetch(`${backendUrl}/api/v1/collaborators/auth/check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1193,9 +1193,8 @@ import { APP_URL, BACKEND_URL } from '../config';
               phone: phoneDigits,
               cpf: cpfDigits,
               email: emailValue,
-              promotor: polo || undefined,
+              hub: polo || undefined,
               ref: polo || undefined,
-              role: 'promoter',
               send_otp: true,
             }),
             signal: AbortSignal.timeout(3500),
