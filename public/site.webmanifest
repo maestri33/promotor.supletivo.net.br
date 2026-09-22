@@ -1,7 +1,7 @@
 {
-  "name": "V7M · Promotor",
-  "short_name": "V7M Promotor",
-  "description": "Seja promotor V7M: indique matrículas e receba por Pix toda semana. Sem estoque, sem mensalidade, sem vender nada.",
+  "name": "Supletivo Brasil · Promotor",
+  "short_name": "Promotor Supletivo",
+  "description": "Seja promotor do Supletivo Brasil: indique matrículas e receba por Pix toda semana. Sem estoque, sem mensalidade, sem vender nada.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#0b0b0c",

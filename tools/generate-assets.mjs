@@ -67,7 +67,7 @@ function width(font, text, size) {
   return total;
 }
 
-/** Wordmark com dígitos em dourado (ex.: V7M → "7" dourado) */
+/** Wordmark com dígitos em dourado */
 function wordmark(font, text, x, y, size) {
   let cx = x;
   const out = [];
@@ -97,12 +97,12 @@ function buildOgSvg(font) {
   const W = 1200;
   const H = 630;
 
-  // Logo: marca (losango + sinal de mais) + wordmark V7M
+  // Logo: marca (losango + sinal de mais) + wordmark
   const markX = 64;
   const markY = 56;
   const markSize = 52;
   const wordY = markY + markSize * 0.72;
-  const brand = 'V7M';
+  const brand = 'Supletivo Brasil';
   const wordSize = 32;
   const brandW = width(font, brand, wordSize);
 

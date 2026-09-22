@@ -467,15 +467,15 @@ html.js body.has-sticky-cta {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #32bcad;
-  box-shadow: 0 0 10px #32bcad;
+  background: var(--teal-live);
+  box-shadow: 0 0 10px var(--teal-live);
   animation: live-pulse 2s infinite;
 }
 
 @keyframes live-pulse {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(50, 188, 173, 0.7);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal-live) 70%, transparent);
   }
   70% {
     transform: scale(1.15);

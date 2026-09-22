@@ -266,10 +266,10 @@ const legalParts = [
     color: var(--paper);
     text-decoration: underline;
     text-underline-offset: 3px;
-    /* área de toque sem inflar layout */
-    display: inline-block;
-    padding-block: 0.3rem;
-    margin-block: -0.3rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: 0.5rem;
   }
 
   .footer-id a:hover {
