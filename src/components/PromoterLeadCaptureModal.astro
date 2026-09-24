@@ -270,6 +270,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     height: 48px;
     min-width: 48px;
     min-height: 48px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1019,6 +1020,21 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
         cpf: cpfDigits,
         email: emailValue,
       }, 250);
+    }
+
+    // Auto-abertura inteligente se o usuário chega direcionado com tel ou modal=cadastro
+    const urlParams = new URLSearchParams(window.location.search);
+    const telParam = urlParams.get('tel');
+    const modalParam = urlParams.get('modal');
+    if (telParam || modalParam === 'cadastro') {
+      openModal('app_redirect');
+      if (telParam && inputPhone) {
+        const cleanDigits = telParam.replace(/\D/g, '');
+        if (cleanDigits.length >= 10) {
+          inputPhone.value = formatPhone(cleanDigits);
+          handlePhoneInput();
+        }
+      }
     }
   }
 </script>

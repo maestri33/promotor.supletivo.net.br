@@ -72,14 +72,13 @@ const valor = brl(COMMISSION_DIRECT);
     </div>
 
     <h1 id="hero-title" class="hero-title">
-      <span class="sr-only">{LINE_1} {LINE_2}</span>
-      <span aria-hidden="true" class="hero-line hero-line--ghost">
+      <span class="hero-line hero-line--ghost">
         <span class="w ghost" style="--i: 1">{LINE_1}</span>
       </span>
-      <span aria-hidden="true" class="hero-line">
+      <span class="hero-line">
         <span class="w w-accent" style="--i: 2">
           {LINE_2}
-          <svg class="swoosh" viewBox="0 0 220 24" fill="none" preserveAspectRatio="none">
+          <svg class="swoosh" aria-hidden="true" viewBox="0 0 220 24" fill="none" preserveAspectRatio="none">
             <path
               d="M4 17 C60 8, 150 6, 216 12"
               stroke="var(--yellow)"
