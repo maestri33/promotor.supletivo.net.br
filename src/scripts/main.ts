@@ -4,9 +4,10 @@
  */
 import { initAttribution, decorateCtas, ATTR_KEYS, poloValue } from './attribution';
 import { track } from './track';
-import { weeklyEarnings, brl } from '../config';
+import { weeklyEarnings, brl, COMMISSION_DIRECT, BONUS_FLAT, BONUS_THRESHOLD, BONUS_REPEATS } from '../config';
 import { initAntigravityTilt } from './antigravity-tilt';
 import { initMagneticGravity } from './magnetic-gravity';
+import { initPromoterDynamicPricing } from './dynamic-pricing';
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -172,9 +173,21 @@ if (calcRange) {
   let lastTierTitle = '';
   let calcTracked = false;
 
+  let dynamicDirect = COMMISSION_DIRECT;
+  let dynamicBonus = BONUS_FLAT;
+  let dynamicThreshold = BONUS_THRESHOLD;
+
+  const calcEarnings = (paid: number) => {
+    const safe = Math.max(0, Math.floor(paid));
+    const direct = safe * dynamicDirect;
+    const blocks = safe < dynamicThreshold ? 0 : (BONUS_REPEATS ? Math.floor(safe / dynamicThreshold) : 1);
+    const bonus = blocks * dynamicBonus;
+    return { direct, bonus, total: direct + bonus };
+  };
+
   const render = (): void => {
     const n = Number(calcRange.value);
-    const { direct, bonus, total } = weeklyEarnings(n);
+    const { direct, bonus, total } = calcEarnings(n);
     const tier = getTier(n);
 
     if (out.paid) out.paid.textContent = String(n);
@@ -236,6 +249,15 @@ if (calcRange) {
 
   render();
   syncPresetState();
+
+  window.addEventListener('pricing:update', ((e: CustomEvent) => {
+    if (e.detail) {
+      if (typeof e.detail.commissionDirect === 'number') dynamicDirect = e.detail.commissionDirect;
+      if (typeof e.detail.bonusFlat === 'number') dynamicBonus = e.detail.bonusFlat;
+      if (typeof e.detail.bonusThreshold === 'number') dynamicThreshold = e.detail.bonusThreshold;
+      render();
+    }
+  }) as EventListener);
 }
 
 /* ---------- Reveals por scroll (Intersection Observer) ---------- */
@@ -428,4 +450,8 @@ if (floatingHub) {
   window.addEventListener('scroll', updateMobileHubVisibility, { passive: true });
   window.addEventListener('resize', updateMobileHubVisibility, { passive: true });
 }
+
+/* ---------- Precificação e Comissões Dinâmicas ---------- */
+initPromoterDynamicPricing();
+
 

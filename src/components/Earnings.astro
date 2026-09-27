@@ -44,14 +44,14 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     <div class="earn-models" data-reveal style="--d: 2">
       <div class="model spatial-card-3d" data-tilt-3d data-tilt-max="6" data-spotlight>
         <span class="model-tag">Comissão direta</span>
-        <p class="model-value">{brl(COMMISSION_DIRECT)}</p>
+        <p class="model-value" data-promoter-commission-direct>{brl(COMMISSION_DIRECT)}</p>
         <p class="model-desc">por <strong>cada matrícula paga</strong> que vier do seu link</p>
       </div>
       <span class="model-plus" aria-hidden="true">+</span>
       <div class="model spatial-card-3d" data-tilt-3d data-tilt-max="6" data-spotlight>
         <span class="model-tag">Bônus de volume</span>
-        <p class="model-value">{brl(BONUS_FLAT)}</p>
-        <p class="model-desc">de bônus <strong>{bonusRule}</strong></p>
+        <p class="model-value" data-promoter-bonus-flat>{brl(BONUS_FLAT)}</p>
+        <p class="model-desc">de bônus <strong data-promoter-bonus-rule>{bonusRule}</strong></p>
       </div>
     </div>
 
@@ -112,7 +112,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
       <dl class="calc-break">
         <div>
-          <dt>Comissão ({brl(COMMISSION_DIRECT)} cada)</dt>
+          <dt>Comissão (<span data-promoter-calc-unit>{brl(COMMISSION_DIRECT)}</span> cada)</dt>
           <dd data-calc-direct>{brl(start.direct)}</dd>
         </div>
         <div class="calc-bonus-row on" data-calc-bonus-row>

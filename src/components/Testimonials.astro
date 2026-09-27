@@ -1,0 +1,643 @@
+---
+/**
+ * Seção de Testemunhos / Depoimentos Reais de Promotores.
+ * Histórias autênticas de promotores que recebem comissão semanal via Pix.
+ * Dark luxury, fotos realistas documentais, sem promessas milagrosas.
+ */
+import { testimonialsPromotor } from '../data/testimonials';
+import CtaButton from './CtaButton.astro';
+import { CTA_LABEL } from '../config';
+
+const first = testimonialsPromotor[0];
+---
+
+<section id="depoimentos" class="testimonials section on-dark grain" aria-labelledby="testimonials-title" data-section="depoimentos">
+  <span class="sec-num" aria-hidden="true" data-n="04"></span>
+
+  <div class="container testimonials-inner">
+    <div class="testimonials-header text-center">
+      <p class="kicker testimonials-kicker" data-reveal>Histórias Reais de Promotores</p>
+      <h2 id="testimonials-title" data-reveal>
+        Quem indica o Supletivo Brasil <span class="gold-gradient">recebe toda semana</span>
+      </h2>
+      <p class="testimonials-lead" data-reveal style="--d: 1">
+        Conheça pessoas comuns que transformaram conversas do dia a dia e grupos de WhatsApp em
+        uma fonte limpa de renda extra no Pix, com pagamentos semanais toda sexta-feira às 18h.
+      </p>
+    </div>
+
+    <!-- Showcase Ativo Principal -->
+    <div class="testimonials-stage" data-reveal style="--d: 2">
+      <div class="spotlight-card glass-panel spatial-card-3d" data-tilt-3d data-tilt-max="4" id="testimonial-spotlight">
+        <div class="spotlight-glow" aria-hidden="true"></div>
+
+        <div class="spotlight-grid">
+          <!-- Coluna Visual / Avatar -->
+          <div class="spotlight-media">
+            <div class="media-frame">
+              <img
+                id="spotlight-img"
+                src={first.src}
+                alt={first.avatarAlt}
+                width="480"
+                height="480"
+                loading="lazy"
+                class="spotlight-avatar"
+              />
+              <div class="verified-pill">
+                <span class="pix-icon" aria-hidden="true">❖</span>
+                <span>Chave Pix Validada (DICT)</span>
+              </div>
+            </div>
+
+            <!-- Mini Cartão de Ganhos -->
+            <div class="media-earnings-badge">
+              <span class="badge-label">Média Recebida no Pix</span>
+              <strong id="spotlight-earnings" class="badge-val">{first.earnings}</strong>
+              <span id="spotlight-highlight" class="badge-sub">{first.earningsHighlight}</span>
+            </div>
+          </div>
+
+          <!-- Coluna Conteúdo / Depoimento -->
+          <div class="spotlight-content">
+            <div class="quote-mark" aria-hidden="true">“</div>
+            <blockquote id="spotlight-quote" class="spotlight-quote">
+              {first.quote}
+            </blockquote>
+
+            <div class="spotlight-author">
+              <div class="author-meta">
+                <strong id="spotlight-name" class="author-name">{first.name}</strong>
+                <span id="spotlight-occupation" class="author-occupation">{first.occupation}</span>
+                <span id="spotlight-location" class="author-location">{first.location}</span>
+              </div>
+
+              <!-- Métricas Rápidas -->
+              <div class="author-metrics">
+                <div class="metric-chip">
+                  <span class="m-val" id="spotlight-referrals">{first.paidReferrals}</span>
+                  <span class="m-lbl">Confirmadas</span>
+                </div>
+                <div class="metric-chip">
+                  <span class="m-val" id="spotlight-time">{first.timeActive}</span>
+                  <span class="m-lbl">Histórico</span>
+                </div>
+              </div>
+            </div>
+
+            <p id="spotlight-story" class="spotlight-story">
+              {first.story}
+            </p>
+
+            <div class="spotlight-cta">
+              <a href="#cadastro" class="action-btn-pill" data-cta="testimonials">
+                <span>{CTA_LABEL}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <span class="cta-micro">Cadastro 100% grátis · Sem taxas de adesão</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trilho / Seletor de Promotores -->
+    <div class="promoters-selector-wrap" data-reveal style="--d: 3">
+      <div class="selector-heading">
+        <span>Clique para conhecer mais histórias:</span>
+      </div>
+
+      <div class="promoters-track" role="tablist" aria-label="Depoimentos de promotores">
+        {testimonialsPromotor.map((item, idx) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            aria-controls="testimonial-spotlight"
+            data-testimonial-idx={idx}
+            class={`promoter-tab ${idx === 0 ? 'is-active' : ''}`}
+          >
+            <img
+              src={item.src}
+              alt=""
+              width="56"
+              height="56"
+              loading="lazy"
+              class="tab-thumb"
+            />
+            <div class="tab-info">
+              <span class="tab-name">{item.name}</span>
+              <span class="tab-loc">{item.location}</span>
+              <span class="tab-earnings">{item.earnings}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dados em JSON embutidos para troca instantânea de cliente -->
+<script define:vars={{ testimonials: testimonialsPromotor }}>
+  window.__PROMOTER_TESTIMONIALS__ = testimonials;
+</script>
+
+<script>
+  function setupTestimonials() {
+    const data = (window as any).__PROMOTER_TESTIMONIALS__;
+    if (!Array.isArray(data) || data.length === 0) return;
+
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.promoter-tab');
+    const imgEl = document.getElementById('spotlight-img') as HTMLImageElement | null;
+    const earningsEl = document.getElementById('spotlight-earnings');
+    const highlightEl = document.getElementById('spotlight-highlight');
+    const quoteEl = document.getElementById('spotlight-quote');
+    const nameEl = document.getElementById('spotlight-name');
+    const occupationEl = document.getElementById('spotlight-occupation');
+    const locationEl = document.getElementById('spotlight-location');
+    const referralsEl = document.getElementById('spotlight-referrals');
+    const timeEl = document.getElementById('spotlight-time');
+    const storyEl = document.getElementById('spotlight-story');
+    const cardEl = document.getElementById('testimonial-spotlight');
+
+    let currentIdx = 0;
+    let autoRotateTimer: any = null;
+
+    function applyTestimonial(idx: number, animate = true) {
+      const item = data[idx];
+      if (!item) return;
+
+      currentIdx = idx;
+
+      tabs.forEach((tab, i) => {
+        const isActive = i === idx;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      if (animate && cardEl) {
+        cardEl.style.opacity = '0.7';
+        cardEl.style.transform = 'translateY(4px)';
+        setTimeout(() => {
+          updateData(item);
+          if (cardEl) {
+            cardEl.style.opacity = '1';
+            cardEl.style.transform = 'translateY(0)';
+          }
+        }, 120);
+      } else {
+        updateData(item);
+      }
+    }
+
+    function updateData(item: any) {
+      if (imgEl) {
+        imgEl.src = item.src;
+        imgEl.alt = item.avatarAlt;
+      }
+      if (earningsEl) earningsEl.textContent = item.earnings;
+      if (highlightEl) highlightEl.textContent = item.earningsHighlight;
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (nameEl) nameEl.textContent = item.name;
+      if (occupationEl) occupationEl.textContent = item.occupation;
+      if (locationEl) locationEl.textContent = item.location;
+      if (referralsEl) referralsEl.textContent = item.paidReferrals;
+      if (timeEl) timeEl.textContent = item.timeActive;
+      if (storyEl) storyEl.textContent = item.story;
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const idx = Number(tab.dataset.testimonialIdx ?? 0);
+        applyTestimonial(idx);
+        stopAutoRotate();
+      });
+    });
+
+    function startAutoRotate() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stopAutoRotate();
+      autoRotateTimer = setInterval(() => {
+        const next = (currentIdx + 1) % data.length;
+        applyTestimonial(next);
+      }, 7000);
+    }
+
+    function stopAutoRotate() {
+      if (autoRotateTimer) {
+        clearInterval(autoRotateTimer);
+        autoRotateTimer = null;
+      }
+    }
+
+    const container = document.getElementById('depoimentos');
+    container?.addEventListener('mouseenter', stopAutoRotate);
+    container?.addEventListener('mouseleave', startAutoRotate);
+    container?.addEventListener('focusin', stopAutoRotate);
+    container?.addEventListener('focusout', startAutoRotate);
+
+    startAutoRotate();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTestimonials);
+  } else {
+    setupTestimonials();
+  }
+</script>
+
+<style>
+  .testimonials {
+    position: relative;
+    padding-block: var(--space-section, clamp(4rem, 6vw, 7rem));
+    background: radial-gradient(60rem 35rem at 50% 10%, rgba(217, 177, 90, 0.08), transparent 70%),
+      linear-gradient(180deg, var(--black, #0b0b0c) 0%, var(--char, #141416) 100%);
+    overflow: hidden;
+  }
+
+  .testimonials-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 3.5vw, 3.5rem);
+  }
+
+  .testimonials-header {
+    max-width: var(--container-narrow, 46rem);
+    margin-inline: auto;
+  }
+
+  .gold-gradient {
+    background: var(--gold-grad, linear-gradient(135deg, #f4dca0 0%, #d9b15a 50%, #ecc97f 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .testimonials-lead {
+    margin-top: 1rem;
+    font-size: var(--text-lg, 1.125rem);
+    color: var(--muted-on-dark, #b4b4bb);
+    line-height: 1.6;
+  }
+
+  /* Spotlight Card Principal */
+  .spotlight-card {
+    position: relative;
+    background: var(--char, #141416);
+    border: 1px solid rgba(217, 177, 90, 0.22);
+    border-radius: var(--radius-lg, 24px);
+    padding: clamp(1.5rem, 3.5vw, 3rem);
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 32px -4px rgba(217, 177, 90, 0.12);
+    transition: opacity 0.25s var(--ease-out, ease-out), transform 0.25s var(--ease-out, ease-out);
+  }
+
+  .spotlight-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(35rem circle at 20% 30%, rgba(217, 177, 90, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .spotlight-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .spotlight-grid {
+      grid-template-columns: 320px 1fr;
+    }
+  }
+
+  /* Media Column */
+  .spotlight-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .media-frame {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md, 20px);
+    overflow: hidden;
+    border: 2px solid rgba(217, 177, 90, 0.4);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 24px -2px rgba(217, 177, 90, 0.25);
+  }
+
+  .spotlight-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s var(--ease-out, ease);
+  }
+
+  .verified-pill {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    background: rgba(11, 11, 12, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(217, 177, 90, 0.4);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold, #d9b15a);
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  }
+
+  .pix-icon {
+    color: #32bcad;
+    font-size: 0.8rem;
+  }
+
+  .media-earnings-badge {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    background: rgba(217, 177, 90, 0.08);
+    border: 1px solid rgba(217, 177, 90, 0.28);
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .badge-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted-on-dark, #b4b4bb);
+    font-weight: 600;
+  }
+
+  .badge-val {
+    font-family: var(--font-display, inherit);
+    font-size: 1.45rem;
+    color: var(--gold, #d9b15a);
+    margin-block: 0.15rem;
+  }
+
+  .badge-sub {
+    font-size: 0.8rem;
+    color: #32bcad;
+    font-weight: 600;
+  }
+
+  /* Content Column */
+  .spotlight-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .quote-mark {
+    font-family: var(--font-display, serif);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--gold, #d9b15a);
+    opacity: 0.35;
+    margin-bottom: -1.5rem;
+  }
+
+  .spotlight-quote {
+    font-size: clamp(1.1rem, 1.05rem + 0.4vw, 1.35rem);
+    line-height: 1.6;
+    color: var(--paper, #ffffff);
+    font-weight: 400;
+    margin: 0;
+    font-style: normal;
+  }
+
+  .spotlight-author {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .author-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .author-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold-soft, #f0d493);
+  }
+
+  .author-occupation {
+    font-size: 0.9rem;
+    color: var(--paper, #ffffff);
+    font-weight: 500;
+  }
+
+  .author-location {
+    font-size: 0.82rem;
+    color: var(--muted-on-dark, #b4b4bb);
+  }
+
+  .author-metrics {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .metric-chip {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .m-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold, #d9b15a);
+  }
+
+  .m-lbl {
+    font-size: 0.68rem;
+    color: var(--muted-on-dark, #b4b4bb);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .spotlight-story {
+    font-size: 0.92rem;
+    color: var(--muted-on-dark, #b4b4bb);
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--gold, #d9b15a);
+    border-radius: 0 8px 8px 0;
+    margin: 0;
+  }
+
+  .spotlight-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  .action-btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.8rem 1.8rem;
+    background: var(--gold-grad, linear-gradient(135deg, #f4dca0 0%, #d9b15a 42%, #b07f30 100%));
+    color: var(--black, #0b0b0c);
+    font-weight: 800;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px -4px rgba(217, 177, 90, 0.45);
+    transition: transform 0.2s var(--ease-out, ease), box-shadow 0.2s var(--ease-out, ease);
+  }
+
+  .action-btn-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -4px rgba(217, 177, 90, 0.6);
+  }
+
+  .cta-micro {
+    font-size: 0.8rem;
+    color: var(--muted-on-dark, #b4b4bb);
+  }
+
+  /* Seletor de Promotores (Trilho) */
+  .promoters-selector-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .selector-heading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted-on-dark, #b4b4bb);
+    font-weight: 600;
+  }
+
+  .promoters-track {
+    display: flex;
+    gap: 0.85rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(217, 177, 90, 0.3) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .promoter-tab {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.6rem 1rem;
+    background: var(--char, #141416);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    color: var(--paper, #ffffff);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s var(--ease-out, ease);
+  }
+
+  .promoter-tab:hover {
+    background: var(--char-2, #1d1d20);
+    border-color: rgba(217, 177, 90, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .promoter-tab.is-active {
+    background: rgba(217, 177, 90, 0.12);
+    border-color: var(--gold, #d9b15a);
+    box-shadow: 0 0 20px -4px rgba(217, 177, 90, 0.35);
+  }
+
+  .tab-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(217, 177, 90, 0.3);
+  }
+
+  .tab-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .tab-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--paper, #ffffff);
+    white-space: nowrap;
+  }
+
+  .promoter-tab.is-active .tab-name {
+    color: var(--gold, #d9b15a);
+  }
+
+  .tab-loc {
+    font-size: 0.72rem;
+    color: var(--muted-on-dark, #b4b4bb);
+    white-space: nowrap;
+  }
+
+  .tab-earnings {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #32bcad;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spotlight-card,
+    .spotlight-avatar,
+    .action-btn-pill,
+    .promoter-tab {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

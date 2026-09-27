@@ -2,6 +2,16 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Captura Inteligente de Promotores (PromoterLeadCaptureModal)', () => {
+  test.beforeEach(async ({ page }) => {
+    // Isola os testes de dados reais de telefone no banco de dados
+    await page.route('**/api/v1/collaborators/auth/check', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ found: false, external_id: 'mock-ext-id' }),
+      });
+    });
+  });
   test('1. Abre o modal de captação ao clicar no CTA com campo de WhatsApp', async ({ page }) => {
     await page.goto('/');
 
