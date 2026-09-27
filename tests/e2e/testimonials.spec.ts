@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test.describe('Ala de Testemunhos de Promotores (Testimonials)', () => {
+test.describe('Ala de Testemunhos de Promotores (AnimatedTestimonials)', () => {
   test('1. Seção #depoimentos renderiza corretamente com o promotor inicial', async ({ page }) => {
     await page.goto('/');
 
@@ -10,47 +10,54 @@ test.describe('Ala de Testemunhos de Promotores (Testimonials)', () => {
 
     const title = page.locator('#testimonials-title');
     await expect(title).toBeVisible();
-    await expect(title).toContainText('Quem indica o Supletivo Brasil');
+    await expect(title).toContainText('Quem indica o supletivo');
 
-    const spotlightName = page.locator('#spotlight-name');
-    await expect(spotlightName).toHaveText('Camila Duarte');
+    // Primeiro depoimento (Camila Duarte)
+    const activeName = section.locator('h3');
+    await expect(activeName).toContainText('Camila Duarte');
 
-    const spotlightEarnings = page.locator('#spotlight-earnings');
-    await expect(spotlightEarnings).toContainText('R$ 2.400');
-
-    const avatar = page.locator('#spotlight-img');
+    const avatar = section.locator('img[alt="Foto de Camila Duarte"]');
     await expect(avatar).toBeVisible();
-    await expect(avatar).toHaveAttribute('src', '/images/testimonials/camila.jpg');
   });
 
-  test('2. Troca interativa de promotor atualiza o spotlight dinamicamente', async ({ page }) => {
+  test('2. Troca interativa com botão de próximo avança para o próximo promotor', async ({ page }) => {
     await page.goto('/');
 
-    // Clica no tab do segundo promotor (Júlio)
-    const julioTab = page.locator('.promoter-tab[data-testimonial-idx="1"]');
-    await expect(julioTab).toBeVisible();
-    await julioTab.click();
+    const section = page.locator('#depoimentos');
+    await section.scrollIntoViewIfNeeded();
+    // Aguarda hidratação do componente client:visible do Astro
+    await page.waitForTimeout(600);
 
-    const spotlightName = page.locator('#spotlight-name');
-    await expect(spotlightName).toHaveText('Júlio César Andrade');
+    const nextButton = section.locator('button[aria-label="Próximo depoimento"]');
+    await expect(nextButton).toBeVisible();
 
-    const spotlightEarnings = page.locator('#spotlight-earnings');
-    await expect(spotlightEarnings).toContainText('R$ 3.800');
+    // Clica no botão próximo
+    await nextButton.click();
 
-    const avatar = page.locator('#spotlight-img');
-    await expect(avatar).toHaveAttribute('src', '/images/testimonials/julio.jpg');
+    // Deve avançar para Júlio César Andrade
+    const activeName = section.locator('h3');
+    await expect(activeName).toContainText('Júlio César Andrade', { timeout: 8000 });
+
+    const avatar = section.locator('img[alt="Foto de Júlio César Andrade"]');
+    await expect(avatar).toBeVisible();
   });
 
-  test('3. CTA dentro do depoimento abre o modal de captação de promotores', async ({ page }) => {
+  test('3. Navegação reversa com botão anterior volta ao promotor anterior', async ({ page }) => {
     await page.goto('/');
 
-    const cta = page.locator('#depoimentos a[data-cta="testimonials"]');
-    await expect(cta).toBeVisible();
-    await cta.click();
+    const section = page.locator('#depoimentos');
+    await section.scrollIntoViewIfNeeded();
+    // Aguarda hidratação do componente client:visible do Astro
+    await page.waitForTimeout(600);
 
-    const modal = page.locator('[data-promoter-capture-modal]');
-    await expect(modal).toBeVisible();
-    await expect(modal).toHaveClass(/is-active/);
+    const prevButton = section.locator('button[aria-label="Depoimento anterior"]');
+    await expect(prevButton).toBeVisible();
+
+    // Clica no botão anterior (deve ir para o último do array: Dona Neide Ribeiro)
+    await prevButton.click();
+
+    const activeName = section.locator('h3');
+    await expect(activeName).toContainText('Dona Neide Ribeiro', { timeout: 8000 });
   });
 
   test('4. Acessibilidade da ala de depoimentos (Axe-core WCAG 2A/AA)', async ({ page }) => {
