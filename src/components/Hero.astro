@@ -1,7 +1,7 @@
 ---
 /**
  * Seção 1 — O gancho (ganha-ganha).
- * "Mude vidas." vazado (o propósito) → "Receba." sólido com swoosh (a renda).
+ * "Mude vidas." vazado (o propósito) → "Ganhe também." sólido com swoosh (a renda).
  * Glow + grain + chips + marquee + celular mostrando o ciclo (link → Pix).
  * Tudo CSS; roda sem JS; some em reduced-motion.
  */
@@ -16,20 +16,10 @@ const chips = ['Você muda uma vida', 'E ganha por isso', 'Tudo pelo celular'];
 const valor = brl(COMMISSION_DIRECT);
 ---
 
-<section id="hero" class="hero on-dark grain portal-edge-bottom" aria-labelledby="hero-title" data-section="hero">
+<section id="hero" class="hero on-dark grain" aria-labelledby="hero-title" data-section="hero">
   <div class="hero-decor" aria-hidden="true">
-    <div class="aurora-beam aurora-1"></div>
-    <div class="aurora-beam aurora-2"></div>
     <span class="blob blob-1"></span>
     <span class="blob blob-2"></span>
-    <span class="blob blob-3"></span>
-    <div class="hero-constellation">
-      <span class="star s-1"></span>
-      <span class="star s-2"></span>
-      <span class="star s-3"></span>
-      <span class="star s-4"></span>
-      <span class="star s-5"></span>
-    </div>
     <svg class="hero-diamonds" viewBox="0 0 900 900" fill="none">
       <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="2">
         <path d="M450 50 850 450 450 850 50 450Z"></path>
@@ -154,15 +144,13 @@ const valor = brl(COMMISSION_DIRECT);
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     /* topo respeita notch/Dynamic Island (viewport-fit=cover no Base) */
-    padding-top: max(clamp(7rem, 16vh, 9rem), calc(env(safe-area-inset-top) + 6rem));
+    padding-top: max(clamp(4.5rem, 10vh, 9rem), calc(env(safe-area-inset-top) + 4.5rem));
     padding-bottom: 0;
     background:
-      radial-gradient(48rem 34rem at 12% 6%, rgb(240 212 147 / 0.20), transparent 58%),
-      radial-gradient(42rem 32rem at 88% 20%, rgb(217 177 90 / 0.18), transparent 55%),
-      radial-gradient(56rem 42rem at 72% 98%, rgb(168 123 46 / 0.26), transparent 60%),
-      linear-gradient(168deg, #16161a 0%, #0b0b0c 58%, #050506 100%);
+      radial-gradient(58rem 32rem at 18% 4%, rgb(255 196 0 / 0.1), transparent 62%),
+      linear-gradient(168deg, var(--blue) 0%, var(--blue-deep) 55%, var(--ink) 100%);
     color: var(--paper);
     overflow: clip;
   }
@@ -173,121 +161,26 @@ const valor = brl(COMMISSION_DIRECT);
     pointer-events: none;
   }
 
-  /* Aurora Beams volumétricos */
-  .aurora-beam {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
-    mix-blend-mode: screen;
-    opacity: 0.35;
-  }
-
-  .aurora-1 {
-    width: 60rem;
-    height: 25rem;
-    top: -8rem;
-    left: 20%;
-    background: linear-gradient(135deg, rgba(240, 212, 147, 0.45) 0%, rgba(217, 177, 90, 0.1) 60%, transparent 100%);
-    transform: rotate(-15deg);
-  }
-
-  .aurora-2 {
-    width: 45rem;
-    height: 20rem;
-    bottom: 5rem;
-    right: 5%;
-    background: linear-gradient(135deg, rgba(168, 123, 46, 0.4) 0%, rgba(217, 177, 90, 0.15) 50%, transparent 100%);
-    transform: rotate(25deg);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .aurora-1 {
-      animation: aurora-pulse 14s ease-in-out infinite alternate;
-    }
-    .aurora-2 {
-      animation: aurora-pulse 18s ease-in-out infinite alternate-reverse;
-    }
-  }
-
-  @keyframes aurora-pulse {
-    0% {
-      transform: rotate(-15deg) scale(0.95);
-      opacity: 0.25;
-    }
-    100% {
-      transform: rotate(-12deg) scale(1.1);
-      opacity: 0.45;
-    }
-  }
-
-  /* Constelação de micro-partículas estelares */
-  .hero-constellation {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--yellow);
-    box-shadow: 0 0 8px 1px rgba(240, 212, 147, 0.8);
-    opacity: 0.6;
-  }
-
-  .s-1 { top: 22%; left: 15%; width: 4px; height: 4px; }
-  .s-2 { top: 38%; left: 45%; opacity: 0.4; }
-  .s-3 { top: 65%; left: 25%; width: 3px; height: 3px; }
-  .s-4 { top: 28%; right: 28%; width: 4px; height: 4px; }
-  .s-5 { top: 72%; right: 35%; opacity: 0.5; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .star {
-      animation: star-twinkle 4s ease-in-out infinite alternate;
-    }
-    .s-2 { animation-delay: 1.2s; }
-    .s-3 { animation-delay: 2.1s; }
-    .s-4 { animation-delay: 0.8s; }
-    .s-5 { animation-delay: 2.7s; }
-  }
-
-  @keyframes star-twinkle {
-    0% { opacity: 0.2; transform: scale(0.8); }
-    100% { opacity: 0.85; transform: scale(1.3); }
-  }
-
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(85px);
-    mix-blend-mode: screen; /* ouro se funde no fundo escuro */
+    filter: blur(70px);
   }
 
   .blob-1 {
-    width: 42rem;
-    height: 42rem;
-    left: -13rem;
-    top: -12rem;
-    background: rgb(240 212 147 / 0.26);
+    width: 34rem;
+    height: 34rem;
+    left: -12rem;
+    top: -10rem;
+    background: rgb(255 196 0 / 0.14);
   }
 
   .blob-2 {
-    width: 34rem;
-    height: 34rem;
-    right: -11rem;
-    bottom: -8rem;
-    background: rgb(217 177 90 / 0.4);
-  }
-
-  .blob-3 {
-    width: 30rem;
-    height: 30rem;
-    left: 40%;
-    top: 36%;
-    background: rgb(168 123 46 / 0.34);
+    width: 28rem;
+    height: 28rem;
+    right: -10rem;
+    bottom: -6rem;
+    background: rgb(0 115 77 / 0.35);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -297,10 +190,6 @@ const valor = brl(COMMISSION_DIRECT);
 
     .blob-2 {
       animation: blob-drift 19s ease-in-out infinite alternate-reverse;
-    }
-
-    .blob-3 {
-      animation: blob-drift 23s ease-in-out infinite alternate;
     }
   }
 
@@ -353,6 +242,8 @@ const valor = brl(COMMISSION_DIRECT);
 
   .hero-inner {
     order: 1;
+    position: relative;
+    padding-bottom: clamp(5rem, 11vh, 7rem);
   }
 
   @media (min-width: 960px) {
@@ -373,11 +264,6 @@ const valor = brl(COMMISSION_DIRECT);
     .hero-inner {
       padding-right: min(34vw, 420px);
     }
-  }
-
-  .hero-inner {
-    position: relative;
-    padding-bottom: clamp(5rem, 11vh, 7rem);
   }
 
   .hero-top-row {
@@ -402,23 +288,23 @@ const valor = brl(COMMISSION_DIRECT);
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--yellow);
-    border: 1px solid rgb(217 177 90 / 0.4);
+    border: 1px solid rgb(255 196 0 / 0.4);
     border-radius: 999px;
-    padding: 0.5em 1.1em;
+    padding: 0.45em 1.1em;
     margin-bottom: 0;
-    background: rgb(217 177 90 / 0.06);
+    background: rgb(255 196 0 / 0.06);
   }
 
   .hero-eyebrow .dot {
     width: 0.5em;
     height: 0.5em;
     border-radius: 50%;
-    background: var(--yellow);
+    background: var(--green);
     flex: none;
   }
 
@@ -455,17 +341,8 @@ const valor = brl(COMMISSION_DIRECT);
 
   .w-accent {
     position: relative;
-    color: var(--gold);
-    background: var(--gold-grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-    .w-accent {
-      -webkit-text-fill-color: var(--gold);
-    }
+    color: var(--yellow);
+    display: inline-block;
   }
 
   .swoosh {
@@ -519,11 +396,11 @@ const valor = brl(COMMISSION_DIRECT);
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--paper);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 999px;
     padding: 0.45em 1.1em;
     backdrop-filter: blur(12px);
@@ -534,8 +411,8 @@ const valor = brl(COMMISSION_DIRECT);
 
   .chip:hover {
     transform: translateY(-3px) scale(1.03);
-    border-color: rgba(217, 177, 90, 0.45);
-    box-shadow: 0 12px 28px -6px rgba(217, 177, 90, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 196, 0, 0.45);
+    box-shadow: 0 12px 28px -6px rgba(255, 196, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   }
 
   .chip svg {
@@ -598,42 +475,37 @@ const valor = brl(COMMISSION_DIRECT);
   }
 
   .scroll-cue {
-    order: 3;
-    width: 3rem;
-    height: 3rem;
-    margin: 2.2rem auto 0;
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2.8rem;
+    height: 2.8rem;
     display: grid;
     place-items: center;
     color: var(--paper);
-    border: 1.5px solid rgb(255 255 255 / 0.3);
+    opacity: 0.65;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
     z-index: 3;
   }
 
-  @media (min-width: 960px) {
-    .scroll-cue {
-      position: absolute;
-      left: 50%;
-      bottom: 4.2rem;
-      translate: -50% 0;
-      margin: 0;
-    }
+  .scroll-cue:hover {
+    opacity: 1;
+    border-color: var(--yellow);
+    transform: translateX(-50%) translateY(3px);
+    color: var(--yellow);
   }
 
   .scroll-cue svg {
-    width: 1.15rem;
-    height: 1.15rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .scroll-cue svg {
-      animation: cue-bounce 2s ease-in-out infinite;
-    }
-  }
-
-  @keyframes cue-bounce {
-    50% {
-      transform: translateY(4px);
+  @media (max-width: 959px) {
+    .scroll-cue {
+      display: none;
     }
   }
 
@@ -641,28 +513,27 @@ const valor = brl(COMMISSION_DIRECT);
     position: relative;
     z-index: 3;
     margin-top: auto;
-    order: 4;
   }
 
-  /* Entrada na carga — CSS puro, escalonada por --i */
-  @media (prefers-reduced-motion: no-preference) {
-    .w,
-    .anim-up {
+  /* Entrada sequencial de cima para baixo */
+  .anim-up {
+    animation: hero-fade-up 0.8s var(--ease-out) calc(var(--i) * 0.1s + 0.15s) backwards;
+  }
+
+  @keyframes hero-fade-up {
+    from {
       opacity: 0;
-      transform: translateY(0.55em);
-      animation: hero-in 0.7s var(--ease-out) forwards;
-      animation-delay: calc(var(--i) * 90ms + 120ms);
+      transform: translateY(24px);
     }
-
-    .anim-up {
-      transform: translateY(18px);
-    }
-  }
-
-  @keyframes hero-in {
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-up {
+      animation: none;
     }
   }
 </style>

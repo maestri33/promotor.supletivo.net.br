@@ -99,13 +99,13 @@ import { BRAND, PROGRAM } from '../config';
     position: relative;
     padding: 1rem 1.15rem;
     border-radius: 20px;
-    background: rgba(14, 14, 17, 0.92);
+    background: rgba(11, 18, 32, 0.94);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1.5px solid rgba(217, 177, 90, 0.45);
+    border: 1.5px solid rgba(0, 115, 77, 0.4);
     box-shadow:
       0 18px 40px -12px rgba(0, 0, 0, 0.8),
-      0 0 24px -6px rgba(217, 177, 90, 0.22),
+      0 0 24px -6px rgba(0, 115, 77, 0.22),
       inset 0 1px 0 rgba(255, 255, 255, 0.18);
     color: var(--paper);
     display: flex;
@@ -126,16 +126,16 @@ import { BRAND, PROGRAM } from '../config';
     gap: 0.45rem;
     padding: 0.22rem 0.65rem;
     border-radius: 9999px;
-    background: rgba(217, 177, 90, 0.12);
-    border: 1px solid rgba(217, 177, 90, 0.3);
+    background: rgba(0, 115, 77, 0.15);
+    border: 1px solid rgba(0, 115, 77, 0.35);
   }
 
   .pulse-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--gold, #d9b15a);
-    box-shadow: 0 0 8px var(--gold, #d9b15a);
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
     animation: dotPulse 1.8s infinite ease-in-out;
   }
 
@@ -155,7 +155,7 @@ import { BRAND, PROGRAM } from '../config';
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--gold, #d9b15a);
+    color: var(--green);
   }
 
   .hub-alert-close {
@@ -169,7 +169,7 @@ import { BRAND, PROGRAM } from '../config';
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    color: var(--muted-on-dark, #b4b4bb);
+    color: var(--muted-on-dark, #b9c3db);
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
     flex-shrink: 0;
@@ -191,13 +191,13 @@ import { BRAND, PROGRAM } from '../config';
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: linear-gradient(135deg, var(--gold, #d9b15a), var(--gold-deep, #a87b2e));
-    color: var(--ink, #0b0b0c);
+    background: linear-gradient(135deg, var(--green), #005a3c);
+    color: var(--paper);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(217, 177, 90, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 115, 77, 0.35);
   }
 
   .hub-alert-content {
@@ -214,14 +214,14 @@ import { BRAND, PROGRAM } from '../config';
   }
 
   .hub-highlight {
-    color: var(--gold, #d9b15a);
+    color: var(--yellow);
     font-weight: 800;
   }
 
   .hub-alert-sub {
     margin: 0.15rem 0 0 0;
     font-size: 0.76rem;
-    color: var(--muted-on-dark, #b4b4bb);
+    color: var(--muted-on-dark, #b9c3db);
     line-height: 1.3;
   }
 
@@ -241,14 +241,14 @@ import { BRAND, PROGRAM } from '../config';
     min-height: 48px;
     padding: 0.5rem 1.1rem;
     border-radius: 9999px;
-    background: var(--gold, #d9b15a);
-    color: var(--ink, #0b0b0c);
+    background: var(--yellow);
+    color: var(--ink);
     font-size: 0.82rem;
     font-weight: 800;
     text-decoration: none;
     transition: transform 0.18s var(--ease-out), filter 0.18s var(--ease-out);
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(217, 177, 90, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .hub-alert-cta:hover {

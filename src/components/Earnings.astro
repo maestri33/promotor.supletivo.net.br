@@ -169,10 +169,8 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 <style>
   .earn {
     background:
-      radial-gradient(40rem 30rem at 16% 6%, rgb(240 212 147 / 0.16), transparent 58%),
-      radial-gradient(44rem 34rem at 84% 30%, rgb(217 177 90 / 0.16), transparent 58%),
-      radial-gradient(52rem 40rem at 50% 108%, rgb(168 123 46 / 0.26), transparent 62%),
-      var(--black);
+      radial-gradient(46rem 30rem at 50% 0%, rgb(255 196 0 / 0.12), transparent 65%),
+      var(--ink);
     color: var(--paper);
     text-align: center;
     overflow: clip;
@@ -226,8 +224,8 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   .model:hover {
     transform: translateY(-4px);
-    border-color: rgba(217, 177, 90, 0.4);
-    box-shadow: 0 20px 40px -12px rgba(217, 177, 90, 0.2);
+    border-color: rgba(255, 196, 0, 0.4);
+    box-shadow: 0 20px 40px -12px rgba(255, 196, 0, 0.2);
   }
 
   .model-tag {
@@ -331,9 +329,9 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     align-items: center;
     gap: 0.35rem;
     padding: 0.32em 0.7em;
-    border: 1px solid rgb(217 177 90 / 0.35);
+    border: 1px solid rgb(255 196 0 / 0.35);
     border-radius: 999px;
-    background: rgb(217 177 90 / 0.08);
+    background: rgb(255 196 0 / 0.08);
     color: var(--yellow);
     font-size: 0.7rem;
     font-weight: 700;
@@ -376,7 +374,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     border-radius: 50%;
     background: var(--yellow);
     border: 4px solid var(--ink);
-    box-shadow: 0 4px 12px -2px rgb(217 177 90 / 0.7);
+    box-shadow: 0 4px 12px -2px rgb(255 196 0 / 0.7);
   }
 
   .calc-range::-moz-range-thumb {
@@ -469,7 +467,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     padding: 0.7rem 1rem;
     border-radius: var(--radius);
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(217, 177, 90, 0.25);
+    border: 1px solid rgba(255, 196, 0, 0.25);
     backdrop-filter: blur(8px);
     transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-antigravity);
   }
@@ -477,7 +475,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
   @media (prefers-reduced-motion: no-preference) {
     .calc-tier-card.tier-boost {
       animation: tier-pop 0.6s var(--ease-spring);
-      border-color: rgba(217, 177, 90, 0.6);
+      border-color: rgba(255, 196, 0, 0.6);
     }
   }
 
@@ -511,11 +509,11 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     text-align: center;
     padding: 1.4rem 1.2rem;
     border-radius: var(--radius);
-    background: radial-gradient(circle at 50% 0%, rgba(240, 212, 147, 0.22) 0%, rgba(168, 123, 46, 0.12) 100%), rgba(20, 20, 22, 0.7);
-    border: 1px solid rgba(217, 177, 90, 0.45);
+    background: radial-gradient(circle at 50% 0%, rgba(255, 196, 0, 0.15) 0%, rgba(0, 115, 77, 0.08) 100%), rgba(11, 18, 32, 0.75);
+    border: 1px solid rgba(255, 196, 0, 0.35);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 12px 28px -8px rgba(217, 177, 90, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: transform 0.25s var(--ease-antigravity), box-shadow 0.25s var(--ease-out);
   }
 
@@ -588,10 +586,10 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     gap: 0.25rem;
     margin-left: 0.5rem;
     padding: 0.15em 0.55em;
-    border: 1px solid rgb(217 177 90 / 0.55);
+    border: 1px solid rgb(255 196 0 / 0.55);
     border-radius: 999px;
-    background: rgb(217 177 90 / 0.14);
-    color: var(--gold-soft);
+    background: rgb(255 196 0 / 0.14);
+    color: var(--yellow);
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.06em;

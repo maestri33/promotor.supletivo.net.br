@@ -35,20 +35,22 @@
     min-height: 48px;
     display: grid;
     place-items: center;
-    border: 1px solid rgb(217 177 90 / 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    background: rgb(20 20 22 / 0.85);
+    background: rgba(11, 18, 32, 0.88);
     color: var(--yellow);
     cursor: pointer;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 8px 22px -10px rgb(0 0 0 / 0.55);
     transition:
       transform 0.2s var(--ease-out),
+      border-color 0.2s var(--ease-out),
       background 0.2s var(--ease-out);
   }
 
   .btt:hover {
-    background: rgb(30 30 34 / 0.95);
+    border-color: var(--yellow);
+    background: rgba(11, 18, 32, 0.98);
     transform: translateY(-2px);
   }
 

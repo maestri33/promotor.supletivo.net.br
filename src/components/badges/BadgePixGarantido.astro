@@ -20,16 +20,16 @@ const { size = 80, class: className = '', showText = false } = Astro.props;
     <defs>
       <linearGradient id="pix-cyan-grad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#32BCAD" />
-        <stop offset="100%" stop-color="#008374" />
+        <stop offset="100%" stop-color="#00734d" />
       </linearGradient>
       <linearGradient id="pix-bg-grad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#181C20" />
-        <stop offset="100%" stop-color="#0F1215" />
+        <stop offset="0%" stop-color="#0f172a" />
+        <stop offset="100%" stop-color="#0b1220" />
       </linearGradient>
     </defs>
 
     <!-- Base circular -->
-    <rect x="6" y="6" width="88" height="88" rx="22" fill="url(#pix-bg-grad)" stroke="#32BCAD" stroke-width="2" stroke-opacity="0.4" />
+    <rect x="6" y="6" width="88" height="88" rx="22" fill="url(#pix-bg-grad)" stroke="#32BCAD" stroke-width="2" stroke-opacity="0.5" />
 
     <!-- Símbolo Pix Geométrico Vetorial -->
     <g transform="translate(50, 46) rotate(45) translate(-50, -46)">
@@ -83,11 +83,11 @@ const { size = 80, class: className = '', showText = false } = Astro.props;
   .badge-title {
     font-size: 0.95rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--paper, #ffffff);
     font-family: var(--font-display, sans-serif);
   }
   .badge-sub {
     font-size: 0.78rem;
-    color: var(--muted-on-dark, #b4b4bb);
+    color: var(--muted-on-dark, #b9c3db);
   }
 </style>

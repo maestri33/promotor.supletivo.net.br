@@ -1,11 +1,19 @@
 ---
+/**
+ * Header sticky institucional com dark glassmorphism e filete de marca Supletivo Brasil.
+ * Acompanha a rolagem da página proporcionando navegação rápida e acesso imediato ao CTA.
+ */
 import Logo from './Logo.astro';
+import { CTA_LABEL } from '../config';
 ---
 
-<header class="site-header">
+<header class="site-header" id="header">
   <div class="header-brand-rule" aria-hidden="true"></div>
   <div class="container site-header-inner">
-    <Logo variant="light" />
+    <div class="header-logo-wrap">
+      <Logo variant="light" />
+    </div>
+
     <nav class="site-nav" aria-label="Seções da página">
       <a href="#como-funciona">Como funciona</a>
       <a href="#ganhos">Ganhos</a>
@@ -13,20 +21,33 @@ import Logo from './Logo.astro';
       <a href="#caminho">Como entrar</a>
       <a href="#faq">Dúvidas</a>
     </nav>
+
+    <div class="header-action">
+      <a href="#caminho" class="header-cta" data-cta="header">
+        <span>{CTA_LABEL}</span>
+        <span class="header-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </header>
 
 <style>
   .site-header {
-    position: absolute;
-    inset-inline: 0;
+    position: sticky;
     top: 0;
-    z-index: 10;
-    padding-block: 1.4rem;
-    padding-top: max(1.4rem, env(safe-area-inset-top));
+    inset-inline: 0;
+    z-index: 50;
+    background-color: rgba(11, 18, 32, 0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    padding-block: 0.75rem;
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+    transition: background-color 0.25s ease, border-color 0.25s ease;
   }
 
-  /* Filete tricolor institucional de marca Supletivo Brasil */
+  /* Filete gradiente de assinatura de marca na borda inferior */
   .header-brand-rule {
     position: absolute;
     bottom: 0;
@@ -35,58 +56,127 @@ import Logo from './Logo.astro';
     height: 2px;
     background-image: linear-gradient(
       90deg,
-      var(--green) 0 34%,
-      var(--yellow) 34% 67%,
-      var(--blue) 67% 100%
+      var(--green) 0%,
+      var(--yellow) 50%,
+      var(--blue) 100%
     );
-    box-shadow: 0 1px 8px -2px var(--gold);
+    box-shadow: 0 1px 8px -2px var(--green);
     pointer-events: none;
     z-index: 2;
   }
 
   .site-header-inner {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.2rem 1rem;
+    gap: 1rem;
   }
 
-  /* nav presente em todas as larguras — mobile é o canal principal */
+  .header-logo-wrap {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
   .site-nav {
     display: flex;
-    gap: 0.1rem;
-    margin-left: auto;
+    align-items: center;
+    gap: 0.2rem;
+    margin-inline: auto;
   }
 
   .site-nav a {
-    color: var(--paper);
-    font-weight: 700;
-    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    font-size: 0.88rem;
     text-decoration: none;
-    padding: 0.6rem 0.9rem;
+    padding: 0.5rem 0.85rem;
     min-height: 48px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     border-radius: 999px;
-    transition: background-color 0.2s var(--ease-out);
-  }
-
-  /* compacta no celular: cabe ao lado do logo ou quebra alinhada à direita */
-  @media (max-width: 759px) {
-    .site-nav a {
-      font-size: 0.78rem;
-      padding: 0.45rem 0.5rem;
-      min-height: 48px;
-    }
+    transition: background-color 0.2s var(--ease-out), color 0.2s ease;
+    white-space: nowrap;
   }
 
   .site-nav a:hover {
-    background: rgb(255 255 255 / 0.1);
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .site-nav a:focus-visible {
-    outline: 3px solid var(--yellow);
+    outline: 2px solid var(--yellow);
     outline-offset: 2px;
+  }
+
+  .header-action {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.5rem 1.15rem;
+    min-height: 48px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.18s var(--ease-out), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .header-cta:hover {
+    background: rgba(255, 196, 0, 0.15);
+    border-color: var(--yellow);
+    color: var(--yellow);
+    transform: translateY(-1px);
+  }
+
+  .header-arrow {
+    transition: transform 0.18s var(--ease-out);
+  }
+
+  .header-cta:hover .header-arrow {
+    transform: translateX(2px);
+  }
+
+  /* Em telas menores que 960px, esconde o botão secundário do header para não competir com o sticky CTA */
+  @media (max-width: 959px) {
+    .header-action {
+      display: none;
+    }
+    .site-nav {
+      margin-left: auto;
+      margin-inline: 0;
+    }
+  }
+
+  /* Em mobile pequeno, links com rolagem horizontal suave mantendo ergonomia de toque */
+  @media (max-width: 640px) {
+    .site-header {
+      padding-block: 0.4rem;
+    }
+    .site-nav {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-right: 0.5rem;
+      gap: 0.1rem;
+    }
+    .site-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .site-nav a {
+      font-size: 0.82rem;
+      padding: 0.4rem 0.65rem;
+    }
   }
 </style>

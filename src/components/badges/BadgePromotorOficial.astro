@@ -18,47 +18,46 @@ const { size = 96, class: className = '', showText = false } = Astro.props;
     aria-label="Selo de Promotor Autorizado Supletivo Brasil"
   >
     <defs>
-      <linearGradient id="gold-ring-grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#FCE5B0" />
-        <stop offset="35%" stop-color="#D9B15A" />
-        <stop offset="70%" stop-color="#A87B2E" />
-        <stop offset="100%" stop-color="#FCE5B0" />
+      <linearGradient id="promotor-ring-grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#ffc400" />
+        <stop offset="50%" stop-color="#00734d" />
+        <stop offset="100%" stop-color="#ffc400" />
       </linearGradient>
-      <linearGradient id="gold-inner-grad" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#1E1E24" />
-        <stop offset="100%" stop-color="#0E0E12" />
+      <linearGradient id="promotor-inner-grad" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#0f172a" />
+        <stop offset="100%" stop-color="#0b1220" />
       </linearGradient>
       <filter id="badge-glow" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#D9B15A" flood-opacity="0.35" />
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00734d" flood-opacity="0.35" />
       </filter>
     </defs>
 
     <!-- Brilho de fundo -->
-    <circle cx="60" cy="60" r="56" fill="url(#gold-inner-grad)" stroke="url(#gold-ring-grad)" stroke-width="2.5" filter="url(#badge-glow)" />
+    <circle cx="60" cy="60" r="56" fill="url(#promotor-inner-grad)" stroke="url(#promotor-ring-grad)" stroke-width="2.5" filter="url(#badge-glow)" />
 
     <!-- Anel pontilhado de precisão -->
-    <circle cx="60" cy="60" r="48" stroke="#D9B15A" stroke-width="1.2" stroke-dasharray="3 4" stroke-opacity="0.6" />
-    <circle cx="60" cy="60" r="42" stroke="url(#gold-ring-grad)" stroke-width="1" stroke-opacity="0.4" />
+    <circle cx="60" cy="60" r="48" stroke="#ffc400" stroke-width="1.2" stroke-dasharray="3 4" stroke-opacity="0.75" />
+    <circle cx="60" cy="60" r="42" stroke="url(#promotor-ring-grad)" stroke-width="1" stroke-opacity="0.5" />
 
     <!-- Estrelas de autenticação nos cantos -->
-    <path d="M60 20 L61.5 24.5 L66 24.5 L62.5 27.2 L63.8 31.5 L60 28.8 L56.2 31.5 L57.5 27.2 L54 24.5 L58.5 24.5 Z" fill="#D9B15A" />
-    <circle cx="28" cy="60" r="1.8" fill="#D9B15A" />
-    <circle cx="92" cy="60" r="1.8" fill="#D9B15A" />
-    <circle cx="60" cy="98" r="1.8" fill="#D9B15A" />
+    <path d="M60 20 L61.5 24.5 L66 24.5 L62.5 27.2 L63.8 31.5 L60 28.8 L56.2 31.5 L57.5 27.2 L54 24.5 L58.5 24.5 Z" fill="#ffc400" />
+    <circle cx="28" cy="60" r="1.8" fill="#ffc400" />
+    <circle cx="92" cy="60" r="1.8" fill="#ffc400" />
+    <circle cx="60" cy="98" r="1.8" fill="#ffc400" />
 
     <!-- Escudo central -->
     <path
       d="M60 36 C72 36 78 41 78 54 C78 70 60 82 60 82 C60 82 42 70 42 54 C42 41 48 36 60 36 Z"
-      fill="url(#gold-inner-grad)"
-      stroke="url(#gold-ring-grad)"
+      fill="url(#promotor-inner-grad)"
+      stroke="url(#promotor-ring-grad)"
       stroke-width="2"
       stroke-linejoin="round"
     />
 
-    <!-- Checkmark dourado metálico no escudo -->
+    <!-- Checkmark no escudo -->
     <path
       d="M51 56 L57 62 L69 49"
-      stroke="url(#gold-ring-grad)"
+      stroke="#ffc400"
       stroke-width="3.6"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -98,17 +97,17 @@ const { size = 96, class: className = '', showText = false } = Astro.props;
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: var(--gold, #d9b15a);
+    color: var(--yellow, #ffc400);
     text-transform: uppercase;
   }
   .badge-title {
     font-size: 0.95rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--paper, #ffffff);
     font-family: var(--font-display, sans-serif);
   }
   .badge-sub {
     font-size: 0.78rem;
-    color: var(--muted-on-dark, #b4b4bb);
+    color: var(--muted-on-dark, #b9c3db);
   }
 </style>

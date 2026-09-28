@@ -124,7 +124,7 @@ for (const item of faq) counts[item.cat]++;
     font-size: clamp(10rem, 19vw, 17rem);
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 2px rgb(168 123 46 / 0.13);
+    -webkit-text-stroke: 2px rgb(0 115 77 / 0.13);
     pointer-events: none;
     user-select: none;
   }
@@ -224,7 +224,7 @@ for (const item of faq) counts[item.cat]++;
   }
 
   .faq-chip:hover {
-    border-color: var(--gold-deep);
+    border-color: var(--blue);
   }
 
   .faq-chip.is-active {
@@ -234,7 +234,7 @@ for (const item of faq) counts[item.cat]++;
   }
 
   .faq-chip:focus-visible {
-    outline: 3px solid var(--gold-deep);
+    outline: 3px solid var(--blue);
     outline-offset: 2px;
   }
 
@@ -245,15 +245,15 @@ for (const item of faq) counts[item.cat]++;
     height: 1.4em;
     padding: 0 0.4em;
     border-radius: 999px;
-    background: rgb(168 123 46 / 0.12);
-    color: var(--gold-deep);
+    background: rgb(0 115 77 / 0.12);
+    color: var(--green);
     font-size: 0.74rem;
     font-weight: 700;
   }
 
   .faq-chip.is-active .faq-chip-n {
-    background: rgb(217 177 90 / 0.22);
-    color: var(--gold-soft);
+    background: rgb(255 196 0 / 0.25);
+    color: var(--yellow);
   }
 
   /* filtro: esconde os que não batem com a categoria ativa */
@@ -286,7 +286,7 @@ for (const item of faq) counts[item.cat]++;
   .faq-empty-reset {
     border: 0;
     background: transparent;
-    color: var(--gold-deep);
+    color: var(--green);
     font: inherit;
     font-weight: 700;
     text-decoration: underline;
@@ -325,7 +325,7 @@ for (const item of faq) counts[item.cat]++;
   }
 
   summary:hover {
-    background-color: var(--line-light);
+    background-color: color-mix(in srgb, var(--green) 4%, var(--paper-soft));
   }
 
   summary::-webkit-details-marker {
