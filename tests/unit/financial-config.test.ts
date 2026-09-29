@@ -6,6 +6,7 @@ import {
   BONUS_REPEATS,
   bonusBlocks,
   weeklyEarnings,
+  calcEarnings,
   brl,
 } from '../../src/config';
 
@@ -14,6 +15,7 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
     expect(COMMISSION_DIRECT).toBe(100);
     expect(BONUS_FLAT).toBe(500);
     expect(BONUS_THRESHOLD).toBe(5);
+    expect(BONUS_REPEATS).toBe(true);
   });
 
   describe('bonusBlocks()', () => {
@@ -25,15 +27,10 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
 
     it('retorna a quantidade correta de blocos de bônus no limiar e acima', () => {
       expect(bonusBlocks(5)).toBe(1);
-      if (BONUS_REPEATS) {
-        expect(bonusBlocks(9)).toBe(1);
-        expect(bonusBlocks(10)).toBe(2);
-        expect(bonusBlocks(15)).toBe(3);
-        expect(bonusBlocks(20)).toBe(4);
-      } else {
-        expect(bonusBlocks(10)).toBe(1);
-        expect(bonusBlocks(20)).toBe(1);
-      }
+      expect(bonusBlocks(9)).toBe(1);
+      expect(bonusBlocks(10)).toBe(2);
+      expect(bonusBlocks(15)).toBe(3);
+      expect(bonusBlocks(20)).toBe(4);
     });
 
     it('trata entradas negativas de forma segura', () => {
@@ -41,14 +38,14 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
     });
   });
 
-  describe('weeklyEarnings()', () => {
+  describe('weeklyEarnings() & calcEarnings()', () => {
     it('calcula corretamente 0 indicações', () => {
       const res = weeklyEarnings(0);
       expect(res).toEqual({ direct: 0, bonus: 0, total: 0 });
     });
 
-    it('calcula corretamente 1 indicação paga (R$ 100 direto, 0 bônus)', () => {
-      const res = weeklyEarnings(1);
+    it('calcula corretamente calcEarnings(1) (R$ 100 direto, 0 bônus, total 100)', () => {
+      const res = calcEarnings(1);
       expect(res.direct).toBe(100);
       expect(res.bonus).toBe(0);
       expect(res.total).toBe(100);
@@ -61,23 +58,25 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
       expect(res.total).toBe(400);
     });
 
-    it('calcula 5 indicações pagas (R$ 500 direto + R$ 500 bônus = R$ 1.000)', () => {
-      const res = weeklyEarnings(5);
+    it('calcula calcEarnings(5) (R$ 500 direto + R$ 500 bônus = R$ 1.000)', () => {
+      const res = calcEarnings(5);
       expect(res.direct).toBe(500);
       expect(res.bonus).toBe(500);
       expect(res.total).toBe(1000);
     });
 
-    it('calcula 10 indicações pagas com bônus acumulativo ou único', () => {
-      const res = weeklyEarnings(10);
+    it('calcula calcEarnings(10) com bônus acumulativo (R$ 1.000 direto + R$ 1.000 bônus = R$ 2.000)', () => {
+      const res = calcEarnings(10);
       expect(res.direct).toBe(1000);
-      if (BONUS_REPEATS) {
-        expect(res.bonus).toBe(1000);
-        expect(res.total).toBe(2000);
-      } else {
-        expect(res.bonus).toBe(500);
-        expect(res.total).toBe(1500);
-      }
+      expect(res.bonus).toBe(1000);
+      expect(res.total).toBe(2000);
+    });
+
+    it('calcula calcEarnings(20) com bônus acumulativo (R$ 2.000 direto + R$ 2.000 bônus = R$ 4.000)', () => {
+      const res = calcEarnings(20);
+      expect(res.direct).toBe(2000);
+      expect(res.bonus).toBe(2000);
+      expect(res.total).toBe(4000);
     });
 
     it('trata números fracionários arredondando para baixo (indicações são inteiras)', () => {

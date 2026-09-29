@@ -46,7 +46,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: 'Preciso acompanhar o aluno depois que ele se matricula?',
-    a: 'Não. Sua parte termina quando a pessoa paga a matrícula. O acompanhamento do estudo é com a equipe do polo, não com você.',
+    a: 'Não. Sua parte termina quando a pessoa paga a matrícula. O acompanhamento pedagógico do estudo é feito pela instituição de ensino parceira no ambiente virtual, não por você.',
     cat: 'trabalho',
   },
   {

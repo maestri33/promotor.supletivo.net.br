@@ -600,6 +600,9 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     color: var(--yellow);
     text-decoration: underline;
     font-weight: 700;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
     transition: color 0.15s;
   }
 
@@ -723,7 +726,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       const polo = poloValue(attr);
       const sessionPayload = JSON.stringify({
         ...data,
-        role: 'promoter',
+        role: 'promotor',
         hub: polo || undefined,
         ref: polo || undefined,
         ts: Date.now(),
@@ -767,12 +770,12 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     }
 
     // Modal Visibility Controls
-    function openModal() {
+    function openModal(triggerSource = 'cta') {
       clearTimers();
-      modal.removeAttribute('hidden');
-      modal.removeAttribute('inert');
-      modal.setAttribute('aria-hidden', 'false');
-      modal.classList.add('is-active');
+      modal?.removeAttribute('hidden');
+      modal?.removeAttribute('inert');
+      modal?.setAttribute('aria-hidden', 'false');
+      modal?.classList.add('is-active');
       document.body.style.overflow = 'hidden';
 
       // Reset to Step 1
@@ -788,15 +791,15 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       }
 
       setTimeout(() => { inputPhone?.focus(); }, 60);
-      track('promoter_modal_opened', { timestamp: Date.now() });
+      track('promoter_modal_opened', { source: triggerSource, timestamp: Date.now() });
     }
 
     function closeModal() {
       clearTimers();
-      modal.classList.remove('is-active');
-      modal.setAttribute('aria-hidden', 'true');
-      modal.setAttribute('hidden', '');
-      modal.setAttribute('inert', '');
+      modal?.classList.remove('is-active');
+      modal?.setAttribute('aria-hidden', 'true');
+      modal?.setAttribute('hidden', '');
+      modal?.setAttribute('inert', '');
       document.body.style.overflow = '';
       track('promoter_modal_closed', { timestamp: Date.now() });
     }
@@ -806,10 +809,10 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     });
 
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('is-active')) closeModal();
+      if (e.key === 'Escape' && modal?.classList.contains('is-active')) closeModal();
     });
 
-    (window as unknown as { openPromoterModal?: () => void }).openPromoterModal = openModal;
+    (window as unknown as { openPromoterModal?: (triggerSource?: string) => void }).openPromoterModal = openModal;
 
     // ── GESTÃO DA ETAPA 1: WHATSAPP (SUBMISSÃO IMEDIATA NO 11º DÍGITO) ────────
     async function checkAndSubmitPhone(digits: string) {
@@ -831,7 +834,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
         if (speech) {
           speech.textContent = 'Que bom ter você de volta! Localizamos seu cadastro de promotor e enviamos seu código no WhatsApp. Redirecionando...';
         }
-        saveSession({ phone: digits });
+        saveSession({ phone: digits, externalId: data.external_id });
         track('promoter_phone_existing', { phone: digits });
         redirectToOtp({ id: data.external_id, tel: digits }, 500);
         return;
@@ -1151,6 +1154,9 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
 
       emailWrapper?.classList.remove('loading');
       emailWrapper?.classList.add('valid');
+      if (data?.external_id) {
+        saveSession({ phone: phoneDigits, cpf: cpfDigits, email: emailValue, externalId: data.external_id });
+      }
 
       redirectToOtp({
         id: data?.external_id,

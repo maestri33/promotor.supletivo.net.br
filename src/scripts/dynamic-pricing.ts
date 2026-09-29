@@ -35,12 +35,17 @@ export async function initPromoterDynamicPricing(): Promise<void> {
 
     const data = (await res.json()) as PromoterPricingData;
 
-    // 1. Preço do curso divulgado pelo promotor
-    const cardInstallment = data.promo_card?.installment
+    // 1. Preço do curso divulgado pelo promotor (ignora valores de teste de centavos/R$ 1 do sandbox)
+    const rawCardInstallment = data.promo_card?.installment
       ? Number(data.promo_card.installment)
       : (data.card?.installment ? Number(data.card.installment) : 99);
+    const rawPixPrice = data.promo_pix ? Number(data.promo_pix) : (data.pix ? Number(data.pix) : 999);
+    const isCommercialCoursePrice =
+      Number.isFinite(rawCardInstallment) && rawCardInstallment >= 10 && Number.isFinite(rawPixPrice) && rawPixPrice >= 100;
+
+    const cardInstallment = isCommercialCoursePrice ? rawCardInstallment : 99;
     const cardInstallments = data.promo_card?.installments || data.card?.installments || 12;
-    const pixPrice = data.promo_pix ? Number(data.promo_pix) : (data.pix ? Number(data.pix) : 999);
+    const pixPrice = isCommercialCoursePrice ? rawPixPrice : 999;
 
     const cardFormatted = `${cardInstallments}x de ${formatBrl(cardInstallment)}`;
     const pixFormatted = `${formatBrl(pixPrice)} no Pix`;
@@ -55,14 +60,14 @@ export async function initPromoterDynamicPricing(): Promise<void> {
       el.textContent = cardFormatted;
     });
 
-    // 2. Comissões e Bônus
+    // 2. Comissões e Bônus (apenas valores comerciais >= R$ 50 / R$ 100 / lote >= 5)
     let newDirect: number | undefined;
     let newBonus: number | undefined;
     let newThreshold: number | undefined;
 
     if (data.commission_direct) {
       const commDirectNum = Number(data.commission_direct);
-      if (Number.isFinite(commDirectNum) && commDirectNum > 0) {
+      if (Number.isFinite(commDirectNum) && commDirectNum >= 50) {
         newDirect = commDirectNum;
         const commDirectStr = formatBrl(commDirectNum);
 
@@ -86,7 +91,7 @@ export async function initPromoterDynamicPricing(): Promise<void> {
 
     if (data.commission_bonus_flat) {
       const bonusFlatNum = Number(data.commission_bonus_flat);
-      if (Number.isFinite(bonusFlatNum) && bonusFlatNum > 0) {
+      if (Number.isFinite(bonusFlatNum) && bonusFlatNum >= 100) {
         newBonus = bonusFlatNum;
         const bonusFlatStr = formatBrl(bonusFlatNum);
         document.querySelectorAll<HTMLElement>('[data-promoter-bonus-flat]').forEach((el) => {
@@ -97,7 +102,7 @@ export async function initPromoterDynamicPricing(): Promise<void> {
 
     if (data.commission_bonus_threshold) {
       const threshold = Number(data.commission_bonus_threshold);
-      if (Number.isFinite(threshold) && threshold > 0) {
+      if (Number.isFinite(threshold) && threshold >= 5) {
         newThreshold = threshold;
         document.querySelectorAll<HTMLElement>('[data-promoter-bonus-rule]').forEach((el) => {
           el.textContent = `a cada ${threshold} pagas na semana`;
@@ -105,16 +110,18 @@ export async function initPromoterDynamicPricing(): Promise<void> {
       }
     }
 
-    // Dispara evento para sincronizar calculadora interativa
-    window.dispatchEvent(
-      new CustomEvent('pricing:update', {
-        detail: {
-          commissionDirect: newDirect,
-          bonusFlat: newBonus,
-          bonusThreshold: newThreshold,
-        },
-      })
-    );
+    // Dispara evento para sincronizar calculadora interativa se houver atualização comercial
+    if (newDirect !== undefined || newBonus !== undefined || newThreshold !== undefined) {
+      window.dispatchEvent(
+        new CustomEvent('pricing:update', {
+          detail: {
+            commissionDirect: newDirect,
+            bonusFlat: newBonus,
+            bonusThreshold: newThreshold,
+          },
+        })
+      );
+    }
   } catch {
     // API offline/dev: mantém valores de SSR sem travar
   }

@@ -67,7 +67,7 @@ export const BONUS_THRESHOLD = num(metaEnv.PUBLIC_BONUS_THRESHOLD, 5);
  *  - false → degrau único: paga 1x ao atingir o threshold
  * Nota: Conferir contra finance/config.py antes de produção (promessa de dinheiro).
  */
-export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'false') !== 'false';
+export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'true') !== 'false';
 
 /**
  * Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour
@@ -137,6 +137,8 @@ export function weeklyEarnings(paid: number): {
   const bonus = bonusBlocks(safe) * BONUS_FLAT;
   return { direct, bonus, total: direct + bonus };
 }
+
+export const calcEarnings = weeklyEarnings;
 
 /** Formata número como moeda BRL sem centavos (R$ 1.234) */
 export function brl(value: number): string {
