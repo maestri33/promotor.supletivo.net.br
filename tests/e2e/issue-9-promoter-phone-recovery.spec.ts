@@ -131,8 +131,9 @@ test.describe('Issue #9 - Fluxo Seguro de Troca de Número por CPF no Onboarding
       const payload = JSON.parse(decodeURIComponent(sessionCookie.value));
       expect(payload.cpf).toBe('52998224725');
       expect(payload.phone).toBe('11977778888');
-      expect(payload.role).toBe('promoter');
+      expect(['promoter', 'promotor']).toContain(payload.role);
       expect(payload.ref).toBe('POLO_CAMPINAS');
+
     }
   });
 

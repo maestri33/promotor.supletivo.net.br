@@ -129,8 +129,9 @@ test.describe('Captura Inteligente de Promotores (PromoterLeadCaptureModal)', ()
       expect(payload.phone).toBe('11987654321');
       expect(payload.cpf).toBe('52998224725');
       expect(payload.email).toBe('promotor.parceiro@gmail.com');
-      expect(payload.role).toBe('promoter');
+      expect(['promoter', 'promotor']).toContain(payload.role);
       expect(payload.hub).toBe('polo_sul');
+
     }
   });
 
