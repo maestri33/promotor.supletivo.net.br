@@ -67,7 +67,7 @@ export const BONUS_THRESHOLD = num(metaEnv.PUBLIC_BONUS_THRESHOLD, 5);
  *  - false → degrau único: paga 1x ao atingir o threshold
  * Nota: Conferir contra finance/config.py antes de produção (promessa de dinheiro).
  */
-export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'true') !== 'false';
+export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'false') === 'true';
 
 /**
  * Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour

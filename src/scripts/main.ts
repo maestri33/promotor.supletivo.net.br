@@ -164,9 +164,9 @@ if (calcRange) {
   };
 
   const getTier = (n: number) => {
-    if (n >= 20) return { icon: '💎', title: 'Nível Diamante · Embaixador Master', desc: 'Escala máxima com bônus de volume acumulado' };
-    if (n >= 10) return { icon: '🥇', title: 'Nível Ouro · Promotor Elite', desc: 'Bônus dobrado e alta escala semanal' };
-    if (n >= 5) return { icon: '🥈', title: 'Nível Prata · Promotor Pro', desc: 'Bônus semanal de volume desbloqueado' };
+    if (n >= 20) return { icon: '💎', title: 'Nível Diamante · Embaixador Master', desc: 'Escala máxima com comissão de 20 matrículas + meta da semana' };
+    if (n >= 10) return { icon: '🥇', title: 'Nível Ouro · Promotor Elite', desc: 'Alta escala semanal + meta da semana' };
+    if (n >= 5) return { icon: '🥈', title: 'Nível Prata · Promotor Pro', desc: 'Meta semanal de volume atingida (+ R$ 500)' };
     return { icon: '🥉', title: 'Nível Bronze · Promotor Iniciante', desc: 'Comissão direta por cada matrícula paga' };
   };
 

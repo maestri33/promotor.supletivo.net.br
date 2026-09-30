@@ -15,7 +15,7 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
     expect(COMMISSION_DIRECT).toBe(100);
     expect(BONUS_FLAT).toBe(500);
     expect(BONUS_THRESHOLD).toBe(5);
-    expect(BONUS_REPEATS).toBe(true);
+    expect(BONUS_REPEATS).toBe(false);
   });
 
   describe('bonusBlocks()', () => {
@@ -25,12 +25,12 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
       expect(bonusBlocks(4)).toBe(0);
     });
 
-    it('retorna a quantidade correta de blocos de bônus no limiar e acima', () => {
+    it('retorna 1 único bloco de bônus no limiar e acima (não repete por semana)', () => {
       expect(bonusBlocks(5)).toBe(1);
       expect(bonusBlocks(9)).toBe(1);
-      expect(bonusBlocks(10)).toBe(2);
-      expect(bonusBlocks(15)).toBe(3);
-      expect(bonusBlocks(20)).toBe(4);
+      expect(bonusBlocks(10)).toBe(1);
+      expect(bonusBlocks(15)).toBe(1);
+      expect(bonusBlocks(20)).toBe(1);
     });
 
     it('trata entradas negativas de forma segura', () => {
@@ -65,18 +65,18 @@ describe('Configurações Financeiras e Escada de Comissões', () => {
       expect(res.total).toBe(1000);
     });
 
-    it('calcula calcEarnings(10) com bônus acumulativo (R$ 1.000 direto + R$ 1.000 bônus = R$ 2.000)', () => {
+    it('calcula calcEarnings(10) com meta única semanal (R$ 1.000 direto + R$ 500 bônus = R$ 1.500)', () => {
       const res = calcEarnings(10);
       expect(res.direct).toBe(1000);
-      expect(res.bonus).toBe(1000);
-      expect(res.total).toBe(2000);
+      expect(res.bonus).toBe(500);
+      expect(res.total).toBe(1500);
     });
 
-    it('calcula calcEarnings(20) com bônus acumulativo (R$ 2.000 direto + R$ 2.000 bônus = R$ 4.000)', () => {
+    it('calcula calcEarnings(20) com 20 matrículas + 1 meta (R$ 2.000 direto + R$ 500 bônus = R$ 2.500)', () => {
       const res = calcEarnings(20);
       expect(res.direct).toBe(2000);
-      expect(res.bonus).toBe(2000);
-      expect(res.total).toBe(4000);
+      expect(res.bonus).toBe(500);
+      expect(res.total).toBe(2500);
     });
 
     it('trata números fracionários arredondando para baixo (indicações são inteiras)', () => {

@@ -105,7 +105,7 @@ export async function initPromoterDynamicPricing(): Promise<void> {
       if (Number.isFinite(threshold) && threshold >= 5) {
         newThreshold = threshold;
         document.querySelectorAll<HTMLElement>('[data-promoter-bonus-rule]').forEach((el) => {
-          el.textContent = `a cada ${threshold} pagas na semana`;
+          el.textContent = `ao bater ${threshold} pagas na semana (1x)`;
         });
       }
     }
