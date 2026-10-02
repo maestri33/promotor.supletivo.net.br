@@ -63,11 +63,10 @@ export const BONUS_FLAT = num(metaEnv.PUBLIC_BONUS_FLAT, 500);
 export const BONUS_THRESHOLD = num(metaEnv.PUBLIC_BONUS_THRESHOLD, 5);
 /**
  * Bônus repete a cada bloco?
- *  - true  → a cada 5 pagas, +R$ 500 (escada: +500, +1000, ...)
- *  - false → degrau único: paga 1x ao atingir o threshold
- * Nota: Conferir contra finance/config.py antes de produção (promessa de dinheiro).
+ *  - false → meta única semanal: paga 1x ao atingir o threshold (não cumulativo por blocos adicionais).
+ * Regra canônica de negócio: se fizer 20 matrículas, recebe pelas 20 matrículas + 1 único bônus de meta.
  */
-export const BONUS_REPEATS = (metaEnv.PUBLIC_BONUS_REPEATS ?? 'false') === 'true';
+export const BONUS_REPEATS = false;
 
 /**
  * Fechamento semanal (pagamento por Pix) — espelha closing_weekday/closing_hour
@@ -140,11 +139,13 @@ export function weeklyEarnings(paid: number): {
 
 export const calcEarnings = weeklyEarnings;
 
-/** Formata número como moeda BRL sem centavos (R$ 1.234) */
+/** Formata número como moeda BRL com centavos se houver (ex: R$ 100, R$ 1,34) */
 export function brl(value: number): string {
+  const hasCents = Math.round(value * 100) % 100 !== 0;
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-    maximumFractionDigits: 0,
+    minimumFractionDigits: hasCents ? 2 : 0,
+    maximumFractionDigits: 2,
   }).format(value);
 }

@@ -13,61 +13,96 @@ export interface PromoterPricingData {
     installment: string;
     total: string;
   };
-  commission_direct?: string;
-  commission_bonus_flat?: string;
-  commission_bonus_threshold?: number;
+  has_discount?: boolean;
+  promoter_name?: string | null;
+  anchor_full?: string | null;
+  commission_direct?: string | number;
+  commission_bonus_flat?: string | number;
+  commission_bonus_threshold?: number | string;
 }
 
 function formatBrl(value: number): string {
+  const hasCents = Math.round(value * 100) % 100 !== 0;
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-    maximumFractionDigits: 0,
+    minimumFractionDigits: hasCents ? 2 : 0,
+    maximumFractionDigits: 2,
   }).format(value);
+}
+
+function formatNumber(value: number): string {
+  const hasCents = Math.round(value * 100) % 100 !== 0;
+  return value.toLocaleString('pt-BR', {
+    minimumFractionDigits: hasCents ? 2 : 0,
+    maximumFractionDigits: 2,
+  });
 }
 
 export async function initPromoterDynamicPricing(): Promise<void> {
   try {
-    const res = await fetch(`${BACKEND_URL}/api/v1/clients/pricing`, {
-      signal: AbortSignal.timeout(3000),
-    });
-    if (!res.ok) return;
+    // 1. Resiliência idêntica à landing de captação supletivo.net.br:
+    // Tenta a borda rápida (db-edge.v7m.live), com fallback para BACKEND_URL e backend.supletivo.net.br
+    const endpoints = Array.from(
+      new Set([
+        'https://db-edge.v7m.live/api/v1/clients/pricing',
+        `${BACKEND_URL}/api/v1/clients/pricing`,
+        'https://backend.supletivo.net.br/api/v1/clients/pricing',
+      ])
+    );
 
-    const data = (await res.json()) as PromoterPricingData;
+    let data: PromoterPricingData | null = null;
 
-    // 1. Preço do curso divulgado pelo promotor (ignora valores de teste de centavos/R$ 1 do sandbox)
-    const rawCardInstallment = data.promo_card?.installment
-      ? Number(data.promo_card.installment)
-      : (data.card?.installment ? Number(data.card.installment) : 99);
-    const rawPixPrice = data.promo_pix ? Number(data.promo_pix) : (data.pix ? Number(data.pix) : 999);
-    const isCommercialCoursePrice =
-      Number.isFinite(rawCardInstallment) && rawCardInstallment >= 10 && Number.isFinite(rawPixPrice) && rawPixPrice >= 100;
+    for (let i = 0; i < endpoints.length; i++) {
+      try {
+        const timeoutMs = i === 0 ? 1500 : 2500;
+        const res = await fetch(endpoints[i], {
+          signal: AbortSignal.timeout(timeoutMs),
+        });
+        if (res.ok) {
+          data = (await res.json()) as PromoterPricingData;
+          break;
+        }
+      } catch {
+        // Falha no endpoint atual, segue para o próximo fallback
+      }
+    }
 
-    const cardInstallment = isCommercialCoursePrice ? rawCardInstallment : 99;
-    const cardInstallments = data.promo_card?.installments || data.card?.installments || 12;
-    const pixPrice = isCommercialCoursePrice ? rawPixPrice : 999;
+    if (!data) return;
 
-    const cardFormatted = `${cardInstallments}x de ${formatBrl(cardInstallment)}`;
-    const pixFormatted = `${formatBrl(pixPrice)} no Pix`;
+    // 2. Preço do curso divulgado pelo promotor
+    // Sem travas artificiais duras: aceita qualquer valor finito > 0 (suporte a testes/sandbox)
+    const activeCard = data.promo_card || data.card;
+    const rawCardInstallment = activeCard?.installment ? Number(activeCard.installment) : NaN;
+    const cardInstallments = activeCard?.installments || 12;
+    const rawPixPrice = data.promo_pix ? Number(data.promo_pix) : (data.pix ? Number(data.pix) : NaN);
 
-    document.querySelectorAll<HTMLElement>('[data-promoter-product-card]').forEach((el) => {
-      el.textContent = cardFormatted;
-    });
-    document.querySelectorAll<HTMLElement>('[data-promoter-product-pix]').forEach((el) => {
-      el.textContent = pixFormatted;
-    });
-    document.querySelectorAll<HTMLElement>('[data-promoter-win-card]').forEach((el) => {
-      el.textContent = cardFormatted;
-    });
+    if (Number.isFinite(rawCardInstallment) && rawCardInstallment > 0) {
+      const cardFormatted = `${cardInstallments}x de ${formatBrl(rawCardInstallment)}`;
+      document.querySelectorAll<HTMLElement>('[data-promoter-product-card]').forEach((el) => {
+        el.textContent = cardFormatted;
+      });
+      document.querySelectorAll<HTMLElement>('[data-promoter-win-card]').forEach((el) => {
+        el.textContent = cardFormatted;
+      });
+    }
 
-    // 2. Comissões e Bônus (apenas valores comerciais >= R$ 50 / R$ 100 / lote >= 5)
+    if (Number.isFinite(rawPixPrice) && rawPixPrice > 0) {
+      const pixFormatted = `${formatBrl(rawPixPrice)} no Pix`;
+      document.querySelectorAll<HTMLElement>('[data-promoter-product-pix]').forEach((el) => {
+        el.textContent = pixFormatted;
+      });
+    }
+
+    // 3. Comissões e Bônus
+    // Sem travas duras (ex: commDirectNum >= 50, bonusFlatNum >= 100, threshold >= 5)
     let newDirect: number | undefined;
     let newBonus: number | undefined;
     let newThreshold: number | undefined;
 
-    if (data.commission_direct) {
+    if (data.commission_direct !== undefined && data.commission_direct !== null) {
       const commDirectNum = Number(data.commission_direct);
-      if (Number.isFinite(commDirectNum) && commDirectNum >= 50) {
+      if (Number.isFinite(commDirectNum) && commDirectNum > 0) {
         newDirect = commDirectNum;
         const commDirectStr = formatBrl(commDirectNum);
 
@@ -81,7 +116,7 @@ export async function initPromoterDynamicPricing(): Promise<void> {
           el.textContent = commDirectStr;
         });
         document.querySelectorAll<HTMLElement>('[data-promoter-phone-balance]').forEach((el) => {
-          el.textContent = String(Math.round(commDirectNum * 2));
+          el.textContent = formatNumber(commDirectNum * 2);
         });
         document.querySelectorAll<HTMLElement>('[data-promoter-phone-toast]').forEach((el) => {
           el.textContent = `+ ${commDirectStr}`;
@@ -89,9 +124,9 @@ export async function initPromoterDynamicPricing(): Promise<void> {
       }
     }
 
-    if (data.commission_bonus_flat) {
+    if (data.commission_bonus_flat !== undefined && data.commission_bonus_flat !== null) {
       const bonusFlatNum = Number(data.commission_bonus_flat);
-      if (Number.isFinite(bonusFlatNum) && bonusFlatNum >= 100) {
+      if (Number.isFinite(bonusFlatNum) && bonusFlatNum > 0) {
         newBonus = bonusFlatNum;
         const bonusFlatStr = formatBrl(bonusFlatNum);
         document.querySelectorAll<HTMLElement>('[data-promoter-bonus-flat]').forEach((el) => {
@@ -100,17 +135,17 @@ export async function initPromoterDynamicPricing(): Promise<void> {
       }
     }
 
-    if (data.commission_bonus_threshold) {
+    if (data.commission_bonus_threshold !== undefined && data.commission_bonus_threshold !== null) {
       const threshold = Number(data.commission_bonus_threshold);
-      if (Number.isFinite(threshold) && threshold >= 5) {
-        newThreshold = threshold;
+      if (Number.isFinite(threshold) && threshold > 0) {
+        newThreshold = Math.round(threshold);
         document.querySelectorAll<HTMLElement>('[data-promoter-bonus-rule]').forEach((el) => {
-          el.textContent = `ao bater ${threshold} pagas na semana (1x)`;
+          el.textContent = `ao bater ${newThreshold} pagas na semana (1x)`;
         });
       }
     }
 
-    // Dispara evento para sincronizar calculadora interativa se houver atualização comercial
+    // 4. Dispara evento para sincronizar calculadora interativa se houver atualização comercial
     if (newDirect !== undefined || newBonus !== undefined || newThreshold !== undefined) {
       window.dispatchEvent(
         new CustomEvent('pricing:update', {

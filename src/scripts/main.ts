@@ -164,9 +164,9 @@ if (calcRange) {
   };
 
   const getTier = (n: number) => {
-    if (n >= 20) return { icon: '💎', title: 'Nível Diamante · Embaixador Master', desc: 'Escala máxima com comissão de 20 matrículas + meta da semana' };
-    if (n >= 10) return { icon: '🥇', title: 'Nível Ouro · Promotor Elite', desc: 'Alta escala semanal + meta da semana' };
-    if (n >= 5) return { icon: '🥈', title: 'Nível Prata · Promotor Pro', desc: 'Meta semanal de volume atingida (+ R$ 500)' };
+    if (n >= 20) return { icon: '💎', title: 'Nível Diamante · Embaixador Master', desc: `Escala máxima: comissão de 20 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
+    if (n >= 10) return { icon: '🥇', title: 'Nível Ouro · Promotor Elite', desc: `Alta escala: comissão de 10 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
+    if (n >= dynamicThreshold) return { icon: '🥈', title: 'Nível Prata · Promotor Pro', desc: `Meta semanal de volume atingida (+ ${brl(dynamicBonus)} em cota única)` };
     return { icon: '🥉', title: 'Nível Bronze · Promotor Iniciante', desc: 'Comissão direta por cada matrícula paga' };
   };
 
@@ -180,7 +180,8 @@ if (calcRange) {
   const calcEarnings = (paid: number) => {
     const safe = Math.max(0, Math.floor(paid));
     const direct = safe * dynamicDirect;
-    const blocks = safe < dynamicThreshold ? 0 : (BONUS_REPEATS ? Math.floor(safe / dynamicThreshold) : 1);
+    // Meta semanal de volume única: paga 1x ao atingir o limiar (não cumulativo por blocos adicionais)
+    const blocks = safe < dynamicThreshold ? 0 : 1;
     const bonus = blocks * dynamicBonus;
     return { direct, bonus, total: direct + bonus };
   };
