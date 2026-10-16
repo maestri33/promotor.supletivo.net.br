@@ -61,10 +61,10 @@ const valor = brl(COMMISSION_DIRECT);
       </span>
     </div>
 
-    <h1 id="hero-title" class="hero-title">
+    <h1 id="hero-title" class="hero-title" aria-label="Mude vidas. Ganhe também.">
       <span class="hero-line hero-line--ghost">
         <span class="w ghost" style="--i: 1">{LINE_1}</span>
-      </span>
+      </span>{' '}
       <span class="hero-line">
         <span class="w w-accent" style="--i: 2">
           {LINE_2}
@@ -288,7 +288,7 @@ const valor = brl(COMMISSION_DIRECT);
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -322,13 +322,14 @@ const valor = brl(COMMISSION_DIRECT);
   }
 
   .hero-title {
-    font-size: var(--text-hero);
-    max-width: 12ch;
+    font-size: clamp(2.2rem, 1rem + 3.8vw, 4.6rem);
+    max-width: 18ch;
     letter-spacing: -0.015em;
   }
 
   .hero-line {
     display: block;
+    white-space: nowrap;
   }
 
   .hero-line--ghost {
@@ -405,7 +406,7 @@ const valor = brl(COMMISSION_DIRECT);
     padding: 0.45em 1.1em;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: transform 0.25s var(--ease-antigravity), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
   }
 

@@ -9,4 +9,8 @@ tools/fonts/
 # test artifacts
 test-results/
 playwright-report/
+.playwright-cli/
+.sessions/
 .lighthouseci/
+.taste-skill/
+.wrangler/

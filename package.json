@@ -14,7 +14,8 @@
     "test:infra": "playwright test tests/infra",
     "checkpoint": "sh scripts/checkpoint/checkpoint.sh",
     "checkpoint:fast": "pwsh scripts/checkpoint/checkpoint.ps1 -Tier fast",
-    "checkpoint:agent": "pwsh scripts/checkpoint/checkpoint.ps1 -Tier agent"
+    "checkpoint:agent": "pwsh scripts/checkpoint/checkpoint.ps1 -Tier agent",
+    "test:seo": "pwsh scripts/seo-loop.ps1"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.0",

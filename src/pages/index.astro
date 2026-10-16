@@ -48,6 +48,29 @@ const schema = {
       publisher: { '@id': `${siteUrl}#org` },
     },
     {
+      '@type': 'JobPosting',
+      '@id': `${siteUrl}#vaga`,
+      title: 'Promotor de Indicações — Supletivo Brasil (Remoto / Home Office)',
+      description:
+        'Indique o Supletivo Brasil (Educação de Jovens e Adultos - EJA) pelo celular e ganhe comissão de R$ 100,00 por matrícula paga, depositada toda semana no seu Pix. Cadastro 100% gratuito, sem taxa de adesão e sem investimento prévio.',
+      identifier: {
+        '@type': 'PropertyValue',
+        name: BRAND,
+        value: 'PROMOTOR-EJA',
+      },
+      datePosted: '2026-01-01',
+      validThrough: '2027-12-31T23:59:59Z',
+      employmentType: 'CONTRACTOR',
+      hiringOrganization: { '@id': `${siteUrl}#org` },
+      jobLocationType: 'TELECOMMUTE',
+      applicantLocationRequirements: {
+        '@type': 'Country',
+        name: 'BR',
+      },
+      directApply: true,
+      url: siteUrl,
+    },
+    {
       '@type': 'FAQPage',
       '@id': `${siteUrl}#faq`,
       mainEntity: faq.map((item) => ({

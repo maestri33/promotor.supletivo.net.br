@@ -415,7 +415,8 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     min-height: 54px;
     background: transparent;
     border: none;
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     color: var(--paper);
     font-size: 1.15rem;
     font-weight: 600;
@@ -555,13 +556,13 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
   }
 
   .btn-decision-primary .decision-desc {
-    font-size: 0.74rem;
+    font-size: 0.82rem;
     color: rgba(11, 18, 32, 0.85);
     font-weight: 500;
   }
 
   .btn-decision-secondary .decision-desc {
-    font-size: 0.74rem;
+    font-size: 0.82rem;
     color: var(--muted-on-dark, rgba(255, 255, 255, 0.6));
     font-weight: 400;
   }
@@ -591,7 +592,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
   }
 
   .existing-redirect-info {
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--muted-on-dark);
     margin: 0;
   }
@@ -615,7 +616,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     align-items: center;
     gap: 0.5rem;
     color: var(--muted-on-dark);
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
@@ -832,7 +833,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
         phoneWrapper?.classList.add('valid');
         promoterLed?.classList.add('verified');
         if (speech) {
-          speech.textContent = 'Que bom ter você de volta! Localizamos seu cadastro de promotor e enviamos seu código no WhatsApp. Redirecionando...';
+          speech.textContent = 'Que bom ter você de volta! Localizamos seu cadastro de promotor e enviamos seu código no WhatsApp. Redirecionando…';
         }
         saveSession({ phone: digits, externalId: data.external_id });
         track('promoter_phone_existing', { phone: digits });

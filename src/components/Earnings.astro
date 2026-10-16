@@ -97,7 +97,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
       </p>
 
       <div class="calc-tier-card" data-calc-tier-card>
-        <span class="calc-tier-icon" data-calc-tier-icon>🥈</span>
+        <span class="calc-tier-badge" data-calc-tier-icon>PRO</span>
         <div class="calc-tier-info">
           <p class="calc-tier-title" data-calc-tier-title>Nível Prata · Promotor Pro</p>
           <p class="calc-tier-desc" data-calc-tier-desc>Bônus semanal desbloqueado</p>
@@ -174,6 +174,8 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     color: var(--paper);
     text-align: center;
     overflow: clip;
+    scroll-margin-top: 5rem;
+    padding-top: calc(var(--space-section) + 4.5rem);
   }
 
   .earn .sec-num {
@@ -190,6 +192,9 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   #earn-title {
     font-size: var(--text-h2-sm);
+    scroll-margin-top: 5rem;
+    position: relative;
+    z-index: 2;
   }
 
   .earn-lead {
@@ -208,6 +213,8 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     justify-content: center;
     gap: 1rem;
     margin-top: 2.6rem;
+    position: relative;
+    z-index: 2;
   }
 
   .model {
@@ -218,7 +225,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     padding: 1.5rem 1.2rem;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.25);
     transition: transform 0.25s var(--ease-antigravity), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
   }
 
@@ -230,9 +237,9 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   .model-tag {
     display: inline-block;
-    font-size: 0.72rem;
+    font-size: 0.84rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--yellow);
     margin-bottom: 0.5rem;
@@ -268,14 +275,15 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     .earn-models {
       flex-direction: column;
       align-items: stretch;
+      margin-top: 1.5rem;
+      gap: 0.5rem;
     }
-    /* em coluna, flex-basis vira ALTURA mínima — sem isto cada card ganha
-       14rem de altura e estica com vazio embaixo do valor */
     .model {
       flex-basis: auto;
+      padding: 1.1rem 1.1rem;
     }
     .model-plus {
-      transform: rotate(90deg);
+      display: none;
     }
   }
 
@@ -333,7 +341,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     border-radius: 999px;
     background: rgb(255 196 0 / 0.08);
     color: var(--yellow);
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -393,7 +401,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
   .calc-ticks {
     display: flex;
     justify-content: space-between;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     color: var(--muted-on-dark);
     margin-top: 0.4rem;
   }
@@ -485,9 +493,19 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     100% { transform: scale(1); }
   }
 
-  .calc-tier-icon {
-    font-size: 1.5rem;
+  .calc-tier-badge {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.3em 0.65em;
+    border-radius: 6px;
+    background: rgba(255, 196, 0, 0.15);
+    border: 1px solid rgba(255, 196, 0, 0.4);
+    color: var(--yellow);
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .calc-tier-title {
@@ -498,7 +516,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
   }
 
   .calc-tier-desc {
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     color: var(--muted-on-dark);
     line-height: 1.2;
     margin-top: 0.15rem;
@@ -513,14 +531,14 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     border: 1px solid rgba(255, 196, 0, 0.35);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: transform 0.25s var(--ease-antigravity), box-shadow 0.25s var(--ease-out);
   }
 
   .calc-result-label {
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--muted-on-dark);
   }
@@ -590,7 +608,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
     border-radius: 999px;
     background: rgb(255 196 0 / 0.14);
     color: var(--yellow);
-    font-size: 0.62rem;
+    font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -649,7 +667,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
 
   .calc-note {
     margin-top: 1.2rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--muted-on-dark);
   }
 
@@ -668,8 +686,8 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
   }
 
   .calc-table th {
-    font-size: 0.74rem;
-    letter-spacing: 0.1em;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--muted-on-dark);
   }
@@ -683,7 +701,7 @@ const fallbackRows = [1, BONUS_THRESHOLD, BONUS_THRESHOLD * 2, BONUS_THRESHOLD *
   .calc-table-bonus {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--muted-on-dark);
   }
 

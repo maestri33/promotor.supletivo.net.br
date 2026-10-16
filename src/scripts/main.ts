@@ -164,10 +164,10 @@ if (calcRange) {
   };
 
   const getTier = (n: number) => {
-    if (n >= 20) return { icon: '💎', title: 'Nível Diamante · Embaixador Master', desc: `Escala máxima: comissão de 20 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
-    if (n >= 10) return { icon: '🥇', title: 'Nível Ouro · Promotor Elite', desc: `Alta escala: comissão de 10 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
-    if (n >= dynamicThreshold) return { icon: '🥈', title: 'Nível Prata · Promotor Pro', desc: `Meta semanal de volume atingida (+ ${brl(dynamicBonus)} em cota única)` };
-    return { icon: '🥉', title: 'Nível Bronze · Promotor Iniciante', desc: 'Comissão direta por cada matrícula paga' };
+    if (n >= 20) return { icon: 'MASTER', title: 'Nível Diamante · Embaixador Master', desc: `Escala máxima: comissão de 20 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
+    if (n >= 10) return { icon: 'ELITE', title: 'Nível Ouro · Promotor Elite', desc: `Alta escala: comissão de 10 matrículas + bônus único de meta (${brl(dynamicBonus)})` };
+    if (n >= dynamicThreshold) return { icon: 'PRO', title: 'Nível Prata · Promotor Pro', desc: `Meta semanal de volume atingida (+ ${brl(dynamicBonus)} em cota única)` };
+    return { icon: 'START', title: 'Nível Bronze · Promotor Iniciante', desc: 'Comissão direta por cada matrícula paga' };
   };
 
   let lastTierTitle = '';

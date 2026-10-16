@@ -1,0 +1,20 @@
+# Programa de Promotores — Supletivo Brasil (promotor.supletivo.net.br)
+
+> Portal de afiliação e captação de promotores de vendas para o Supletivo Brasil (Educação de Jovens e Adultos - EJA). Modelo de remuneração autônoma por comissão direta via Pix semanal, sem vínculo empregatício e com adesão 100% gratuita.
+
+## O que é o Programa
+- **Proposta**: Indicar pessoas que precisam concluir o Ensino Fundamental ou Ensino Médio pelo Supletivo Brasil.
+- **Remuneração**: R$ 100,00 por matrícula paga confirmada, depositada semanalmente via Pix no CPF do promotor cadastrado.
+- **Modelo de Trabalho**: 100% remoto / teletrabalho (home office). Atuação pelo celular ou computador, sem metas obrigatórias e sem exclusividade.
+- **Investimento Inicial**: Zero (R$ 0,00). Não há taxa de cadastro, mensalidade, compra de kits ou qualquer custo de entrada.
+
+## Transparência e Segurança
+- **Repasse Semanal**: Fechamento de comissões por ciclo e pagamento no Pix informado no DICT bancário.
+- **Proteção de Dados**: Tratamento de dados pessoais restrito às finalidades de cadastro, antifraude e liquidação financeira, em estrita conformidade com a LGPD (Lei nº 13.709/2018).
+- **Sem Vínculo Empregatício**: Contrato de prestação de serviços autônomo / promotor parceiro.
+
+## Links Canônicos
+- [Portal do Promotor](https://promotor.supletivo.net.br/): Página inicial e cadastro de promotor
+- [Site Principal da Plataforma](https://supletivo.net.br/): Portal institucional Supletivo Brasil
+- [Termos do Programa](https://promotor.supletivo.net.br/termos/): Regulamento e regras de comissionamento
+- [Política de Privacidade](https://promotor.supletivo.net.br/privacidade/): Política de privacidade e proteção de dados

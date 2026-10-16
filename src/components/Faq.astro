@@ -87,6 +87,8 @@ for (const item of faq) counts[item.cat]++;
   .faq {
     background: var(--paper);
     overflow: clip;
+    position: relative;
+    scroll-margin-top: 5rem;
   }
 
   .faq .sec-num {
@@ -114,6 +116,9 @@ for (const item of faq) counts[item.cat]++;
 
   #faq-title {
     font-size: var(--text-h2-sm);
+    position: relative;
+    z-index: 2;
+    scroll-margin-top: 5rem;
   }
 
   .faq-mark {
@@ -247,7 +252,7 @@ for (const item of faq) counts[item.cat]++;
     border-radius: 999px;
     background: rgb(0 115 77 / 0.12);
     color: var(--green);
-    font-size: 0.74rem;
+    font-size: 0.82rem;
     font-weight: 700;
   }
 
