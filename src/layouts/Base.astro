@@ -104,6 +104,31 @@ const siteName = `${BRAND} · ${PROGRAM}`;
 
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
+    <!-- Speculation Rules API (Chrome 121+): navegação instantânea em 0ms via prerender e prefetch antecipado -->
+    <script type="speculationrules" is:inline>
+      {
+        "prerender": [
+          {
+            "source": "list",
+            "urls": [
+              "/termos/",
+              "/privacidade/"
+            ],
+            "eagerness": "moderate"
+          }
+        ],
+        "prefetch": [
+          {
+            "source": "list",
+            "urls": [
+              "https://supletivo.net.br/"
+            ],
+            "eagerness": "conservative"
+          }
+        ]
+      }
+    </script>
+
     {GTM_ID && (
       <script is:inline define:vars={{ GTM_ID }}>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
