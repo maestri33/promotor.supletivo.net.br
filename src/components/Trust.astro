@@ -59,7 +59,6 @@ const objections = [
       stroke-linejoin="round"></path>
   </svg>
   <div class="container">
-    <p class="kicker trust-kicker" data-reveal>Por que confiar</p>
     <h2 id="trust-title" data-reveal>Dinheiro de verdade, na conta certa.</h2>
     <p class="trust-lead" data-reveal style="--d: 1">
       Sem letra miúda: você não investe nada para começar e recebe direto no seu
@@ -67,7 +66,7 @@ const objections = [
     </p>
 
     <!-- Grid de Selos e Verificações Oficiais -->
-    <div class="official-badges-grid spatial-stage" data-reveal style="--d: 2">
+    <div class="official-badges-grid spatial-stage" data-ui data-reveal style="--d: 2">
       <div class="official-badge-card glass-panel-gold spatial-card-3d" data-tilt-3d data-tilt-max="5">
         <BadgePromotorOficial size={76} showText={true} />
       </div>
@@ -134,10 +133,7 @@ const objections = [
 
 <style>
   .trust {
-    background:
-      radial-gradient(50rem 26rem at 85% 0%, rgb(255 196 0 / 0.07), transparent 60%),
-      radial-gradient(40rem 30rem at 10% 60%, rgb(0 115 77 / 0.12), transparent 60%),
-      var(--blue);
+    background: var(--blue);
     color: var(--paper);
     overflow: clip;
     padding-top: calc(var(--space-section) + 2rem);
@@ -154,7 +150,7 @@ const objections = [
     left: -3%;
     width: 106%;
     z-index: 2;
-    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
   }
 
   @media (max-width: 720px) {
@@ -250,23 +246,30 @@ const objections = [
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 
+  @media (min-width: 880px) {
+    .seals {
+      grid-template-columns: 1.08fr 1fr 1.04fr;
+    }
+  }
+
   .seal {
     display: flex;
     align-items: center;
     gap: 1.1rem;
-    background: rgb(255 255 255 / 0.06);
-    border: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.08);
+    border: none;
     border-radius: var(--radius);
     padding: 1.2rem 1.3rem;
     font-weight: 700;
     line-height: 1.4;
     font-size: 0.95rem;
     backdrop-filter: blur(4px);
-    transition: border-color 0.3s var(--ease-out);
+    box-shadow: none;
+    transition: background-color 0.25s var(--ease-out), transform 0.25s ease;
   }
 
   .seal:hover {
-    border-color: rgb(255 196 0 / 0.5);
+    background: rgb(255 255 255 / 0.13);
   }
 
   @media (min-width: 880px) {
@@ -285,8 +288,8 @@ const objections = [
   }
 
   .seal-badge {
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 4.25rem;
+    height: 4.25rem;
     flex: none;
   }
 
@@ -358,7 +361,7 @@ const objections = [
   .brands-label {
     font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--muted-on-dark);
     margin-bottom: 1rem;

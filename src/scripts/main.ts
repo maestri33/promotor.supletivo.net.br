@@ -76,6 +76,7 @@ document.querySelectorAll<HTMLDetailsElement>('details[data-faq]').forEach((deta
  * Com JS: clique num chip filtra; 'Todas' reseta. Mantém estado em dataset. */
 const faqList = document.querySelector<HTMLElement>('.faq-list');
 const faqChips = document.querySelectorAll<HTMLButtonElement>('.faq-chip');
+const faqEmpty = document.querySelector<HTMLElement>('[data-faq-empty]');
 if (faqList && faqChips.length > 0) {
   const setCat = (cat: string): void => {
     if (cat === 'all') delete faqList.dataset.activeCat;
@@ -85,14 +86,19 @@ if (faqList && faqChips.length > 0) {
       c.classList.toggle('is-active', on);
       c.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
+    let matchingCount = 0;
     // data-reveal deixa itens fora do fold em opacity:0; depois de filtrar,
     // o item pode subir pra cima do fold mas continuar invisível. Forçamos
     // .in-view em todos os que sobrevivem ao filtro.
     faqList.querySelectorAll<HTMLElement>('.faq-item').forEach((el) => {
       if (cat === 'all' || el.getAttribute('data-cat') === cat) {
         el.classList.add('in-view');
+        matchingCount++;
       }
     });
+    if (faqEmpty) {
+      faqEmpty.hidden = matchingCount > 0;
+    }
   };
   faqChips.forEach((c) =>
     c.addEventListener('click', () => setCat(c.dataset.faqFilter ?? 'all'))

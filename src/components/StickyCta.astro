@@ -57,7 +57,7 @@ const valor = brl(COMMISSION_DIRECT);
     }
   }
 
-  :global(html.js) .sticky-cta {
+  .sticky-cta {
     transform: translateY(110%);
     opacity: 0;
     transition:
@@ -65,7 +65,7 @@ const valor = brl(COMMISSION_DIRECT);
       opacity 0.3s var(--ease-out);
   }
 
-  :global(html.js) .sticky-cta.visible {
+  .sticky-cta.visible {
     transform: none;
     opacity: 1;
   }

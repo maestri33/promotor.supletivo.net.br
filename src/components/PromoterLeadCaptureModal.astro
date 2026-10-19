@@ -18,14 +18,15 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
   aria-labelledby="promoter-modal-title"
   aria-hidden="true"
   hidden
-  inert
   data-promoter-capture-modal
+  data-nosnippet
   data-app-url={APP_URL}
   data-backend-url={BACKEND_URL}
 >
-  <div class="promoter-modal-overlay" data-close-modal></div>
+  <template id="promoter-modal-content-template">
+    <div class="promoter-modal-overlay" data-close-modal></div>
 
-  <div class="promoter-modal-container glass-panel">
+    <div class="promoter-modal-container glass-panel">
     <!-- Drag Handle tátil mobile -->
     <div class="drag-handle-bar md:hidden" aria-hidden="true">
       <div class="drag-pill"></div>
@@ -220,6 +221,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       </div>
     </div>
   </div>
+  </template>
 </div>
 
 <style>
@@ -653,8 +655,39 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
   const modal = document.querySelector<HTMLElement>('[data-promoter-capture-modal]');
 
   if (modal) {
-    const appUrl = modal.dataset.appUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
-    const backendUrl = modal.dataset.backendUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
+    let isMounted = false;
+    let openModalInner: ((triggerSource?: string) => void) | null = null;
+    let closeModalInner: (() => void) | null = null;
+    let inputPhoneEl: HTMLInputElement | null = null;
+    let handlePhoneInputFn: (() => void) | null = null;
+
+    function mountModal() {
+      if (isMounted) return;
+      const tpl = modal?.querySelector<HTMLTemplateElement>('#promoter-modal-content-template');
+      if (tpl && tpl.content) {
+        const clone = tpl.content.cloneNode(true);
+        tpl.replaceWith(clone);
+      }
+      initModal();
+      isMounted = true;
+    }
+
+    function openModal(triggerSource = 'cta') {
+      mountModal();
+      openModalInner?.(triggerSource);
+    }
+
+    (window as unknown as { openPromoterModal?: (triggerSource?: string) => void }).openPromoterModal = openModal;
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('is-active')) {
+        closeModalInner?.();
+      }
+    });
+
+    function initModal() {
+      const appUrl = modal?.dataset.appUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
+      const backendUrl = modal?.dataset.backendUrl?.replace(/\/+$/, '') ?? 'https://app.supletivo.net.br';
 
     // Inputs & Steps
     const stepPhone = modal.querySelector<HTMLElement>('#step-phone');
@@ -771,7 +804,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     }
 
     // Modal Visibility Controls
-    function openModal(triggerSource = 'cta') {
+    function openModalReal(triggerSource = 'cta') {
       clearTimers();
       modal?.removeAttribute('hidden');
       modal?.removeAttribute('inert');
@@ -794,6 +827,7 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       setTimeout(() => { inputPhone?.focus(); }, 60);
       track('promoter_modal_opened', { source: triggerSource, timestamp: Date.now() });
     }
+    openModalInner = openModalReal;
 
     function closeModal() {
       clearTimers();
@@ -804,16 +838,11 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       document.body.style.overflow = '';
       track('promoter_modal_closed', { timestamp: Date.now() });
     }
+    closeModalInner = closeModal;
 
-    modal.querySelectorAll('[data-close-modal]').forEach((el) => {
+    modal?.querySelectorAll('[data-close-modal]').forEach((el) => {
       el.addEventListener('click', closeModal);
     });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal?.classList.contains('is-active')) closeModal();
-    });
-
-    (window as unknown as { openPromoterModal?: (triggerSource?: string) => void }).openPromoterModal = openModal;
 
     // ── GESTÃO DA ETAPA 1: WHATSAPP (SUBMISSÃO IMEDIATA NO 11º DÍGITO) ────────
     async function checkAndSubmitPhone(digits: string) {
@@ -1167,19 +1196,23 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       }, 250);
     }
 
-    // Auto-abertura inteligente se o usuário chega direcionado com tel ou modal=cadastro
-    const urlParams = new URLSearchParams(window.location.search);
-    const telParam = urlParams.get('tel');
-    const modalParam = urlParams.get('modal');
-    if (telParam || modalParam === 'cadastro') {
-      openModal('app_redirect');
-      if (telParam && inputPhone) {
-        const cleanDigits = telParam.replace(/\D/g, '');
-        if (cleanDigits.length >= 10) {
-          inputPhone.value = formatPhone(cleanDigits);
-          handlePhoneInput();
-        }
+    inputPhoneEl = inputPhone;
+    handlePhoneInputFn = handlePhoneInput;
+  } // end initModal
+
+  // Auto-abertura inteligente se o usuário chega direcionado com tel ou modal=cadastro
+  const urlParams = new URLSearchParams(window.location.search);
+  const telParam = urlParams.get('tel');
+  const modalParam = urlParams.get('modal');
+  if (telParam || modalParam === 'cadastro') {
+    openModal('app_redirect');
+    if (telParam && inputPhoneEl && handlePhoneInputFn) {
+      const cleanDigits = telParam.replace(/\D/g, '');
+      if (cleanDigits.length >= 10) {
+        inputPhoneEl.value = formatPhone(cleanDigits);
+        handlePhoneInputFn();
       }
     }
   }
+}
 </script>

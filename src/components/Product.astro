@@ -22,7 +22,6 @@ const feats = [
 
 <section id="produto" class="product section" aria-labelledby="product-title" data-section="produto">
   <div class="container narrow">
-    <p class="kicker product-kicker" data-reveal>O que você indica</p>
     <h2 id="product-title" data-reveal>Um curso de verdade — não é só um link</h2>
     <p class="product-lead" data-reveal style="--d: 1">
       Você divulga o <strong>{PRODUCT_NAME}</strong>: um curso pra quem quer
@@ -52,7 +51,7 @@ const feats = [
 
     <!-- dois-ganha como causa→efeito (seta, não "+"): difere da soma card+card
          da calculadora logo abaixo e deixa explícito que um leva ao outro -->
-    <div class="product-win spatial-stage" data-reveal style="--d: 3">
+    <div class="product-win spatial-stage" data-ui data-reveal style="--d: 3">
       <div class="win-side spatial-card-3d glass-panel-light" data-tilt-3d data-tilt-max="6">
         <span class="win-tag">Quem se matricula</span>
         <p class="win-line">conclui por <strong data-promoter-win-card>12x de R$ 99</strong> e tira o certificado</p>
@@ -76,9 +75,7 @@ const feats = [
 
 <style>
   .product {
-    background:
-      radial-gradient(rgb(0 115 77 / 0.07) 1px, transparent 1.5px) 0 0 / 26px 26px,
-      var(--paper);
+    background: var(--paper);
     overflow: clip;
   }
 
@@ -146,7 +143,7 @@ const feats = [
   .price-badge-tag {
     font-size: 0.82rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     background: var(--green);
     color: var(--paper);
@@ -194,7 +191,7 @@ const feats = [
     display: inline-block;
     font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--green);
     margin-bottom: 0.5rem;

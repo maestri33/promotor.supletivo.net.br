@@ -46,7 +46,7 @@ const valor = brl(COMMISSION_DIRECT);
   </div>
 
   <div class="container hero-inner">
-    <div class="hero-top-row anim-up" style="--i: 0">
+    <div class="hero-top-row anim-up" style="--i: 0" data-ui>
       <p class="hero-eyebrow">
         <span class="dot pulse-live-dot" aria-hidden="true"></span>
         Programa de Promotores · {BRAND}
@@ -148,9 +148,7 @@ const valor = brl(COMMISSION_DIRECT);
     /* topo respeita notch/Dynamic Island (viewport-fit=cover no Base) */
     padding-top: max(clamp(4.5rem, 10vh, 9rem), calc(env(safe-area-inset-top) + 4.5rem));
     padding-bottom: 0;
-    background:
-      radial-gradient(58rem 32rem at 18% 4%, rgb(255 196 0 / 0.1), transparent 62%),
-      linear-gradient(168deg, var(--blue) 0%, var(--blue-deep) 55%, var(--ink) 100%);
+    background: var(--ink);
     color: var(--paper);
     overflow: clip;
   }
@@ -290,7 +288,7 @@ const valor = brl(COMMISSION_DIRECT);
     gap: 0.6rem;
     font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--yellow);
     border: 1px solid rgb(255 196 0 / 0.4);

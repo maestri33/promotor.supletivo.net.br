@@ -14,9 +14,8 @@ for (const item of faq) counts[item.cat]++;
 
 <section id="faq" class="faq section" aria-labelledby="faq-title" data-section="faq">
   <span class="sec-num" aria-hidden="true" data-n="05"></span>
-  <span class="faq-mark" aria-hidden="true">?</span>
+  <span class="faq-mark" aria-hidden="true"></span>
   <div class="container narrow">
-    <p class="kicker faq-kicker" data-reveal>Tire suas dúvidas</p>
     <h2 id="faq-title" data-reveal>Perguntas frequentes</h2>
 
     <div class="faq-filters" data-faq-filters aria-label="Filtrar perguntas por categoria">
@@ -132,6 +131,10 @@ for (const item of faq) counts[item.cat]++;
     -webkit-text-stroke: 2px rgb(0 115 77 / 0.13);
     pointer-events: none;
     user-select: none;
+  }
+
+  .faq-mark::after {
+    content: '?';
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -274,18 +277,13 @@ for (const item of faq) counts[item.cat]++;
   }
 
   .faq-empty {
-    display: none;
     margin-top: 1.4rem;
     color: var(--muted-on-light);
     font-size: 0.95rem;
   }
 
   .faq-empty[hidden] {
-    display: none;
-  }
-
-  :global(html.js) .faq-list[data-active-cat] .faq-empty {
-    display: block;
+    display: none !important;
   }
 
   .faq-empty-reset {
@@ -306,7 +304,7 @@ for (const item of faq) counts[item.cat]++;
 
   .faq-item {
     background: var(--paper-soft);
-    border: 1px solid var(--line-light);
+    border: none;
     border-radius: 14px;
   }
 

@@ -41,17 +41,22 @@
     color: var(--yellow);
     cursor: pointer;
     backdrop-filter: blur(8px);
-    box-shadow: 0 8px 22px -10px rgb(0 0 0 / 0.55);
+    box-shadow: none;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
     transition:
       transform 0.2s var(--ease-out),
       border-color 0.2s var(--ease-out),
-      background 0.2s var(--ease-out);
+      background 0.2s var(--ease-out),
+      opacity 0.25s var(--ease-out);
   }
 
   .btt:hover {
     border-color: var(--yellow);
     background: rgba(11, 18, 32, 0.98);
     transform: translateY(-2px);
+    box-shadow: 0 8px 22px -10px rgb(0 0 0 / 0.55);
   }
 
   .btt:active {
@@ -75,17 +80,7 @@
     }
   }
 
-  /* com JS, começa escondido; o IntersectionObserver controla */
-  :global(html.js) .btt {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
-    transition:
-      opacity 0.25s var(--ease-out),
-      transform 0.25s var(--ease-out);
-  }
-
-  :global(html.js) .btt.is-visible {
+  .btt.is-visible {
     opacity: 1;
     transform: none;
     pointer-events: auto;

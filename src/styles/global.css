@@ -157,7 +157,7 @@ strong {
 .kicker {
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   margin-bottom: 1.1rem;
 }
@@ -471,7 +471,7 @@ html.js body.has-sticky-cta {
 }
 
 .glass-panel-gold {
-  background: radial-gradient(circle at 50% 0%, rgba(255, 196, 0, 0.12) 0%, rgba(11, 18, 32, 0.75) 100%);
+  background: rgba(11, 18, 32, 0.75);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255, 196, 0, 0.28);
