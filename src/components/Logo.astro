@@ -75,7 +75,13 @@ const chars = [...BRAND];
     align-self: center;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 400px) {
+    .logo-tag {
+      display: none;
+    }
+  }
+
+  @media (min-width: 401px) and (max-width: 480px) {
     .logo-tag {
       font-size: 0.7rem;
       padding: 0.15em 0.45em;
