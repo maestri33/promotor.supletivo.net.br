@@ -42,12 +42,12 @@ function formatNumber(value: number): string {
 export async function initPromoterDynamicPricing(): Promise<void> {
   try {
     // 1. Resiliência idêntica à landing de captação supletivo.net.br:
-    // Tenta a borda rápida (db-edge.v7m.live), com fallback para BACKEND_URL e backend.supletivo.net.br
+    // Tenta backend canônico direto (com fallback de borda)
     const endpoints = Array.from(
       new Set([
-        'https://db-edge.v7m.live/api/v1/clients/pricing',
-        `${BACKEND_URL}/api/v1/clients/pricing`,
         'https://backend.supletivo.net.br/api/v1/clients/pricing',
+        `${BACKEND_URL}/api/v1/clients/pricing`,
+        'https://db-edge.v7m.live/api/v1/clients/pricing',
       ])
     );
 

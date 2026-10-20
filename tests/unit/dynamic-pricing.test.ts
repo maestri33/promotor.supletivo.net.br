@@ -34,7 +34,7 @@ describe('initPromoterDynamicPricing', () => {
     };
 
     const fetchMock = vi.fn().mockImplementation((url: string) => {
-      if (url.includes('db-edge.v7m.live')) {
+      if (url.includes('backend.supletivo.net.br')) {
         return Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockData),
@@ -70,7 +70,7 @@ describe('initPromoterDynamicPricing', () => {
     });
   });
 
-  it('faz fallback para os endpoints secundários quando a borda rápida falha', async () => {
+  it('faz fallback para os endpoints secundários quando o endpoint principal falha', async () => {
     const mockData = {
       promo_pix: '850.00',
       promo_card: { installments: 10, installment: '85.00', total: '850.00' },
@@ -82,8 +82,8 @@ describe('initPromoterDynamicPricing', () => {
     const calledUrls: string[] = [];
     const fetchMock = vi.fn().mockImplementation((url: string) => {
       calledUrls.push(url);
-      if (url.includes('db-edge.v7m.live')) {
-        return Promise.reject(new Error('Edge offline'));
+      if (url.includes('backend.supletivo.net.br')) {
+        return Promise.reject(new Error('Backend offline'));
       }
       return Promise.resolve({
         ok: true,
@@ -94,7 +94,7 @@ describe('initPromoterDynamicPricing', () => {
 
     await initPromoterDynamicPricing();
 
-    expect(calledUrls[0]).toContain('db-edge.v7m.live');
+    expect(calledUrls[0]).toContain('backend.supletivo.net.br');
     expect(calledUrls.length).toBeGreaterThanOrEqual(2);
     expect(document.querySelector('[data-promoter-commission-val]')?.textContent).toMatch(/R\$\s*75/);
     expect(document.querySelector('[data-promoter-product-card]')?.textContent).toMatch(/10x de R\$\s*85/);
