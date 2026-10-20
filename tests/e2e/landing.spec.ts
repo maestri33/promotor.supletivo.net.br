@@ -38,11 +38,11 @@ test.describe('vínculo de polo (hub → ref)', () => {
     await page.goto('/?hub=polo_regional');
     const alert = page.locator('[data-floating-hub]');
     await expect(alert).toHaveClass(/is-visible/);
-    await expect(page.locator('[data-hub-name]')).toHaveText('polo_regional');
+    await expect(page.locator('[data-hub-name]')).toHaveText('Regional Autorizado');
 
     const badge = page.locator('[data-hub-badge]');
     await expect(badge).toBeVisible();
-    await expect(page.locator('[data-hub-badge-text]')).toHaveText('polo_regional');
+    await expect(page.locator('[data-hub-badge-text]')).toHaveText('Regional Autorizado');
   });
 
   test('sem ?hub= ou ?ref= o FloatingHubAlert permanece oculto', async ({ page }) => {

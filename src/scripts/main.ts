@@ -3,6 +3,7 @@
  * Tudo é progressive enhancement — a página funciona sem este arquivo.
  */
 import { initAttribution, decorateCtas, ATTR_KEYS, poloValue } from './attribution';
+import { formatPoloDisplayName } from './polo-formatter';
 import { track } from './track';
 import { weeklyEarnings, brl, COMMISSION_DIRECT, BONUS_FLAT, BONUS_THRESHOLD, BONUS_REPEATS } from '../config';
 import { initAntigravityTilt } from './antigravity-tilt';
@@ -22,11 +23,13 @@ decorateCtas(attr);
 // Feedback visual do polo (?hub= / ?ref=)
 const polo = poloValue(attr);
 if (polo) {
+  const poloDisplayName = formatPoloDisplayName(polo);
+
   // 1. Badge dinâmico no Hero
   const hubBadge = document.querySelector<HTMLElement>('[data-hub-badge]');
   const hubBadgeText = document.querySelector<HTMLElement>('[data-hub-badge-text]');
   if (hubBadge && hubBadgeText) {
-    hubBadgeText.textContent = polo;
+    hubBadgeText.textContent = poloDisplayName;
     hubBadge.classList.remove('hidden');
   }
 
@@ -36,7 +39,7 @@ if (polo) {
   const isDismissed = sessionStorage.getItem('pr_hub_dismissed') === '1';
 
   if (hubAlert && !isDismissed) {
-    if (hubAlertName) hubAlertName.textContent = polo;
+    if (hubAlertName) hubAlertName.textContent = poloDisplayName;
     hubAlert.classList.remove('hidden');
     hubAlert.classList.add('is-visible');
   }
@@ -387,13 +390,21 @@ if (sticky && 'IntersectionObserver' in window) {
 }
 
 /* ---------- Barra de progresso de leitura ---------- */
-const bar = document.querySelector<HTMLElement>('.progress-bar');
-if (bar) {
+const readingTrack = document.querySelector<HTMLElement>('.reading-track');
+const bar = document.querySelector<HTMLElement>('.progress-bar, .reading-bar');
+if (bar || readingTrack) {
   let ticking = false;
   const update = (): void => {
     const doc = document.documentElement;
-    const max = doc.scrollHeight - doc.clientHeight;
-    bar.style.transform = `scaleX(${max > 0 ? doc.scrollTop / max : 0})`;
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const scrollY = window.scrollY || doc.scrollTop || 0;
+    const ratio = Math.min(1, Math.max(0, scrollY / max));
+    if (bar) {
+      bar.style.transform = `scaleX(${ratio})`;
+    }
+    if (readingTrack) {
+      readingTrack.style.setProperty('--progress-scale', ratio.toFixed(4));
+    }
     ticking = false;
   };
   window.addEventListener(
@@ -406,6 +417,7 @@ if (bar) {
     },
     { passive: true }
   );
+  window.addEventListener('resize', update, { passive: true });
   update();
 }
 
