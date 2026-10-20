@@ -343,7 +343,7 @@ if (sticky && 'IntersectionObserver' in window) {
     const show = pastHero && ctasOnScreen.size === 0 && sectionsOnScreen.size === 0;
     sticky.classList.toggle('visible', show);
     // sincroniza o body pra criar espaço embaixo (só mobile, ver CSS)
-    document.body.classList.toggle('has-sticky-cta', show && window.matchMedia('(max-width: 899px)').matches);
+    document.body.classList.toggle('has-sticky-cta', show && window.matchMedia('(max-width: 767px)').matches);
   };
 
   if (hero) {
@@ -418,18 +418,40 @@ if (btt) {
     window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
   });
   if ('IntersectionObserver' in window) {
+    let heroPast = false;
+    let footerVisible = false;
+
+    const syncBtt = () => {
+      if (heroPast && !footerVisible) {
+        btt.classList.add('is-visible');
+      } else {
+        btt.classList.remove('is-visible');
+      }
+    };
+
     const heroEl = document.querySelector('#hero');
     if (heroEl) {
       new IntersectionObserver(
         ([entry]) => {
-          // visível = voltou pro hero; some o botão
-          if (entry.isIntersecting) btt.classList.remove('is-visible');
-          else btt.classList.add('is-visible');
+          heroPast = !entry.isIntersecting;
+          syncBtt();
         },
         { rootMargin: '-40% 0px 0px 0px' }
       ).observe(heroEl);
     } else {
-      btt.classList.add('is-visible');
+      heroPast = true;
+      syncBtt();
+    }
+
+    const footerEl = document.querySelector('footer');
+    if (footerEl) {
+      new IntersectionObserver(
+        ([entry]) => {
+          footerVisible = entry.isIntersecting;
+          syncBtt();
+        },
+        { rootMargin: '0px' }
+      ).observe(footerEl);
     }
   } else {
     btt.classList.add('is-visible');

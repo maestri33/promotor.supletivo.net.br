@@ -345,19 +345,17 @@ textarea:focus-visible {
   box-shadow: 0 0 0 3px rgb(0 39 118 / 0.18);
 }
 
-/* Quando o sticky CTA aparece (só mobile, <900px), adiciona respiro no
-   final do body pra que o último item de listas longas (FAQ, etc.)
-   não fique escondido atrás da barra. Sem JS o sticky-cta também fica
-   "always visible" mas só no mobile e os 3.6rem são toleráveis. */
+/* Espaçamento mobile inferior quando sticky-cta está presente:
+   gerenciado de forma limpa pelo rodapé (Footer.astro) com safe-area. */
 html.js body {
   transition: padding-bottom 0.2s var(--ease-out);
 }
 
 html.js body.has-sticky-cta {
-  padding-bottom: 4.6rem; /* altura do sticky + safe-area do iOS */
+  padding-bottom: 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   html.js body.has-sticky-cta {
     padding-bottom: 0;
   }
