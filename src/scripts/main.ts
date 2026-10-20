@@ -333,11 +333,14 @@ const sticky = document.querySelector<HTMLElement>('.sticky-cta');
 if (sticky && 'IntersectionObserver' in window) {
   const hero = document.querySelector('#hero');
   const inlineCtas = document.querySelectorAll('a[data-cta]:not([data-cta="sticky"])');
+  const hideStickySections = document.querySelectorAll('#caminho, footer, .site-footer');
 
   let pastHero = !hero; // páginas sem hero: sticky liberado desde o topo
   const ctasOnScreen = new Set<Element>();
+  const sectionsOnScreen = new Set<Element>();
+
   const updateSticky = (): void => {
-    const show = pastHero && ctasOnScreen.size === 0;
+    const show = pastHero && ctasOnScreen.size === 0 && sectionsOnScreen.size === 0;
     sticky.classList.toggle('visible', show);
     // sincroniza o body pra criar espaço embaixo (só mobile, ver CSS)
     document.body.classList.toggle('has-sticky-cta', show && window.matchMedia('(max-width: 899px)').matches);
@@ -361,9 +364,22 @@ if (sticky && 'IntersectionObserver' in window) {
       }
       updateSticky();
     },
-    { threshold: 0.4 }
+    { threshold: 0.05, rootMargin: '40px 0px 40px 0px' }
   );
   inlineCtas.forEach((el) => ctaIo.observe(el));
+
+  const sectionIo = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) sectionsOnScreen.add(entry.target);
+        else sectionsOnScreen.delete(entry.target);
+      }
+      updateSticky();
+    },
+    { threshold: 0.05, rootMargin: '40px 0px 40px 0px' }
+  );
+  hideStickySections.forEach((el) => sectionIo.observe(el));
+
   updateSticky();
 } else {
   sticky?.classList.add('visible');
