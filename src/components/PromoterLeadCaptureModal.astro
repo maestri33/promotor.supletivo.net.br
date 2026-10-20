@@ -163,56 +163,8 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
             </div>
           </div>
 
-          <!-- ESTADO: CADASTRO JÁ LOCALIZADO (DECISÃO TÁTIL / TROCA SEGURA) -->
-          <div id="step-existing" class="step-pane hidden">
-            <div class="existing-user-card">
-              <div class="existing-badge">
-                <span class="star-icon">★</span>
-                Promotor Já Cadastrado
-              </div>
-              <p class="existing-text">
-                Identificamos que este CPF já possui credencial de promotor vinculada ao WhatsApp com final
-                <strong id="existing-phone-masked">(XX) •••••-XXXX</strong>.
-              </p>
-
-              <!-- Decisão Bifurcada: Entrar no WhatsApp Cadastrado vs Trocar Número -->
-              <div class="existing-decision-wrap" data-testid="existing-decision-box">
-                <button
-                  type="button"
-                  id="btn-existing-normal-login"
-                  data-testid="btn-existing-normal-login"
-                  class="btn-decision-primary"
-                >
-                  <span class="decision-icon">📱</span>
-                  <div class="decision-text">
-                    <span class="decision-title">Sim, este sou eu!</span>
-                    <span class="decision-desc">Entrar no WhatsApp já cadastrado</span>
-                  </div>
-                </button>
-
-                <button
-                  type="button"
-                  id="btn-existing-swap-phone"
-                  data-testid="btn-existing-swap-phone"
-                  class="btn-decision-secondary"
-                >
-                  <span class="decision-icon">🔄</span>
-                  <div class="decision-text">
-                    <span class="decision-title">Troquei de número de WhatsApp</span>
-                    <span class="decision-desc">Quero vincular meu novo número a este CPF</span>
-                  </div>
-                </button>
-              </div>
-
-              <div class="existing-progress-wrap" aria-hidden="true">
-                <div class="existing-progress-bar" id="existing-progress-bar"></div>
-              </div>
-              <p class="existing-redirect-info">
-                Redirecionamento automático em <span id="existing-countdown">5</span>s
-                · <a href={APP_URL} class="existing-inline-link" id="btn-existing-redirect">Acessar agora &rarr;</a>
-              </p>
-            </div>
-          </div>
+          <!-- ESTADO: CADASTRO JÁ LOCALIZADO (RENDERIZADO DINAMICAMENTE NO CLIENTE) -->
+          <div id="step-existing" class="step-pane hidden"></div>
         </form>
 
         <div class="security-footer">
@@ -722,9 +674,18 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
 
     // Visual Stage elements
     const promoterLed = modal.querySelector<HTMLElement>('#promoter-led');
+    const promoterCardStar = modal.querySelector<HTMLElement>('#promoter-card-star');
+    const promoterCardTitle = modal.querySelector<HTMLElement>('#promoter-card-title');
+    const promoterNamePreview = modal.querySelector<HTMLElement>('#promoter-name-preview');
     const promoterDocPreview = modal.querySelector<HTMLElement>('#promoter-doc-preview');
     const promoterStatusBadge = modal.querySelector<HTMLElement>('#promoter-status-badge');
     const promoterStatusText = modal.querySelector<HTMLElement>('#promoter-status-text');
+
+    if (promoterCardStar && !promoterCardStar.textContent) promoterCardStar.textContent = '★';
+    if (promoterCardTitle && !promoterCardTitle.textContent) promoterCardTitle.textContent = 'CREDENCIAL OFICIAL DE PROMOTOR';
+    if (promoterNamePreview && !promoterNamePreview.textContent) promoterNamePreview.textContent = 'CONSULTOR AUTORIZADO';
+    if (promoterDocPreview && !promoterDocPreview.textContent) promoterDocPreview.textContent = 'DOCUMENTAÇÃO PENDENTE';
+    if (promoterStatusText && !promoterStatusText.textContent) promoterStatusText.textContent = 'AGUARDANDO CONTATO';
 
     let isCheckingPhone = false;
     let isCheckingCpf = false;
@@ -1003,6 +964,59 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       stepCpf?.classList.add('hidden');
       stepEmail?.classList.add('hidden');
       stepExisting?.classList.remove('hidden');
+
+      if (stepExisting && !stepExisting.innerHTML.trim()) {
+        const masked = data.masked_phone || '(XX) •••••-XXXX';
+        stepExisting.innerHTML = `
+            <div class="existing-user-card">
+              <div class="existing-badge">
+                <span class="star-icon">★</span>
+                Promotor Já Cadastrado
+              </div>
+              <p class="existing-text">
+                Identificamos que este CPF já possui credencial de promotor vinculada ao WhatsApp com final
+                <strong id="existing-phone-masked">${masked}</strong>.
+              </p>
+
+              <!-- Decisão Bifurcada: Entrar no WhatsApp Cadastrado vs Trocar Número -->
+              <div class="existing-decision-wrap" data-testid="existing-decision-box">
+                <button
+                  type="button"
+                  id="btn-existing-normal-login"
+                  data-testid="btn-existing-normal-login"
+                  class="btn-decision-primary"
+                >
+                  <span class="decision-icon">📱</span>
+                  <div class="decision-text">
+                    <span class="decision-title">Sim, este sou eu!</span>
+                    <span class="decision-desc">Entrar no WhatsApp já cadastrado</span>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  id="btn-existing-swap-phone"
+                  data-testid="btn-existing-swap-phone"
+                  class="btn-decision-secondary"
+                >
+                  <span class="decision-icon">🔄</span>
+                  <div class="decision-text">
+                    <span class="decision-title">Troquei de número de WhatsApp</span>
+                    <span class="decision-desc">Quero vincular meu novo número a este CPF</span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="existing-progress-wrap" aria-hidden="true">
+                <div class="existing-progress-bar" id="existing-progress-bar"></div>
+              </div>
+              <p class="existing-redirect-info">
+                Redirecionamento automático em <span id="existing-countdown">5</span>s
+                · <a href="#" class="existing-inline-link" id="btn-existing-redirect">Acessar agora &rarr;</a>
+              </p>
+            </div>
+        `;
+      }
 
       const existingPhoneMasked = modal.querySelector<HTMLElement>('#existing-phone-masked');
       if (existingPhoneMasked && data.masked_phone) {

@@ -97,7 +97,15 @@ if (faqList && faqChips.length > 0) {
       }
     });
     if (faqEmpty) {
-      faqEmpty.hidden = matchingCount > 0;
+      if (matchingCount === 0) {
+        if (!faqEmpty.innerHTML.trim()) {
+          faqEmpty.innerHTML = 'Nada por aqui nesse filtro. <button type="button" class="faq-empty-reset" data-faq-reset>Ver todas</button>';
+          faqEmpty.querySelector<HTMLButtonElement>('[data-faq-reset]')?.addEventListener('click', () => setCat('all'));
+        }
+        faqEmpty.hidden = false;
+      } else {
+        faqEmpty.hidden = true;
+      }
     }
   };
   faqChips.forEach((c) =>

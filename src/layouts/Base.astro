@@ -5,6 +5,7 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import { APP_URL, BRAND, PROGRAM, GTM_ID } from '../config';
+import pkg from '../../package.json';
 
 const appOrigin = new URL(APP_URL).origin;
 
@@ -40,6 +41,7 @@ const siteName = `${BRAND} · ${PROGRAM}`;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="app-version" content={pkg.version} />
     <link rel="canonical" href={canonical.href} />
     <meta
       name="robots"
