@@ -681,12 +681,6 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
     const promoterStatusBadge = modal.querySelector<HTMLElement>('#promoter-status-badge');
     const promoterStatusText = modal.querySelector<HTMLElement>('#promoter-status-text');
 
-    if (promoterCardStar && !promoterCardStar.textContent) promoterCardStar.textContent = '★';
-    if (promoterCardTitle && !promoterCardTitle.textContent) promoterCardTitle.textContent = 'CREDENCIAL OFICIAL DE PROMOTOR';
-    if (promoterNamePreview && !promoterNamePreview.textContent) promoterNamePreview.textContent = 'CONSULTOR AUTORIZADO';
-    if (promoterDocPreview && !promoterDocPreview.textContent) promoterDocPreview.textContent = 'DOCUMENTAÇÃO PENDENTE';
-    if (promoterStatusText && !promoterStatusText.textContent) promoterStatusText.textContent = 'AGUARDANDO CONTATO';
-
     let isCheckingPhone = false;
     let isCheckingCpf = false;
     let isSubmitting = false;
@@ -950,6 +944,9 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
 
       // CPF novo: atualiza credencial e avança
       cpfWrapper?.classList.add('valid');
+      if (promoterCardStar) promoterCardStar.textContent = '★';
+      if (promoterCardTitle) promoterCardTitle.textContent = 'CREDENCIAL OFICIAL DE PROMOTOR';
+      if (promoterNamePreview) promoterNamePreview.textContent = data?.name ? data.name.toUpperCase() : 'CONSULTOR AUTORIZADO';
       if (promoterDocPreview) promoterDocPreview.textContent = `CPF: ${formatCPF(digits)}`;
       promoterStatusBadge?.classList.add('authorized');
       if (promoterStatusText) promoterStatusText.textContent = 'CREDENCIAL AUTORIZADA';
