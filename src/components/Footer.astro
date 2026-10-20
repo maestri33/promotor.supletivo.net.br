@@ -52,15 +52,19 @@ const legalParts = [
       <nav aria-label="Links legais" class="footer-nav">
         <div class="footer-nav-group">
           <p class="footer-nav-title">O programa</p>
-          <a href="#como-funciona">Como funciona</a>
-          <a href="#ganhos">Quanto dá pra ganhar</a>
-          <a href="#caminho">Como entrar</a>
-          <a href="https://supletivo.net.br/" target="_blank" rel="noopener">Conheça o Supletivo Brasil</a>
+          <ul class="footer-nav-list">
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#ganhos">Quanto dá pra ganhar</a></li>
+            <li><a href="#caminho">Como entrar</a></li>
+            <li><a href="https://supletivo.net.br/" target="_blank" rel="noopener">Conheça o Supletivo Brasil</a></li>
+          </ul>
         </div>
         <div class="footer-nav-group">
           <p class="footer-nav-title">Legal</p>
-          <a href="/termos/">Termos do Programa</a>
-          <a href="/privacidade/">Política de Privacidade</a>
+          <ul class="footer-nav-list">
+            <li><a href="/termos/">Termos do Programa</a></li>
+            <li><a href="/privacidade/">Política de Privacidade</a></li>
+          </ul>
         </div>
       </nav>
       <a class="to-top" href="#hero" aria-label="Voltar ao topo">
@@ -201,6 +205,14 @@ const legalParts = [
     display: grid;
     gap: 0.15rem;
     justify-items: start;
+  }
+
+  .footer-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
   }
 
   .footer-nav-title {
