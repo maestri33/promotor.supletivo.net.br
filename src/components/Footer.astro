@@ -1,6 +1,7 @@
 ---
 /**
- * Rodapé: logo, aviso de modelo (autônomo, sem vínculo), links legais, LGPD.
+ * Rodapé Institucional: Logo, aviso de modelo (autônomo, sem vínculo), links legais, LGPD.
+ * Padrão Editorial "Pátria Amada Refinada" em total conformidade com o DESIGN.md.
  */
 import Logo from './Logo.astro';
 import {
@@ -11,12 +12,10 @@ import {
   CONTACT_WHATSAPP,
   BRAND,
 } from '../config';
-import pkg from '../../package.json';
 
 const year = new Date().getFullYear();
-const version = pkg.version;
 
-// linha de identificação do fornecedor: só inclui o que existe de fato.
+// Linha de identificação do fornecedor: só inclui o que existe de fato.
 // CNPJ ausente NÃO vira placeholder — some até a env real ser preenchida.
 const waHref = CONTACT_WHATSAPP ? `https://wa.me/${CONTACT_WHATSAPP}` : null;
 const waLabel = CONTACT_WHATSAPP
@@ -39,7 +38,7 @@ const legalParts = [
         <Logo variant="light" />
         <!-- bandeirinha tremulando: assinatura de fechamento -->
         <svg class="footer-flag" viewBox="0 0 84 64" fill="none" aria-hidden="true">
-          <rect x="4" y="2" width="4" height="60" rx="2" fill="#ffffff2b"></rect>
+          <rect x="4" y="2" width="4" height="60" rx="2" fill="rgba(255, 255, 255, 0.28)"></rect>
           <circle cx="6" cy="3" r="3" fill="var(--yellow)"></circle>
           <g class="ff-cloth">
             <rect x="8" y="6" width="62" height="40" rx="4" fill="var(--green)"></rect>
@@ -49,16 +48,28 @@ const legalParts = [
           </g>
         </svg>
       </div>
-      <nav aria-label="Links legais" class="footer-nav">
+
+      <nav aria-label="Navegação e links institucionais" class="footer-nav">
         <div class="footer-nav-group">
-          <p class="footer-nav-title">O programa</p>
+          <p class="footer-nav-title">O Programa</p>
           <ul class="footer-nav-list">
             <li><a href="#como-funciona">Como funciona</a></li>
             <li><a href="#ganhos">Quanto dá pra ganhar</a></li>
             <li><a href="#caminho">Como entrar</a></li>
-            <li><a href="https://supletivo.net.br/" target="_blank" rel="noopener">Conheça o Supletivo Brasil</a></li>
+            <li><a href="https://supletivo.net.br/" target="_blank" rel="noopener">Portal Supletivo Brasil ↗</a></li>
           </ul>
         </div>
+
+        <div class="footer-nav-group">
+          <p class="footer-nav-title">Guias & Cursos</p>
+          <ul class="footer-nav-list">
+            <li><a href="https://supletivo.net.br/supletivo-online/" target="_blank" rel="noopener">Supletivo Online</a></li>
+            <li><a href="https://supletivo.net.br/eja-a-distancia/" target="_blank" rel="noopener">EJA a Distância</a></li>
+            <li><a href="https://supletivo.net.br/ensino-fundamental/" target="_blank" rel="noopener">Ensino Fundamental</a></li>
+            <li><a href="https://supletivo.net.br/terminar-ensino-medio/" target="_blank" rel="noopener">Ensino Médio</a></li>
+          </ul>
+        </div>
+
         <div class="footer-nav-group">
           <p class="footer-nav-title">Legal</p>
           <ul class="footer-nav-list">
@@ -67,39 +78,64 @@ const legalParts = [
           </ul>
         </div>
       </nav>
-      <a class="to-top" href="#hero" aria-label="Voltar ao topo">
+
+      <a class="to-top" href="#hero" aria-label="Voltar ao topo da página">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 19V5m-6 6 6-6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </a>
     </div>
 
+    <!-- Pílulas de Confiança e Validade Jurídica do Programa -->
+    <div class="footer-trust-bar" aria-label="Garantias jurídicas e modelo operacional">
+      <div class="trust-pill">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Sem Vínculo Empregatício (Art. 442-B CLT)</span>
+      </div>
+      <div class="trust-pill">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span>Comissão Direta no Pix via DICT</span>
+      </div>
+      <div class="trust-pill">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span>Plataforma Oficial Supletivo Brasil</span>
+      </div>
+      <div class="trust-pill">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Proteção de Dados Pessoais (LGPD)</span>
+      </div>
+    </div>
+
     <div class="footer-legal">
-      <p class="footer-id">
-        {legalParts.join(' · ')} ·{' '}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-        {waHref && (
-          <>
-            {' · '}
-            <a href={waHref} rel="noopener" target="_blank">WhatsApp {waLabel}</a>
-          </>
-        )}
-      </p>
-      <p>
-        O Programa de Promotores remunera por <strong>indicação de matrículas
-        pagas</strong>, com pagamento por Pix {CLOSING_LABEL}. A participação é
-        autônoma e voluntária: <strong>não há vínculo empregatício</strong>,
-        exclusividade ou obrigação de meta. Os valores de comissão e bônus podem
-        ser ajustados; valem sempre os exibidos no painel do promotor.
-      </p>
-      <p>
-        Para receber, você cadastra uma chave Pix no seu próprio CPF, validada
-        junto ao banco (DICT). Os dados informados no cadastro (CPF, contato,
-        documento, selfie e chave Pix) são usados apenas para identificação,
-        pagamento e prevenção a fraude, conforme a LGPD (Lei nº 13.709/2018).
-      </p>
+      <address class="footer-address">
+        <div class="footer-entity">
+          <span class="footer-entity-brand">{legalParts.join(' · ')}</span>
+        </div>
+        <div class="footer-contact-pills">
+          <a href={`mailto:${CONTACT_EMAIL}`} class="footer-pill-link">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <span>{CONTACT_EMAIL}</span>
+          </a>
+          {waHref && (
+            <a href={waHref} rel="noopener" target="_blank" class="footer-pill-link">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>WhatsApp {waLabel}</span>
+            </a>
+          )}
+        </div>
+      </address>
+
+      <div class="footer-disclaimers">
+        <p>
+          O Programa de Promotores remunera por <strong>indicação de matrículas pagas</strong>, com pagamento por Pix {CLOSING_LABEL}. A participação é estritamente autônoma e voluntária, sob a égide do <strong>Artigo 442-B da CLT</strong>: <strong>não há vínculo empregatício</strong>, subordinação, exclusividade ou obrigação de cumprimento de metas. Os valores de comissão e bônus podem ser ajustados conforme campanhas; prevalecem sempre as condições exibidas no painel do promotor.
+        </p>
+        <p>
+          Para receber as comissões, o promotor cadastra chave Pix de <strong>sua própria titularidade vinculada ao CPF</strong>, validada diretamente via DICT (Diretório de Identificadores de Contas Transacionais). Os dados coletados no cadastro são tratados em estrita observância à <strong>LGPD (Lei nº 13.709/2018)</strong> exclusivamente para identificação cadastral, repasses financeiros e prevenção a fraudes.
+        </p>
+      </div>
+
       <p class="footer-copy">
-        © {year} {BRAND}. Todos os direitos reservados.
+        © <time datetime={`${year}`}>{year}</time> {BRAND}. Todos os direitos reservados.
       </p>
     </div>
   </div>
@@ -111,8 +147,8 @@ const legalParts = [
     color: var(--muted-on-dark);
     padding-block: 3.6rem 2.6rem;
     font-size: 0.86rem;
-    /* faixa tricolor: assinatura da bandeira fechando a página */
-    border-top: 5px solid transparent;
+    /* faixa tricolor de alta precisão (3px) fechando a página */
+    border-top: 3px solid transparent;
     border-image: linear-gradient(
         90deg,
         var(--green) 0 34%,
@@ -122,38 +158,38 @@ const legalParts = [
       1;
   }
 
-  /* tagline de fechamento — a única frase grande do rodapé */
+  /* Tagline de fechamento */
   .footer-tag {
     font-family: var(--font-display);
     font-size: clamp(1.4rem, 2.2vw, 2.05rem);
     line-height: 1.15;
     color: var(--paper);
     max-width: 28ch;
-    margin-bottom: 2.4rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.4rem);
   }
 
   .footer-tag span {
     color: var(--yellow);
   }
 
-  /* espaço para o sticky CTA não cobrir o rodapé no mobile */
-  @media (max-width: 899px) {
+  /* Sincronização rigorosa com o Sticky CTA (apenas < 768px) */
+  @media (max-width: 767px) {
     .footer {
-      padding-bottom: 7rem;
+      padding-bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px));
     }
   }
 
   .footer-top {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 1.4rem;
-    padding-bottom: 2.6rem;
-    margin-bottom: 1rem;
+    gap: 2rem 1.4rem;
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* logo um degrau maior que o do header — assinatura de fechamento */
+  /* Logo no rodapé */
   .footer-top :global(.logo svg) {
     width: 40px;
     height: 40px;
@@ -165,7 +201,7 @@ const legalParts = [
     gap: 1.1rem;
   }
 
-  /* bandeirinha no mastro, ondulando de leve */
+  /* bandeirinha no mastro */
   .footer-flag {
     width: 52px;
     height: auto;
@@ -196,9 +232,11 @@ const legalParts = [
     }
   }
 
+  /* Grade de links de navegação */
   .footer-nav {
     display: flex;
-    gap: clamp(2rem, 6vw, 4rem);
+    flex-wrap: wrap;
+    gap: 1.6rem clamp(1.8rem, 4vw, 3.2rem);
   }
 
   .footer-nav-group {
@@ -212,49 +250,63 @@ const legalParts = [
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.15rem;
+    gap: 0.1rem;
   }
 
   .footer-nav-title {
     font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgb(255 255 255 / 0.5);
-    margin-bottom: 0.35rem;
+    color: var(--muted-on-dark);
+    margin-bottom: 0.4rem;
   }
 
   .footer-nav a {
     color: var(--paper);
-    font-weight: 700;
+    font-weight: 500;
     font-size: 0.92rem;
     text-decoration: none;
-    /* área de toque ≥ 48px conforme DESIGN.md */
+    /* Área de toque padrão ≥ 48px */
     display: inline-flex;
     align-items: center;
     min-height: 48px;
-    padding-block: 0.5rem;
+    padding-block: 0.25rem;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
 
   .footer-nav a:hover {
+    color: var(--yellow);
     text-decoration: underline;
     text-underline-offset: 4px;
   }
 
-  /* voltar ao topo: eco do scroll-cue do hero */
+  /* Acessibilidade de foco WCAG */
+  .footer-nav a:focus-visible,
+  .footer-pill-link:focus-visible,
+  .to-top:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* Voltar ao topo */
   .to-top {
     width: 3rem;
     height: 3rem;
+    min-width: 48px;
+    min-height: 48px;
     flex: none;
     display: grid;
     place-items: center;
     color: var(--paper);
-    border: 1.5px solid rgb(255 255 255 / 0.3);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     transition:
       transform 0.2s var(--ease-out),
       border-color 0.2s var(--ease-out),
-      color 0.2s var(--ease-out);
+      color 0.2s var(--ease-out),
+      background-color 0.2s var(--ease-out);
   }
 
   .to-top svg {
@@ -266,44 +318,129 @@ const legalParts = [
     transform: translateY(-3px);
     border-color: var(--yellow);
     color: var(--yellow);
+    background: rgba(255, 255, 255, 0.04);
   }
 
-  .to-top:focus-visible {
-    outline: 3px solid var(--yellow);
-    outline-offset: 3px;
+  /* Barra de Pílulas de Confiança (Trust Pills Bar) */
+  .footer-trust-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8rem;
+    color: var(--paper);
+    letter-spacing: 0.01em;
+  }
+
+  .trust-pill svg {
+    color: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  /* Bloco Legal e Contatos */
   .footer-legal {
     margin-top: 1.8rem;
     display: grid;
-    gap: 0.7rem;
-    max-width: 60ch;
+    gap: 1rem;
+    max-width: 68ch;
   }
 
-  .footer-legal strong {
-    color: var(--paper);
+  .footer-address {
+    font-style: normal;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.4rem;
   }
 
-  .footer-id a {
-    color: var(--paper);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .footer-entity {
     display: inline-flex;
     align-items: center;
-    min-height: 48px;
-    padding-inline: 0.5rem;
+    gap: 0.4rem;
+    color: var(--paper);
+    font-weight: 600;
   }
 
-  .footer-id a:hover {
+  .footer-entity-brand {
+    color: var(--paper);
+  }
+
+  .footer-contact-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-pill-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 48px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--paper);
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 500;
+    transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .footer-pill-link svg {
+    color: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  .footer-pill-link:hover {
+    border-color: var(--yellow);
+    background: rgba(255, 255, 255, 0.07);
     color: var(--yellow);
   }
 
-  .footer-id a:focus-visible {
-    outline: 2px solid var(--yellow);
-    outline-offset: 2px;
+  .footer-disclaimers {
+    display: grid;
+    gap: 0.6rem;
+    line-height: 1.6;
+    font-size: 0.84rem;
+  }
+
+  .footer-disclaimers strong {
+    color: var(--paper);
+    font-weight: 600;
   }
 
   .footer-copy {
-    margin-top: 0.6rem;
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--muted-on-dark);
+  }
+
+  @media (max-width: 480px) {
+    .footer-top {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.8rem;
+    }
+
+    .footer-brand {
+      justify-content: space-between;
+    }
+
+    .to-top {
+      align-self: flex-end;
+    }
   }
 </style>
