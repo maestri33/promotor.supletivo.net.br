@@ -52,7 +52,7 @@ check('index.html', 'does NOT contain visible "footer-version" class', c => !c.i
 check('index.html', 'contains required <meta name="app-version"', c => c.includes('<meta name="app-version"'));
 
 // 5. WhatsApp in footer
-check('index.html', 'contains WhatsApp (11) 92006-2177', c => c.includes('(11) 92006-2177'));
+check('index.html', 'contains WhatsApp (42) 9 8432-1915', c => c.includes('(42) 9 8432-1915'));
 
 console.log('\n========================================');
 if (failures === 0) {

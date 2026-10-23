@@ -94,7 +94,7 @@ export const DPO_EMAIL: string =
   metaEnv.PUBLIC_DPO_EMAIL ?? 'dpo@supletivo.net.br';
 /** WhatsApp em E.164 só dígitos (ex.: 5511999999999); vazio = não renderiza */
 export const CONTACT_WHATSAPP: string = (
-  metaEnv.PUBLIC_CONTACT_WHATSAPP ?? '5511920062177'
+  metaEnv.PUBLIC_CONTACT_WHATSAPP ?? '5542984321915'
 ).replace(/\D/g, '');
 
 /** ID do Google Tag Manager (ex.: GTM-XXXXXXX); null se não configurado */
