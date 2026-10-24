@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import svelte from '@astrojs/svelte';
 import tailwindcss from '@tailwindcss/vite';
 import seoFiles from './integrations/seo-files.mjs';
 
@@ -22,7 +22,7 @@ export default defineConfig({
   server: {
     port: 3015,
   },
-  integrations: [react(), seoFiles()],
+  integrations: [svelte(), seoFiles()],
   vite: {
     plugins: [tailwindcss()],
   },
