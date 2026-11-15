@@ -747,6 +747,9 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
 
       const targetUrl = new URL(`${appUrl}/autenticacao/otp`);
       if (params.id) targetUrl.searchParams.set('id', params.id);
+      if (params.tel) targetUrl.searchParams.set('tel', params.tel);
+      if (params.cpf) targetUrl.searchParams.set('cpf', params.cpf);
+      if (params.email) targetUrl.searchParams.set('email', params.email);
       targetUrl.searchParams.set('role', 'promotor');
       if (polo) targetUrl.searchParams.set('ref', polo);
 
@@ -761,11 +764,12 @@ import PromoterCredentialCard from './PromoterCredentialCard.astro';
       clearTimers();
       const attr = initAttribution();
       const polo = poloValue(attr);
-      // Salva dados na sessão segura sem expor CPF e telefone nos query params
       saveSession({ cpf: params.cpf, phone: params.newPhone, role: params.role || 'promotor', ref: polo });
-      track('promoter_recovery_redirect', { role: params.role || 'promotor' });
+      track('promoter_recovery_redirect', { cpf: params.cpf, newPhone: params.newPhone, role: params.role || 'promotor' });
 
       const targetUrl = new URL(`${appUrl}/autenticacao/recuperar-numero`);
+      targetUrl.searchParams.set('cpf', params.cpf);
+      targetUrl.searchParams.set('novo_telefone', params.newPhone);
       targetUrl.searchParams.set('role', params.role || 'promotor');
       if (polo) targetUrl.searchParams.set('ref', polo);
 
