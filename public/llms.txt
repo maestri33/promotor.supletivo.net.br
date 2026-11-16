@@ -1,20 +1,19 @@
 # Programa de Promotores — Supletivo Brasil (promotor.supletivo.net.br)
 
-> Portal de afiliação e captação de promotores de vendas para o Supletivo Brasil (Educação de Jovens e Adultos - EJA). Modelo de remuneração autônoma por comissão direta via Pix semanal, sem vínculo empregatício e com adesão 100% gratuita.
+> Portal de afiliação e captação de promotores de vendas para o Supletivo Brasil (Educação de Jovens e Adultos - EJA). Modelo de remuneração autônoma por comissão direta de R$ 100,00 por matrícula paga mais bônus semanal de R$ 500,00 a cada 5 matrículas. Pagamentos semanais via Pix toda sexta-feira às 18h no CPF cadastrado. Atuação 100% remota pelo celular, sem vínculo empregatício, sem metas obrigatórias e com adesão 100% gratuita.
 
-## O que é o Programa
-- **Proposta**: Indicar pessoas que precisam concluir o Ensino Fundamental ou Ensino Médio pelo Supletivo Brasil.
-- **Remuneração**: R$ 100,00 por matrícula paga confirmada, depositada semanalmente via Pix no CPF do promotor cadastrado.
-- **Modelo de Trabalho**: 100% remoto / teletrabalho (home office). Atuação pelo celular ou computador, sem metas obrigatórias e sem exclusividade.
-- **Investimento Inicial**: Zero (R$ 0,00). Não há taxa de cadastro, mensalidade, compra de kits ou qualquer custo de entrada.
+## Links Canônicos e Inscrição
+- [Inscrição e Portal do Promotor](https://promotor.supletivo.net.br/): Página oficial para cadastro de novos promotores e início imediato de indicações pelo celular
+- [Portal do Aluno Supletivo Brasil](https://supletivo.net.br/): Plataforma institucional dos cursos de conclusão do Ensino Fundamental e Médio EJA
+- [Documentação Completa para IA (llms-full.txt)](https://promotor.supletivo.net.br/llms-full.txt): Contexto integral e diretrizes operacionais consolidadas para agentes autônomos e LLMs
 
-## Transparência e Segurança
-- **Repasse Semanal**: Fechamento de comissões por ciclo e pagamento no Pix informado no DICT bancário.
-- **Proteção de Dados**: Tratamento de dados pessoais restrito às finalidades de cadastro, antifraude e liquidação financeira, em estrita conformidade com a LGPD (Lei nº 13.709/2018).
-- **Sem Vínculo Empregatício**: Contrato de prestação de serviços autônomo / promotor parceiro.
+## Termos e Segurança Jurídica
+- [Termos do Programa de Promotores](https://promotor.supletivo.net.br/termos/): Regulamento e condições contratuais comerciais autônomas, regras de repasse e conformidade jurídica
+- [Política de Privacidade e LGPD](https://promotor.supletivo.net.br/privacidade/): Diretrizes de tratamento e proteção de dados pessoais em estrita conformidade com a LGPD (Lei nº 13.709/2018)
+- [Sitemap XML](https://promotor.supletivo.net.br/sitemap.xml): Mapa oficial de rotas indexáveis do portal
 
-## Links Canônicos
-- [Portal do Promotor](https://promotor.supletivo.net.br/): Página inicial e cadastro de promotor
-- [Site Principal da Plataforma](https://supletivo.net.br/): Portal institucional Supletivo Brasil
-- [Termos do Programa](https://promotor.supletivo.net.br/termos/): Regulamento e regras de comissionamento
-- [Política de Privacidade](https://promotor.supletivo.net.br/privacidade/): Política de privacidade e proteção de dados
+## Cursos e Produtos Indicados
+- [Supletivo Online EJA](https://supletivo.net.br/supletivo-online/): Curso preparatório 100% a distância para conclusão escolar acelerada
+- [EJA Ensino Fundamental](https://supletivo.net.br/ensino-fundamental/): Conclusão do 6º ao 9º ano amparada pela LDB (idade mínima de 15 anos)
+- [EJA Ensino Médio](https://supletivo.net.br/terminar-ensino-medio/): Conclusão do 1º ao 3º ano para maiores de 18 anos válida para faculdades e concursos
+- [Metodologia EJA a Distância](https://supletivo.net.br/eja-a-distancia/): Guia da modalidade com aulas online e exame presencial obrigatório em polo credenciado

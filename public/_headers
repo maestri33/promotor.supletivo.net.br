@@ -6,6 +6,25 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.supletivo.net.br https://*.v7m.live https://challenges.cloudflare.com https://www.google-analytics.com https://*.cloudflareinsights.com https://cloudflareinsights.com; frame-src https://www.googletagmanager.com https://challenges.cloudflare.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'
 
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/design-showcase.html
+  X-Robots-Tag: noindex, nofollow
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -23,4 +42,3 @@
 
 /*.svg
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-
